@@ -4,6 +4,7 @@ import { MessageComponent } from '../../pop-up/message/message.component';
 import { SuccessComponent } from '../../pop-up/success/success.component';
 import { ImageService } from '../../services/image.service';
 import { ProductService } from '../../services/product.service';
+import { AfterCareService } from '../../services/after-care.service';
 @Component({
   selector: 'app-manage-service',
   templateUrl: './manage-service.component.html',
@@ -11,6 +12,7 @@ import { ProductService } from '../../services/product.service';
 })
 export class ManageServiceComponent implements OnInit{
   values: data[] = [];
+
   i: any;
   message!: string;
   status = 'sellin';
@@ -18,20 +20,20 @@ export class ManageServiceComponent implements OnInit{
   constructor(
     public dialog: MatDialog,
     private image: ImageService,
-    private http: ProductService
+    private http: AfterCareService
   ) {}
   ngOnInit(): void {
-    this.http.getProductList().subscribe(async (data) => {
+    this.http.getServiceList().subscribe(async (data) => {
       console.log(data);
       for (this.i of data) {
-        var imgUrl = await this.image.getImage('items/' + this.i.imageUrl);
+        var imgUrl = await this.image.getImage('services/' + this.i.imageUrl);
         this.values.push({
           id: this.i.id,
           name: this.i.name,
           description: this.i.description,
           status: this.i.status,
           imageUrl: imgUrl,
-          quantity: this.i.quantity,
+          waste: '30',
           price: this.i.price,
         });
         console.log(this.status);
@@ -73,6 +75,8 @@ export interface data {
   description: string;
   status: string;
   imageUrl: string;
-  quantity: string;
+  waste: string;
   price: string;
 }
+
+

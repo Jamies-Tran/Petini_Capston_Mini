@@ -3,7 +3,7 @@
     <div class="col-6">
       <h1>Quản lý dịch vụ</h1>
     </div>
-    <div class="col-6 text-end "> <button mat-raised-button routerLink="AddService">Tạo Sản Phẩm</button></div>
+    <div class="col-6 text-end "> <button mat-raised-button routerLink="AddService">Tạo Dịch Vụ</button></div>
 
   </div>
 
@@ -19,7 +19,7 @@
               <th class="w-2">ID</th>
               <th >Tên</th>
               <th class="w-1">Giá</th>
-              <th class="w-1">Số lượng</th>
+              <th class="w-1">Thời gian</th>
               <th class="w-1">Trạng thái</th>
               <th class="w-1">Xem và Sửa</th>
             </tr>
@@ -50,7 +50,7 @@
                 {{post.price}}
               </td>
               <td >
-                {{post.quantity}}
+                {{post.waste}}
               </td>
               <td> <span class="badge rounded-pill d-inline" [class]="post.status == 'SELLING' ? 'badge-success' :post.status=='NEW'? 'badge-warning' : 'badge-danger'" >{{post.status == 'SELLING' ? 'Đang bán' : post.status == 'NEW' ? 'Mới' : 'Ngừng bán' }}</span></td>
               <td class="text-center">

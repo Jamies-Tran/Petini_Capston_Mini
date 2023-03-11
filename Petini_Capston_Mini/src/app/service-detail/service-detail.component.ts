@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ImageService } from '../services/image.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AfterCareService } from '../services/after-care.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { SuccessComponent } from '../pop-up/success/success.component';
+import { MessageComponent } from '../pop-up/message/message.component';
 
 @Component({
   selector: 'app-service-detail',
@@ -54,14 +60,75 @@ export class ServiceDetailComponent implements OnInit{
 
   }
 
-  getTimeBox(){
 
-  }
+  message = '';
+  name = '';
+  description = '';
+  status = '';
+  imageUrl = '';
+  waste = 0;
+  price = '';
 
   ngOnInit(): void {
     this.get3Day();
-  }
+      try {
+      if (localStorage.getItem('userToken')) {
+        const name = localStorage.getItem('getServiceName') as string;
+        console.log(name);
+        this.httpService.getServiceDetail(name).subscribe(
+          async (data) => {
+            console.log(data);
+            this.name = data['name'];
+            this.description = data['description'];
+            this.status = '';
+            this.price = data['price'];
+            this.time.push(data['afterCareWorkingHours']);
 
+            // get file image
+            await this.image
+              .getImage('services/' + data['imageUrl'])
+              .then((url) => {
+                this.imageUrl = url;
+              })
+              .catch((error) => {});
+            console.log(this.imageUrl);
+          },
+          (error) => {
+            this.message = error.message;
+            this.openDialogMessage();
+          }
+        );
+      } else {
+        this.router.navigate(['/Login'], { relativeTo: this.route });
+      }
+    } catch (error) {}
+  }
+  openDialogMessage() {
+    this.dialog.open(MessageComponent, {
+      data: this.message,
+    });
+  }
+  openDialogSuccess() {
+    localStorage.setItem('registerSuccess', '');
+
+    const timeout = 3000;
+    const dialogRef = this.dialog.open(SuccessComponent, {
+      data: this.message,
+    });
+    dialogRef.afterOpened().subscribe((_) => {
+      setTimeout(() => {
+        dialogRef.close();
+      }, timeout);
+    });
+  }
+   httpBooking: any;
+  constructor(
+    private image: ImageService,
+    public dialog: MatDialog,
+    private httpService: AfterCareService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 }
 
 interface Date{

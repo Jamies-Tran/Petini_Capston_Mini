@@ -12,13 +12,12 @@ export class ServiceComponent {
   value:any;
 
   public onItemSelector(name: string) {
-
-    localStorage.setItem('getItemsName', name);
+    localStorage.setItem('getServiceName', name);
   }
 
   ngOnInit(): void {
     this.http.getServiceList().subscribe(async  (data) =>{
-      // this.value = data;
+
       // for(this.i of this.value ){
       //   console.log(this.i.homestayImages[0].url)
       // }
