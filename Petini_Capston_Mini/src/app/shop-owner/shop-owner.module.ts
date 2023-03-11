@@ -30,6 +30,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { ItemDetailComponent } from './manage-item/item-detail/item-detail.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { ServiceDetailComponent } from './manage-service/service-detail/service-detail.component';
+import { AddServiceComponent } from './manage-service/add-service/add-service.component';
 
 
 
@@ -44,7 +46,9 @@ import { ManageOrderComponent } from './manage-order/manage-order.component';
     AccountDetailComponent,
     AddAccountComponent,
     ItemDetailComponent,
-    ManageOrderComponent
+    ManageOrderComponent,
+    ServiceDetailComponent,
+    AddServiceComponent
   ],
   imports: [
     CommonModule,

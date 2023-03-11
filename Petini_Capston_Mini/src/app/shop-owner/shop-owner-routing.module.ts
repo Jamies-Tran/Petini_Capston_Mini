@@ -9,6 +9,8 @@ import { AccountDetailComponent } from './manage-account/account-detail/account-
 import { AddAccountComponent } from './manage-account/add-account/add-account.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { ManageServiceComponent } from './manage-service/manage-service.component';
+import { ServiceDetailComponent } from './manage-service/service-detail/service-detail.component';
+import { AddServiceComponent } from './manage-service/add-service/add-service.component';
 
 const routes: Routes = [
   {
@@ -50,7 +52,20 @@ const routes: Routes = [
         ],
       },
       {path: 'Profile' , component: ProfileComponent},
-      {path:'Service' , component:ManageServiceComponent}
+      {path:'Service' , component:ManageServiceComponent},
+      {
+        path: 'Service',
+        children: [
+          {
+            path: 'ServiceDetail',
+            component: ServiceDetailComponent,
+          },
+          {
+            path:'AddService',
+            component:AddServiceComponent
+          },
+        ],
+      },
     ],
   },
 ];

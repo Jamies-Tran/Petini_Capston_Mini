@@ -5,14 +5,24 @@ import { FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',
-  styleUrls: ['./test.component.scss']
+  styleUrls: ['./test.component.scss'],
 })
-export class TestComponent implements OnInit{
-ngOnInit(): void {
+export class TestComponent implements OnInit {
+  time: Time[] = [];
+  ngOnInit(): void {
+    var date = new Date();
+    var hour = 24;
+    var minute = 60;
+    var allTime = hour * minute;
+    var waste = 20;
 
+    for(let i =0; i <= allTime; ){
+
+    }
+  }
 }
-matcher = new MyErrorStateMatcher();
-usernameFormControl = new FormControl('', [Validators.required]);
-usernameFormControl2 = new FormControl('', [Validators.required]);
-usernameFormControl3 = new FormControl('', [Validators.required]);
+interface Time {
+  label: string;
+  value: string;
+  status: boolean;
 }

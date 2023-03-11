@@ -51,6 +51,7 @@ export class ServiceDetailComponent implements OnInit{
     console.log("ngay mot 13-03-2023    ", valueDay3)
 
     this.date.push({value:valueDay1,viewValue:viewValueDay1},{value:valueDay2,viewValue:viewValueDay2},{value:valueDay3,viewValue:viewValueDay3});
+
   }
 
   getTimeBox(){
