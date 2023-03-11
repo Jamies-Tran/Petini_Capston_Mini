@@ -3,9 +3,9 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { MessageComponent } from '../../../pop-up/message/message.component';
 import { SuccessComponent } from '../../../pop-up/success/success.component';
-import { RegisterService } from '../../../services/register.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DatePipe } from '@angular/common';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-add-account',
@@ -59,7 +59,7 @@ export class AddAccountComponent implements OnInit{
   }
 
   constructor(
-    private http: RegisterService,
+    private http: UserService,
     public dialog: MatDialog,
     public datepipe: DatePipe
   ) {
@@ -115,7 +115,7 @@ export class AddAccountComponent implements OnInit{
     this.convert(this.dobFormControl.value);
     if (this.valid() == true) {
       this.http
-        .registerOwner(
+        .registerShopOwnerAccount(
           this.addressFormControl.value + '',
           this.dobFormControl.value + '',
           this.emailFormControl.value + '',

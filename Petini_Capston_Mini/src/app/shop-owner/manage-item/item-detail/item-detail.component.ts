@@ -5,7 +5,7 @@ import { MessageComponent } from '../../../pop-up/message/message.component';
 import { SuccessComponent } from '../../../pop-up/success/success.component';
 
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { getStorage, ref } from "firebase/storage";
+import { getStorage, ref } from 'firebase/storage';
 import { ProductService } from '../../../services/product.service';
 
 @Component({
@@ -14,9 +14,10 @@ import { ProductService } from '../../../services/product.service';
   styleUrls: ['./item-detail.component.scss'],
 })
 export class ItemDetailComponent implements OnInit {
+
   ngOnInit(): void {
     try {
-      const name = localStorage.getItem('getItemsName') as string;
+      let name = localStorage.getItem('getItemsName') as string;
       console.log(name);
 
       this.http.getProductDetail(name).subscribe(
@@ -29,17 +30,17 @@ export class ItemDetailComponent implements OnInit {
           this.quantity = data['quantity'];
           this.price = data['price'];
 
-
-
           // get file image
-          await this.image.getImage('items/' +  data['imageUrl']).then((url) =>{
-            this.imageUrl = url;
-            this.validUrl = false;
-          }).catch((error) =>{
-            this.validUrl= true;
-          });
+          await this.image
+            .getImage('items/' + data['imageUrl'])
+            .then((url) => {
+              this.imageUrl = url;
+              this.validUrl = false;
+            })
+            .catch((error) => {
+              this.validUrl = true;
+            });
           console.log(this.imageUrl);
-
         },
         (error) => {
           this.message = error.message;
@@ -52,55 +53,66 @@ export class ItemDetailComponent implements OnInit {
     private image: ImageService,
     public dialog: MatDialog,
     private http: ProductService,
-    private storage: AngularFireStorage,
+    private storage: AngularFireStorage
   ) {}
 
   message!: string;
   isUpdate = false;
   name!: string;
+
   description!: string;
-  status = "";
+  status = '';
   imageUrl!: string;
   quantity!: string;
   price!: string;
-  validUrl=false;
+  validUrl = false;
   isUpdateImage = false;
-    value:any;
+  value: any;
 
   updateItems() {
-
     this.valid();
-    this.http.updateProduct(
-      this.description,
-      this.imageUrl,
-      this.name,
-      this.price,
-      this.quantity,
-      this.status
-    ).subscribe((data) =>{
-      this.message = "Thành công";
-      this.openDialogSuccess();
-      location.reload();
-    },
-    (error) =>{
-      this.message = error.message;
-      this.openDialogMessage();
-    })
+    for ( this.file of this.files) {
 
+      const path = 'items/' + this.value.name + ' ' + this.file.name;
+      const fileRef = this.storage.ref(path);
+      this.storage.upload(path, this.file);
+    }
+    this.http
+      .updateProduct(
+        this.description,
+        this.imageUrl,
+        this.value.name,
+        this.price,
+        this.quantity,
+        this.status,
+
+      )
+      .subscribe(
+        (data) => {
+
+          localStorage.setItem('getItemsName' , this.name);
+          this.message = 'Thành công';
+          this.openDialogSuccess();
+          location.reload();
+        },
+        (error) => {
+          this.message = error.message;
+          this.openDialogMessage();
+        }
+      );
   }
-  valid(){
-    if(this.name == ''){
+  valid() {
+    if (this.name == '') {
       this.name = this.value.name;
-    } else if(this.description == ''){
+    } else if (this.description == '') {
       this.description = this.value.description;
-    } else if(this.price ==''){
+    } else if (this.price == '') {
       this.price = this.value.price;
-    } else if(this.quantity == ''){
+    } else if (this.quantity == '') {
       this.quantity = this.value.quantity;
-    } else
-    if(this.showReview){
-      this.imageUrl =  this.name + ' ' + this.itemFile.name;
-    }else if(!this.showReview){
+    } else if (this.showReview) {
+      this.imageUrl = this.name + ' ' + this.itemFile.name;
+    } else if (!this.showReview) {
       this.imageUrl = this.value.imageUrl;
     }
   }
@@ -129,7 +141,6 @@ export class ItemDetailComponent implements OnInit {
     }
     if (this.files.length >= 1) {
       this.showReview = true;
-
     }
   }
 
@@ -143,22 +154,21 @@ export class ItemDetailComponent implements OnInit {
       this.showReview = false;
     }
   }
-  updateImage(){
-    console.log("is update", this.isUpdate)
-    console.log("is update image", this.isUpdateImage)
-    console.log("is valid url", this.validUrl)
-    if(!this.validUrl && this.isUpdate){
+  updateImage() {
+    console.log('is update', this.isUpdate);
+    console.log('is update image', this.isUpdateImage);
+    console.log('is valid url', this.validUrl);
+    if (!this.validUrl && this.isUpdate) {
       this.isUpdateImage = true;
-
-    }else{
+    } else {
       this.isUpdateImage = false;
     }
   }
-  fixImage(){
-    if(this.validUrl){
+  fixImage() {
+    if (this.validUrl) {
       this.isUpdateImage = true;
-    } else{
-      this.isUpdateImage=false;
+    } else {
+      this.isUpdateImage = false;
     }
   }
 }

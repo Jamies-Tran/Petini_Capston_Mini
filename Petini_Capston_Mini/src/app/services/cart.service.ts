@@ -52,7 +52,7 @@ export class CartService {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json ',
-        Authorization: 'Bearer ' + localStorage.getItem('userToken'),
+        'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
       }),
     };
     console.log(this.httpOptions.headers);

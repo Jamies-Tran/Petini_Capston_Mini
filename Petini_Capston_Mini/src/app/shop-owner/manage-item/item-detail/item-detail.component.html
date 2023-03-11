@@ -94,8 +94,7 @@
                     <ngx-dropzone-image-preview class="image-preview overflow-hidden" ngProjectAs="ngx-dropzone-preview"
                       [file]="itemFile" [removable]="true" (removed)="onRemove(itemFile)">
                     </ngx-dropzone-image-preview>
-                    <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview" (removed)="onRemove(itemFile)">{{imageUrl}}
-                    </ngx-dropzone-label>
+
                   </div>
                 </div>
               </div>
@@ -124,7 +123,7 @@
                 <button class="login-button btn  btn-block w-100 fa-lg" type="button" mat-raised-button
                   (click)="isUpdate = true; fixImage() ">
                   <span class="fs-5">
-                    <mat-icon><i class="fa-solid fa-plus m-0 p-0 fs-5"></i></mat-icon>
+                    <mat-icon>edit</mat-icon>
                     Chỉnh sửa sản phẩm
                   </span>
                 </button>

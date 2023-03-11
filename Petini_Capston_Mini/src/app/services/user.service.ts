@@ -149,7 +149,7 @@ export class UserService {
       phone,
       username
     }
-    const url = `${this.REST_API_SERVER}/api/user/user-update`;
+    const url = `${this.REST_API_SERVER}/api/user/user-update?username=${username}`;
     return this.httpClient
       .put<any>(url,value, this.httpOptions)
       .pipe(catchError(this.handleError));

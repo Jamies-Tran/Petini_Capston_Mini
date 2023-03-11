@@ -7,22 +7,24 @@ import { FormControl, Validators } from '@angular/forms';
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.scss'],
 })
+
+
+
 export class TestComponent implements OnInit {
-  time: Time[] = [];
+  name:any;
   ngOnInit(): void {
-    var date = new Date();
-    var hour = 24;
-    var minute = 60;
-    var allTime = hour * minute;
-    var waste = 20;
-
-    for(let i =0; i <= allTime; ){
-
-    }
+      this.name = 'dmm';
   }
+  getName()
+  {
+    this.name;
+    console.log(this.name);
+  }
+
 }
-interface Time {
-  label: string;
+
+
+interface Food {
   value: string;
-  status: boolean;
+  viewValue: string;
 }

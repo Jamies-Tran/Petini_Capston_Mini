@@ -7,11 +7,12 @@ import {
 } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { RegisterService } from '../services/register.service';
+
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessComponent } from '../pop-up/success/success.component';
 import { MessageComponent } from '../pop-up/message/message.component';
 import { DatePipe } from '@angular/common';
+import { UserService } from '../services/user.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -45,6 +46,7 @@ export class RegisterComponent implements OnInit {
     console.log('convert', this.dobFormControl.value);
   }
 
+
   filter = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
   validMail: boolean = true;
   getEmailErrorMessage() {
@@ -65,7 +67,7 @@ export class RegisterComponent implements OnInit {
   }
 
   constructor(
-    private http: RegisterService,
+    private http:UserService,
     private router: Router,
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -144,7 +146,7 @@ export class RegisterComponent implements OnInit {
     this.convert(this.dobFormControl.value);
     if (this.valid() == true) {
       this.http
-        .registerCustomer(
+        .registerCustomerAccount(
           this.addressFormControl.value + '',
           this.dobFormControl.value + '',
           this.emailFormControl.value + '',

@@ -87,7 +87,8 @@ export class ProductService {
     name: string,
     price: string,
     quantity: string,
-    status: string
+    status: string,
+
   ) {
     // headers
     this.httpOptions = {

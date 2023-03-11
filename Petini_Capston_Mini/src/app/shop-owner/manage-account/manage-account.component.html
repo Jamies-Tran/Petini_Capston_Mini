@@ -20,7 +20,7 @@
                   <th>Tên</th>
                   <th class="w-1">Số điện thoại</th>
                   <th class="w-1">Trạng thái</th>
-                  <th class="w-1">Xem và Sửa</th>
+                  <th class="w-1">Xem </th>
                 </tr>
               </thead>
               <tbody>
@@ -46,19 +46,9 @@
                   <td> <span class="badge rounded-pill d-inline"
                       [class]="post.status == 'ACTIVE' ? 'badge-success' : 'badge-danger'">{{post.status == 'ACTIVE' ?
                       'Hoạt động' : 'Bị khóa' }}</span></td>
-                  <!-- <td>
-                <button mat-icon-button color="primary" (click)="onItemSelector(post.id, post.username);"
-                  routerLink="/Admin/Request/RequestAccount" routerLinkActive="active"><i
-                    class="fa-solid fa-eye"></i></button>
-                <button mat-icon-button color="accent" (click)="onItemSelector(post.id, post.username);"
-                  (click)="accept()"><i class="fa-solid fa-check"></i></button>
-                <button mat-icon-button color="warn" (click)="onItemSelector(post.id, post.username);"
-                  (click)="reject()"><i class="fa-solid fa-xmark"></i></button>
-
-              </td> -->
                   <td class="">
-                    <button mat-icon-button color="accent" (click)="onItemSelector(post.id, post.username)"
-                      (click)="openDialogAction()"> <mat-icon>edit</mat-icon></button>
+                    <button mat-icon-button color="primary" (click)="onItemSelector(post.id, post.username)"
+                      > <mat-icon>visibility</mat-icon></button>
                   </td>
                 </tr>
                 <tr *ngIf="valuesCustomer .length < 1">
@@ -143,19 +133,10 @@
                   <td> <span class="badge rounded-pill d-inline"
                       [class]="post.status == 'ACTIVE' ? 'badge-success' : 'badge-danger'">{{post.status == 'ACTIVE' ?
                       'Hoạt động' : 'Bị khóa' }}</span></td>
-                  <!-- <td>
-        <button mat-icon-button color="primary" (click)="onItemSelector(post.id, post.username);"
-          routerLink="/Admin/Request/RequestAccount" routerLinkActive="active"><i
-            class="fa-solid fa-eye"></i></button>
-        <button mat-icon-button color="accent" (click)="onItemSelector(post.id, post.username);"
-          (click)="accept()"><i class="fa-solid fa-check"></i></button>
-        <button mat-icon-button color="warn" (click)="onItemSelector(post.id, post.username);"
-          (click)="reject()"><i class="fa-solid fa-xmark"></i></button>
 
-      </td> -->
                   <td class="">
-                    <button mat-icon-button color="accent" (click)="onItemSelector(post.id, post.username)"
-                      (click)="openDialogAction()"> <mat-icon>edit</mat-icon></button>
+                    <button mat-icon-button color="primary" (click)="onItemSelector(post.id, post.username)"
+                  > <mat-icon>visibility</mat-icon></button>
                   </td>
                 </tr>
                 <tr *ngIf="valuesOwner.length < 1">

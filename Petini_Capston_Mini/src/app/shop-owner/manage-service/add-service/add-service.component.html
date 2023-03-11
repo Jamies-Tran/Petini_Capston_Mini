@@ -86,19 +86,20 @@
                     <mat-form-field class="input-username w-100" appearance="outline">
                       <mat-label>
                         Thoi gian mot dich vu</mat-label>
-                        <mat-select matNativeControl [(ngModel)]="time" name="date">
-                          <!-- <mat-option *ngFor="let item of date" [value]="item.value"> {{item.viewValue}}</mat-option> -->
+                        <mat-select matNativeControl [(value)]="waste" (valueChange)="getTimeBox()" name="waste">
+                          <mat-option *ngFor="let item of wastes" [value]="item.value"> </mat-option>
 
 
-                          <mat-option value="today">10 phut</mat-option>
-                          <mat-option value="today">20 phut</mat-option>
-                          <mat-option value="today">30 phut</mat-option>
-                          <mat-option value="today">40 phut</mat-option>
-                          <mat-option value="today">50 phut</mat-option>
-                          <mat-option value="today">60 phut</mat-option>
+                        <!-- <mat-option value="10">10 phut</mat-option>
+                          <mat-option value="20">20 phut</mat-option>
+                          <mat-option value="30">30 phut</mat-option>
+                          <mat-option value="40">40 phut</mat-option>
+                          <mat-option value="50">50 phut</mat-option>
+                          <mat-option value="60">60 phut</mat-option> -->
 
                         </mat-select>
                     </mat-form-field>
+                    waste: {{waste}}
                   </div>
                 </div>
 
@@ -111,11 +112,11 @@
                       <div class="container p-3 vh-50">
                         <div class="row w-100 m-0">
                           <!-- box time -->
-                          <div class="col-3 col-xxl-2 col-xl-2 p-1">
+                          <div class="col-3 col-xxl-2 col-xl-2 p-1" *ngFor="let item of time" >
                             <div class="rounded-2 border-1 border border-dark">
                               <div
                                 class="box-time d-flex align-items-center justify-content-center border-bottom border-4 border-success flex-column py-2">
-                                <h4 class="m-0">8:00</h4>
+                                <h4 class="m-0">{{item.timeLabel}}</h4>
                               </div>
                             </div>
                           </div>

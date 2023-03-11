@@ -89,6 +89,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userToken', data['token']);
         localStorage.setItem('username', data['username']);
         localStorage.setItem('roles', data['role']);
+        localStorage.setItem('password', this.passwordFormControl.value as string);
         this.updateData = 'true';
         this.updateDataEvent.emit(this.updateData);
         console.log(this.updateDataEvent);
