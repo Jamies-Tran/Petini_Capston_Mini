@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { MyErrorStateMatcher } from '../register/register.component';
 import { FormControl, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MessageComponent } from '../pop-up/message/message.component';
+import { SuccessComponent } from '../pop-up/success/success.component';
 
 @Component({
   selector: 'app-test',
@@ -10,21 +13,27 @@ import { FormControl, Validators } from '@angular/forms';
 
 
 
-export class TestComponent implements OnInit {
-  name:any;
-  ngOnInit(): void {
-      this.name = 'dmm';
+export class TestComponent  {
+  message: any;
+
+  constructor(
+
+    public dialog: MatDialog,
+
+  ) {}
+
+  deleteHomestay() {}
+  openDialog() {
+    this.dialog.open(MessageComponent, {
+      data: this.message,
+    });
   }
-  getName()
-  {
-    this.name;
-    console.log(this.name);
+  openDialogSuccess() {
+    this.dialog.open(SuccessComponent, {
+      data: this.message,
+    });
   }
 
 }
 
 
-interface Food {
-  value: string;
-  viewValue: string;
-}

@@ -13,6 +13,7 @@
     justify-content: center;
     align-content: center;
     flex-wrap: nowrap;
+    min-width: 40vw;
 .mat-18{
 
   color: white;
@@ -28,6 +29,15 @@
 }
 .container{
   padding: 10px 20px;
+  .text {
+    p {
+      text-align: center;
+      font-size: 16px;
+      margin-top: 12px;
+    margin-bottom: 0;
+    word-break: break-word;
+    }
+  }
   .button{
     display: flex;
     justify-content: space-evenly;

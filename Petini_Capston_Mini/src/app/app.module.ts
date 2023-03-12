@@ -93,6 +93,7 @@ import { ViewCartComponent } from './cart-order/view-cart/view-cart.component';
 import { HistoryOrderComponent } from './cart-order/history-order/history-order.component';
 import { OrderDetailComponent } from './cart-order/order-detail/order-detail.component';
 import { ServiceDetailComponent } from './service-detail/service-detail.component';
+import { DeleteComponent } from './pop-up/delete/delete.component';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -125,6 +126,7 @@ export const MY_DATE_FORMATS = {
     HistoryOrderComponent,
     OrderDetailComponent,
     ServiceDetailComponent,
+    DeleteComponent,
   ],
   imports: [
     BrowserModule,

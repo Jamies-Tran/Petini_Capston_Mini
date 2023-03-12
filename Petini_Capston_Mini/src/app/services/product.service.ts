@@ -88,6 +88,7 @@ export class ProductService {
     price: string,
     quantity: string,
     status: string,
+    productName:string
 
   ) {
     // headers
@@ -98,7 +99,7 @@ export class ProductService {
       }),
     };
     // get API
-    const url = `${this.REST_API_SERVER}/api/product/product-update?productName=${name}`;
+    const url = `${this.REST_API_SERVER}/api/product/product-update?productName=${productName}`;
 
     var value = {
       description,

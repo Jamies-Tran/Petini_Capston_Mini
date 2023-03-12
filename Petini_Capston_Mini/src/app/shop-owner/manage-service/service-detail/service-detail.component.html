@@ -2,13 +2,13 @@
   <div class="login container  h-100 py-4">
     <div class="login-row row mt-3 ">
       <div class="login-col col-12 col-md-10 col-lg-9 col-xl-8">
-        <form  >
+        <form (ngSubmit)="updateService()">
 
-          <div class="login-card card rounded  border-0 mb-4" >
+          <div class="login-card card rounded  border-0 mb-4">
             <div class="login-card-body card-body text-center ">
 
               <div class="login-text">
-                <h2>Add Items </h2>
+                <h2>Thông tin dịch vụ </h2>
               </div>
 
               <div class="row">
@@ -17,8 +17,9 @@
                   <div class="username">
                     <mat-form-field class="input-username w-100" appearance="outline">
                       <mat-label>
-                        Name</mat-label>
-                      <input matInput type="text" required [(ngModel)]="name" name="txtname">
+                        Ten dich vu</mat-label>
+                      <input matInput type="text" required [(ngModel)]="name" name="txtname"
+                        [readonly]="isUpdate == true ? 'false' : 'true'">
                     </mat-form-field>
                   </div>
                 </div>
@@ -30,8 +31,10 @@
                   <!-- name -->
                   <div class="username">
                     <mat-form-field class="input-password w-100" appearance="outline">
-                      <mat-label>Price</mat-label>
-                      <input matInput type="number" name="txtPrice" [(ngModel)]="price" required>
+                      <mat-label>Don gia</mat-label>
+                      <input matInput type="number" name="txtPrice" [(ngModel)]="price" required maxlength="10"
+                        minlength="4" min="1000" [readonly]="isUpdate == true ? 'false' : 'true'"
+                        oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                     </mat-form-field>
                   </div>
                 </div>
@@ -44,19 +47,19 @@
                   <div class="username">
                     <mat-form-field class="input-username w-100" appearance="outline">
                       <mat-label>
-                        Description</mat-label>
-                      <textarea matInput type="text" required [(ngModel)]="description"
-                        name="txtdescription"></textarea>
+                        Mo ta</mat-label>
+                      <textarea matInput type="text" required [(ngModel)]="description" name="txtdescription"
+                        [readonly]="isUpdate == true ? 'false' : 'true'"></textarea>
 
                     </mat-form-field>
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row" *ngIf="isUpdateImage">
                 <div class="col">
 
                   <div ngx-dropzone class="upload" [multiple]="false" [accept]="'image/*'" (change)="onSelect($event )"
-                    *ngIf="!showReview" required>
+                    *ngIf="!showReview">
                     <ngx-dropzone-label>
                       <div>
                         <i class="fas fa-cloud-upload-alt icon-upload"></i>
@@ -64,21 +67,98 @@
                       </div>
                     </ngx-dropzone-label>
                   </div>
-                  <div class="wrapper"*ngIf="showReview" >
+                  <div class="wrapper" *ngIf="showReview">
                     <ngx-dropzone-image-preview class="image-preview overflow-hidden" ngProjectAs="ngx-dropzone-preview"
                       [file]="file" [removable]="true" (removed)="onRemove(file )">
                     </ngx-dropzone-image-preview>
-                    <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview"
-                      (removed)="onRemove(file )">
-                    </ngx-dropzone-label>
+
                   </div>
 
+                </div>
+              </div>
+              <div class="row justify-content-center" *ngIf="!validUrl&&!isUpdateImage">
+                <div class="col-6">
+                  <img [src]="imageUrl" class="img-fluid rounded">
+                </div>
+                <div class="col-1" *ngIf="isUpdate">
+                  <button mat-icon-button (click)="updateImage()">
+                    <mat-icon>close</mat-icon>
+                  </button>
+                </div>
+              </div>
+              <div class="row justify-content-center" *ngIf="validUrl">
+                <div class="col-6">
+                  <h3 class="text-danger">Hình ảnh bị lỗi</h3>
+                </div>
+
+              </div>
+
+              <br>
+
+              <hr>
+              <h3 class="">Tao lich dat dich vu</h3>
+              <div class="row">
+                <div class="col justify-content-center text-center d-flex flex-column align-items-center">
+                  <!-- name -->
+                  <div class="username w-75">
+                    <mat-form-field class="input-username w-100" appearance="outline">
+                      <mat-label>
+                        Thoi gian mot dich vu</mat-label>
+                      <mat-select matNativeControl [(value)]="waste" (valueChange)="getTimeBox()" name="waste"
+                        [disabled]="isUpdate == true ? 'false' : 'true'">
+                        <mat-option *ngFor="let item of wastes" [value]="item.value">{{item.viewValue}} </mat-option>
+
+
+
+                      </mat-select>
+                    </mat-form-field>
+
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col justify-content-center text-center d-flex flex-column align-items-center">
+                  <div class="card bg-white rounded overflow-auto w-75">
+                    <div class="card-body p-0">
+                      <div class="container p-3 vh-50">
+                        <div class="row w-100 m-0">
+                          <!-- box time -->
+                          <div class="col-3 col-xxl-2 col-xl-2 p-1" *ngFor="let item of time">
+                            <div class="rounded-2 border-1 border border-dark">
+                              <div
+                                class="box-time d-flex align-items-center justify-content-center border-bottom border-4 border-success flex-column py-2">
+                                <h4 class="m-0">{{item.timeLabel}}</h4>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- box time -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <br>
               <br>
               <hr>
+              <div class="text-center  login-button-div" *ngIf="!isUpdate">
+                <button class="login-button btn  btn-block w-100 fa-lg" type="button" mat-raised-button
+                  (click)="isUpdate = true; fixImage() ">
+                  <span class="fs-5">
+                    <mat-icon>edit</mat-icon>
+                    Chỉnh sửa sản phẩm
+                  </span>
+                </button>
+              </div>
+              <div class="text-center pt-1  pb-1 login-button-div" *ngIf="isUpdate">
+                <button class="login-button btn btn-primary btn-block w-100 fa-lg gradient-custom-2 mb-3"
+                  mat-raised-button type="submit">
+                  Hoàn tất chỉnh sửa</button>
+              </div>
+
 
 
 
@@ -88,14 +168,17 @@
 
             </div>
           </div>
-          <hr>
 
-          <hr>
           <div class="text-center pt-1  pb-1 login-button-div">
-            <button class="login-button btn btn-primary btn-block w-100 fa-lg gradient-custom-2 mb-3" mat-raised-button
-              type="submit" >
-              Submit Add Items</button>
+            <button class="login-button btn btn-primary btn-block w-100 fa-lg bg-danger mb-3 text-white" mat-raised-button
+              type="button" (click)="openDialogDelete()">
+              <span class="fs-5">
+                <mat-icon>delete_forever</mat-icon>
+                Xóa dịch vụ
+              </span></button>
           </div>
+
+
         </form>
       </div>
     </div>

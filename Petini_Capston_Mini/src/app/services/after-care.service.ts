@@ -83,7 +83,7 @@ export class AfterCareService {
     description:string,
     imageUrl:string,
     name: string,
-    price: string
+    price: number
   ) {
     var value = {
       afterCareWorkingSchedules,
@@ -109,8 +109,11 @@ export class AfterCareService {
   // 5 PUT
   // /api/after-care/update-service
   public updateService(
-    afterCareWorkingHours: Array<any>,
-    name: string,
+    afterCareWorkingSchedules: Array<any>,
+    description:string,
+    imageUrl:string,
+    serviceName: string,
+    name:string,
     price: string
   ) {
     this.httpOptions = {
@@ -121,12 +124,14 @@ export class AfterCareService {
     };
 
     var value = {
-      afterCareWorkingHours,
+      afterCareWorkingSchedules,
+      description,
+      imageUrl,
       name,
       price,
     };
 
-    const url = `${this.REST_API_SERVER}/api/after-care/update-service`;
+    const url = `${this.REST_API_SERVER}/api/after-care/update-service?serviceName=${serviceName}`;
 
     return this.httpClient
       .put<any>(url, value, this.httpOptions)

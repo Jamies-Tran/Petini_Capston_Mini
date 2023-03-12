@@ -71,25 +71,26 @@ export class ItemDetailComponent implements OnInit {
 
   updateItems() {
     this.valid();
-    for ( this.file of this.files) {
 
-      const path = 'items/' + this.value.name + ' ' + this.file.name;
-      const fileRef = this.storage.ref(path);
-      this.storage.upload(path, this.file);
-    }
     this.http
       .updateProduct(
         this.description,
         this.imageUrl,
-        this.value.name,
+        this.name,
         this.price,
         this.quantity,
         this.status,
+        this.value.name
 
       )
       .subscribe(
         (data) => {
+          for ( this.file of this.files) {
 
+            const path = 'items/' + this.value.name + ' ' + this.file.name;
+            const fileRef = this.storage.ref(path);
+            this.storage.upload(path, this.file);
+          }
           localStorage.setItem('getItemsName' , this.name);
           this.message = 'Thành công';
           this.openDialogSuccess();

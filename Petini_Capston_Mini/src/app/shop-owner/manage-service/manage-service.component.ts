@@ -17,16 +17,18 @@ export class ManageServiceComponent implements OnInit{
   message!: string;
   status = 'sellin';
   i:any;
+  imageUrl !: string;
   constructor(
     public dialog: MatDialog,
-    private http: AfterCareService
+    private http: AfterCareService,
+    private image: ImageService,
   ) {}
   ngOnInit(): void {
     this.http.getServiceList().subscribe(async (data) => {
       console.log(data);
       this.value = data;
       let waste = '';
-            for (this.i of this.value) {
+        for (this.i of this.value) {
         let wasteValue = 0;
         var waste0 = this.i.afterCareWorkingSchedules[0].timeValue;
         let hours0 = waste0.slice(0,2) as number ;
@@ -39,6 +41,16 @@ export class ManageServiceComponent implements OnInit{
           wasteValue = 60;
         }
         waste = wasteValue as unknown as string;
+        this.imageUrl = this.i.imageUrl as string;
+        await this.image
+            .getImage('services/' + this.i.imageUrl)
+            .then((url) => {
+              this.imageUrl = url;
+
+            })
+            .catch((error) => {
+
+            });
         this.values.push({
           id: this.i.id,
           name: this.i.name,
@@ -46,6 +58,7 @@ export class ManageServiceComponent implements OnInit{
           status: this.i.status,
           waste: waste,
           price: this.i.price,
+          imageUrl:this.imageUrl
         });
         console.log(this.status);
       }
@@ -65,7 +78,7 @@ export class ManageServiceComponent implements OnInit{
 
   public onItemSelector(id: number, name: string) {
     localStorage.setItem('id', id + '');
-    localStorage.setItem('getItemsName', name);
+    localStorage.setItem('getServiceName', name);
   }
 
   openDialogMessage() {
@@ -87,6 +100,7 @@ export interface data {
   status: string;
   waste: string;
   price: string;
+  imageUrl:string;
 }
 
 
