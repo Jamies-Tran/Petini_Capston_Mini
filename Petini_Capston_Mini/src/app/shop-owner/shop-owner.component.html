@@ -56,9 +56,17 @@
                   <!-- items -->
                   <!--  -->
                   <mat-list-item class="sidenav-nav-link w-100 p-0" [style.text-align]="!isExpanded ? 'center' : 'unset'"
-                    routerLink="/Order" routerLinkActive="active">
+                    routerLink="Order" routerLinkActive="active">
                     <mat-icon class="sidenav-link-icon text-dark" matListItemIcon [style.margin]="!isExpanded ? '0!important' : ''" [style.width]="!isExpanded ? '100%' : ''">shopping_cart_checkout</mat-icon>
                     <span class="sidenav-link-text w-100" *ngIf="isExpanded" matListItemTitle>Quản lý đơn hàng</span>
+                  </mat-list-item>
+
+                  <!-- items -->
+                  <!--  -->
+                  <mat-list-item class="sidenav-nav-link w-100 p-0" [style.text-align]="!isExpanded ? 'center' : 'unset'"
+                    routerLink="Booking" routerLinkActive="active">
+                    <mat-icon class="sidenav-link-icon text-dark" matListItemIcon [style.margin]="!isExpanded ? '0!important' : ''" [style.width]="!isExpanded ? '100%' : ''">calendar_month</mat-icon>
+                    <span class="sidenav-link-text w-100" *ngIf="isExpanded" matListItemTitle>Quản lý lịch đặt</span>
                   </mat-list-item>
 
                 </mat-nav-list>

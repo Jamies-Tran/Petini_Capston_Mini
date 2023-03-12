@@ -11,6 +11,8 @@ import { ProfileComponent } from '../profile/profile.component';
 import { ManageServiceComponent } from './manage-service/manage-service.component';
 import { ServiceDetailComponent } from './manage-service/service-detail/service-detail.component';
 import { AddServiceComponent } from './manage-service/add-service/add-service.component';
+import { ManageBookingComponent } from './manage-booking/manage-booking.component';
+import { BookingDetailComponent } from './manage-booking/booking-detail/booking-detail.component';
 
 const routes: Routes = [
   {
@@ -46,13 +48,13 @@ const routes: Routes = [
             component: AccountDetailComponent,
           },
           {
-            path:'AddAccount',
-            component:AddAccountComponent
+            path: 'AddAccount',
+            component: AddAccountComponent,
           },
         ],
       },
-      {path: 'Profile' , component: ProfileComponent},
-      {path:'Service' , component:ManageServiceComponent},
+      { path: 'Profile', component: ProfileComponent },
+      { path: 'Service', component: ManageServiceComponent },
       {
         path: 'Service',
         children: [
@@ -61,8 +63,18 @@ const routes: Routes = [
             component: ServiceDetailComponent,
           },
           {
-            path:'AddService',
-            component:AddServiceComponent
+            path: 'AddService',
+            component: AddServiceComponent,
+          },
+        ],
+      },
+      { path: 'Booking', component: ManageBookingComponent },
+      {
+        path: 'Booking',
+        children: [
+          {
+            path: 'BookingDetail',
+            component: BookingDetailComponent,
           },
         ],
       },
