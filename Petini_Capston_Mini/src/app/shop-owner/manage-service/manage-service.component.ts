@@ -13,27 +13,38 @@ import { AfterCareService } from '../../services/after-care.service';
 export class ManageServiceComponent implements OnInit{
   values: data[] = [];
 
-  i: any;
+  value:[]=[];
   message!: string;
   status = 'sellin';
-
+  i:any;
   constructor(
     public dialog: MatDialog,
-    private image: ImageService,
     private http: AfterCareService
   ) {}
   ngOnInit(): void {
     this.http.getServiceList().subscribe(async (data) => {
       console.log(data);
-      for (this.i of data) {
-        var imgUrl = await this.image.getImage('services/' + this.i.imageUrl);
+      this.value = data;
+      let waste = '';
+            for (this.i of this.value) {
+        let wasteValue = 0;
+        var waste0 = this.i.afterCareWorkingSchedules[0].timeValue;
+        let hours0 = waste0.slice(0,2) as number ;
+        let minute0 = waste0.slice(3,5) as number;
+        var waste1 = this.i.afterCareWorkingSchedules[1].timeValue;
+        let hours1 = waste1.slice(0,2) as number;
+        let minute1 = waste1.slice(3,5) as number ;
+        wasteValue =   (  (hours1 * 60) + minute1  ) - (  (hours0 * 60) + minute0 ) ;
+        if(wasteValue == 6000){
+          wasteValue = 60;
+        }
+        waste = wasteValue as unknown as string;
         this.values.push({
           id: this.i.id,
           name: this.i.name,
           description: this.i.description,
           status: this.i.status,
-          imageUrl: imgUrl,
-          waste: '30',
+          waste: waste,
           price: this.i.price,
         });
         console.log(this.status);
@@ -74,7 +85,6 @@ export interface data {
   name: string;
   description: string;
   status: string;
-  imageUrl: string;
   waste: string;
   price: string;
 }

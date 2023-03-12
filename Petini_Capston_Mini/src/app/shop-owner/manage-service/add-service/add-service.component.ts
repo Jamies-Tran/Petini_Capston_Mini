@@ -1,17 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AfterCareService } from '../../../services/after-care.service';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { MatDialog } from '@angular/material/dialog';
+import { MessageComponent } from '../../../pop-up/message/message.component';
+import { SuccessComponent } from '../../../pop-up/success/success.component';
 
 @Component({
   selector: 'app-add-service',
   templateUrl: './add-service.component.html',
   styleUrls: ['./add-service.component.scss'],
 })
-export class AddServiceComponent {
+export class AddServiceComponent implements OnInit {
   name: any;
   price: any;
   description: any;
   file!: File;
   files: File[] = [];
+  startDate!: string;
   showReview = false;
+  ngOnInit(): void {
+    this.convert();
+  }
+  convert(): void {
+    var date = new Date(),
+      mnth = ('0' + (date.getMonth() + 1)).slice(-2),
+      day = ('0' + date.getDate()).slice(-2);
+    this.startDate = [date.getFullYear(), mnth, day].join('-');
+  }
+  constructor(private http: AfterCareService,
+    private storage: AngularFireStorage,
+    public dialog: MatDialog){}
   onRemove(event: File) {
     // console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
@@ -72,7 +90,9 @@ export class AddServiceComponent {
       viewValue: '60 phút',
     },
   ];
-  time: Time[] = [];
+  time: Array<{startDate: string;
+    timeValue: string;
+    timeLabel: string;}> = [];
 
   workTime = 12;
   minute = 60;
@@ -90,14 +110,17 @@ export class AddServiceComponent {
     console.log(this.waste);
     console.log(this.workMinute / this.waste);
     this.time.push({
+      startDate: this.startDate,
       timeValue: '0' + this.startTimeHour.toString() + ':00:00',
       timeLabel: '0' + this.startTimeHour.toString() + ':00',
     });
 
     for (let i = 0; i <= this.workMinute / this.waste; i++) {
       this.startTimeMinute = this.startTimeMinute + this.waste;
-      if (this.startTimeHour == 19 && (this.startTimeMinute + this.waste) > 60 ||
-        this.startTimeHour == 20 && this.startTimeMinute == 0) {
+      if (
+        (this.startTimeHour == 19 && this.startTimeMinute + this.waste > 60) ||
+        (this.startTimeHour == 20 && this.startTimeMinute == 0)
+      ) {
         return;
       }
       // dk ( khoảng thời gian + time box Phút ) < 60 phút
@@ -110,6 +133,7 @@ export class AddServiceComponent {
           let timeBoxValue = timeValueHour + ':' + timeValueMinute;
           console.log('time box value: ', timeBoxValue + ':00');
           this.time.push({
+            startDate: this.startDate,
             timeValue: timeBoxValue + ':00',
             timeLabel: timeBoxValue,
           });
@@ -120,6 +144,7 @@ export class AddServiceComponent {
           let timeBoxValue = timeValueHour + ':' + timeValueMinute;
           console.log('time box value: ', timeBoxValue + ':00');
           this.time.push({
+            startDate: this.startDate,
             timeValue: timeBoxValue + ':00',
             timeLabel: timeBoxValue,
           });
@@ -135,6 +160,7 @@ export class AddServiceComponent {
           let timeBoxValue = timeValueHour + ':' + timeValueMinute;
           console.log('time box value: ', timeBoxValue + ':00');
           this.time.push({
+            startDate: this.startDate,
             timeValue: timeBoxValue + ':00',
             timeLabel: timeBoxValue,
           });
@@ -147,6 +173,7 @@ export class AddServiceComponent {
           let timeBoxValue = timeValueHour + ':' + timeValueMinute;
           console.log('time box value: ', timeBoxValue + ':00');
           this.time.push({
+            startDate: this.startDate,
             timeValue: timeBoxValue + ':00',
             timeLabel: timeBoxValue,
           });
@@ -161,6 +188,7 @@ export class AddServiceComponent {
           let timeBoxValue = timeValueHour + ':' + timeValueMinute;
           console.log('time box value: ', timeBoxValue + ':00');
           this.time.push({
+            startDate: this.startDate,
             timeValue: timeBoxValue + ':00',
             timeLabel: timeBoxValue,
           });
@@ -173,25 +201,94 @@ export class AddServiceComponent {
           let timeBoxValue = timeValueHour + ':' + timeValueMinute;
           console.log('time box value: ', timeBoxValue + ':00');
           this.time.push({
+            startDate: this.startDate,
             timeValue: timeBoxValue + ':00',
             timeLabel: timeBoxValue,
           });
-
-
-
         }
-
-
-
-
       }
     }
   }
+imageUrl!:string;
+  addService() {
+for(this.file of this.files){
+  this.imageUrl = this.name + ' '+ this.file.name;
 }
-export interface Time {
-  timeValue: string;
-  timeLabel: string;
+
+    if (this.valid() == true) {
+      this.http.createService(
+        this.time,
+        this.description,
+        this.imageUrl,
+        this.name,
+        this.price
+      ).subscribe((data) =>{
+        for (this.file of this.files) {
+          const path = 'services/' + this.name as string + ' ' + this.file.name;
+          const fileRef = this.storage.ref(path);
+          this.storage.upload(path, this.file);
+        }
+        this.message= 'Tạo dịch vụ thành công';
+        this.openDialogSuccess();
+        this.name='';
+        this.price=''
+        this.time=[];
+        this.description=''
+        this.imageUrl=''
+        location.reload();
+      }, (error) => {
+        this.message = error;
+        this.openDialogMessage();
+      })
+    }
+  }
+  message: any;
+
+
+  public valid() {
+    if (!this.name || this.name == '') {
+      this.message = 'Xin nhập tên dịch vụ';
+      this.openDialogMessage();
+      return;
+    } else if (!this.price || this.price == '') {
+      this.message = 'Xin nhập đơn giá';
+      this.openDialogMessage();
+      return;
+    } else if (!this.description || this.description == '') {
+      this.message = 'Xin nhập mô tả';
+      this.openDialogMessage();
+      return;
+    } else if(!this.waste || this.waste == 0){
+      this.message = 'Xin nhập thời gian cho dịch vụ';
+      this.openDialogMessage();
+      return;
+    } else if(this.files.length ==0 ){
+      this.message = "Xin chọn hình ảnh dịch vụ";
+      this.openDialogMessage();
+      return;
+    }
+    for (this.file of this.files) {
+      if (!this.file) {
+        console.log('kh co anh');
+        this.message = 'Xin nhập ảnh sản phẩm vào';
+        this.openDialogMessage();
+        return;
+      }
+    }
+    return true;
+  }
+  openDialogMessage() {
+    this.dialog.open(MessageComponent, {
+      data: this.message,
+    });
+  }
+  openDialogSuccess() {
+    this.dialog.open(SuccessComponent, {
+      data: this.message,
+    });
+  }
 }
+
 interface Waste {
   value: number;
   viewValue: string;

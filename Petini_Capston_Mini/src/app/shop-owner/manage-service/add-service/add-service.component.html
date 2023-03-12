@@ -2,7 +2,7 @@
   <div class="login container  h-100 py-4">
     <div class="login-row row mt-3 ">
       <div class="login-col col-12 col-md-10 col-lg-9 col-xl-8">
-        <form>
+        <form (ngSubmit)="addService()">
 
           <div class="login-card card rounded  border-0 mb-4">
             <div class="login-card-body card-body text-center ">
@@ -31,7 +31,9 @@
                   <div class="username">
                     <mat-form-field class="input-password w-100" appearance="outline">
                       <mat-label>Don gia</mat-label>
-                      <input matInput type="number" name="txtPrice" [(ngModel)]="price" required>
+                      <input matInput type="number" name="txtPrice" [(ngModel)]="price" required
+                      maxlength="10" minlength="4"  min="1000"
+                      oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                     </mat-form-field>
                   </div>
                 </div>
@@ -87,7 +89,7 @@
                       <mat-label>
                         Thoi gian mot dich vu</mat-label>
                         <mat-select matNativeControl [(value)]="waste" (valueChange)="getTimeBox()" name="waste">
-                          <mat-option *ngFor="let item of wastes" [value]="item.value"> </mat-option>
+                          <mat-option *ngFor="let item of wastes" [value]="item.value">{{item.viewValue}} </mat-option>
 
 
                         <!-- <mat-option value="10">10 phut</mat-option>
@@ -99,7 +101,7 @@
 
                         </mat-select>
                     </mat-form-field>
-                    waste: {{waste}}
+
                   </div>
                 </div>
 

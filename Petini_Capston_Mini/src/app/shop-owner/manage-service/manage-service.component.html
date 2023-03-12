@@ -39,7 +39,7 @@
               <td >
 
                 <div class="d-flex align-items-center">
-                  <img [src]="post.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+
                   <div class="ms-3">
                     <p class="fw-bold mb-1"> {{post.name}}</p>
                     <p class="text-muted mb-0 overflow-hidden text-break"> {{post.description}}</p>
@@ -52,7 +52,7 @@
               <td >
                 {{post.waste}}
               </td>
-              <td> <span class="badge rounded-pill d-inline" [class]="post.status == 'SELLING' ? 'badge-success' :post.status=='NEW'? 'badge-warning' : 'badge-danger'" >{{post.status == 'SELLING' ? 'Đang bán' : post.status == 'NEW' ? 'Mới' : 'Ngừng bán' }}</span></td>
+              <td> <span class="badge rounded-pill d-inline" [class]="post.status == 'ACTIVE' ? 'badge-success' :'badge-warning' " >{{post.status == 'ACTIVE' ? 'Đang hoạt động' :  'Ngừng hoạt động' }}</span></td>
               <td class="text-center">
 
                 <button mat-icon-button color="accent"

@@ -79,12 +79,16 @@ export class AfterCareService {
   // 4 POST
   // /api/after-care/new-service
   public createService(
-    afterCareWorkingHours: Array<any>,
+    afterCareWorkingSchedules: Array<any>,
+    description:string,
+    imageUrl:string,
     name: string,
     price: string
   ) {
     var value = {
-      afterCareWorkingHours,
+      afterCareWorkingSchedules,
+      description,
+      imageUrl,
       name,
       price,
     };
@@ -92,7 +96,7 @@ export class AfterCareService {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('userToken'),
+        'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
       }),
     };
 
