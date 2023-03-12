@@ -32,6 +32,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
 import { ServiceDetailComponent } from './manage-service/service-detail/service-detail.component';
 import { AddServiceComponent } from './manage-service/add-service/add-service.component';
+import { ManageBookingComponent } from './manage-booking/manage-booking.component';
+import { BookingDetailComponent } from './manage-booking/booking-detail/booking-detail.component';
 
 
 
@@ -48,7 +50,9 @@ import { AddServiceComponent } from './manage-service/add-service/add-service.co
     ItemDetailComponent,
     ManageOrderComponent,
     ServiceDetailComponent,
-    AddServiceComponent
+    AddServiceComponent,
+    ManageBookingComponent,
+    BookingDetailComponent
   ],
   imports: [
     CommonModule,

@@ -36,14 +36,14 @@
             <i class="fa-solid fa-paw"></i>
           </h2>
         </div>
-        <form>
+        <form (ngSubmit)="bookingService()">
           <div class="card-body ">
             <div class="row w-100 justify-content-center text-center align-items-center">
               <div class="col-8 justify-content-center text-center d-flex flex-column align-items-center">
                 <h4 class="text-titile">Chon ngay va gio</h4>
                 <mat-form-field appearance="fill" class="w-75">
                   <mat-icon matPrefix><i class="fa-solid fa-calendar-days"></i></mat-icon>
-                  <mat-select matNativeControl [(ngModel)]="selectedDate" name="date">
+                  <mat-select matNativeControl [(value)]="selectedDate" name="date">
                     <mat-option *ngFor="let item of date" [value]="item.value"> {{item.viewValue}}</mat-option>
 
 
