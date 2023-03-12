@@ -27,7 +27,10 @@ export class DeleteComponent {
         (data) => {
           this.message = 'Xóa dịch vụ thành công';
           this.openDialogSuccess();
-          this.router.navigate(['..'], { relativeTo: this.route });
+          setTimeout(() =>{
+            this.router.navigate(['/ShopOwner/Service'], { relativeTo: this.route });
+         }, 1000);
+
         },
         (error) => {
           this.message = error;

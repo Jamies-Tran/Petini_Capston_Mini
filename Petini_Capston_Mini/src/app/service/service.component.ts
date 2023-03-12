@@ -18,14 +18,12 @@ export class ServiceComponent {
   ngOnInit(): void {
     this.http.getServiceList().subscribe(async  (data) =>{
 
-      // for(this.i of this.value ){
-      //   console.log(this.i.homestayImages[0].url)
-      // }
+
       console.log("data" , data);
 
       for(this.value of data){
-        if(this.value.status == 'SELLING'){
-          var imgUrl = await this.image.getImage('items/' + this.value.imageUrl)
+        if(this.value.status == 'ACTIVE'){
+          var imgUrl = await this.image.getImage('services/' + this.value.imageUrl)
           console.log("imaURL:" , imgUrl);
           this.values.push({imgURL:imgUrl, name:this.value.name, price:this.value.price, status:this.value.status })
           console.log("values:", this.values);

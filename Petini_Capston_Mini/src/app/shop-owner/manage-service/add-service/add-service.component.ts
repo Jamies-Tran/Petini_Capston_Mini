@@ -12,6 +12,7 @@ import { SuccessComponent } from '../../../pop-up/success/success.component';
 })
 export class AddServiceComponent implements OnInit {
   name: any;
+
   price: any;
   description: any;
   file!: File;
@@ -209,6 +210,7 @@ export class AddServiceComponent implements OnInit {
       }
     }
   }
+  imageName:any;
 imageUrl!:string;
   addService() {
 for(this.file of this.files){
@@ -216,6 +218,8 @@ for(this.file of this.files){
 }
 
     if (this.valid() == true) {
+
+      this.imageName = this.name;
       this.http.createService(
         this.time,
         this.description,
@@ -224,7 +228,7 @@ for(this.file of this.files){
         this.price
       ).subscribe((data) =>{
         for (this.file of this.files) {
-          const path = 'services/' + this.name as string + ' ' + this.file.name;
+          const path='services/'+this.imageName+' '+this.file.name;
           const fileRef = this.storage.ref(path);
           this.storage.upload(path, this.file);
         }
@@ -235,7 +239,9 @@ for(this.file of this.files){
         this.time=[];
         this.description=''
         this.imageUrl=''
-        location.reload();
+        setTimeout(function(){
+          window.location.reload();
+       }, 2000);
       }, (error) => {
         this.message = error;
         this.openDialogMessage();
