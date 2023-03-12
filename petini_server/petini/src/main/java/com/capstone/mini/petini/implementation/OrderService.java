@@ -1,9 +1,13 @@
 package com.capstone.mini.petini.implementation;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.capstone.mini.petini.handlers.exceptions.InvalidException;
+import com.capstone.mini.petini.handlers.exceptions.NotFoundException;
 import com.capstone.mini.petini.model.Cart;
 import com.capstone.mini.petini.model.Order;
 import com.capstone.mini.petini.model.PetiniUser;
@@ -38,6 +42,59 @@ public class OrderService implements IOrderService {
         order.setStatus(OrderStatus.PENDING.name());
         Order savedOrder = orderRepo.save(order);
         return savedOrder;
+    }
+
+    @Override
+    public Order getOrderById(Long id) {
+        Order order = orderRepo.findById(id).orElseThrow(() -> new NotFoundException("Can't find order"));
+
+        return order;
+    }
+
+    @Override
+    public List<Order> getOrderByCustomer(String username) {
+        List<Order> orders = orderRepo.findAllOrderOfCustomer(username);
+
+        return orders;
+    }
+
+    @Override
+    public List<Order> getOrderByStatus(String status) {
+        List<Order> orders = orderRepo.findOrdersByStatus(status);
+
+        return orders;
+    }
+
+    @Override
+    public List<Order> getAllOrder() {
+        List<Order> orders = orderRepo.findAll();
+
+        return orders;
+    }
+
+    @Override
+    @Transactional
+    public Order acceptOrder(Long id) {
+        PetiniUser user = userService.getAuthenticatedUser();
+        Order order = orderRepo.findById(id).orElseThrow(() -> new NotFoundException("Can't find order"));
+        order.setStatus(OrderStatus.ACCEPT.name());
+        order.setUpdatedBy(user.getUsername());
+        order.setUpdatedDate(dateFormatUtil.formatDateTimeNowToString());
+
+        return order;
+    }
+
+    @Override
+    @Transactional
+    public Order rejectOrder(Long id) {
+        PetiniUser user = userService.getAuthenticatedUser();
+        Order order = orderRepo.findById(id).orElseThrow(() -> new NotFoundException("Can't find order"));
+        order.setStatus(OrderStatus.REJECT.name());
+        order.setStatus(OrderStatus.ACCEPT.name());
+        order.setUpdatedBy(user.getUsername());
+        order.setUpdatedDate(dateFormatUtil.formatDateTimeNowToString());
+
+        return order;
     }
 
 }

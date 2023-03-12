@@ -21,6 +21,7 @@ import com.capstone.mini.petini.repositories.BookingRepo;
 import com.capstone.mini.petini.service.IBookingService;
 import com.capstone.mini.petini.service.IPetiniAfterCareService;
 import com.capstone.mini.petini.service.IUserService;
+import com.capstone.mini.petini.util.DateFormatUtil;
 
 @Service
 public class BookingService implements IBookingService {
@@ -39,6 +40,9 @@ public class BookingService implements IBookingService {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private DateFormatUtil dateFormatUtil;
 
     @Override
     public Booking createBookingForAfterCare(List<BookingAfterCareRequestDto> afterRequestList) {
@@ -63,24 +67,16 @@ public class BookingService implements IBookingService {
             bookingAfterCares.add(bookingAfterCare);
         }
 
-        // for (PetiniAfterCare s : afterCareList) {
-        // BookingAfterCare bookingAfterCare = new BookingAfterCare();
-
-        // bookingAfterCare.setPetiniAfterCare(s);
-        // bookingAfterCare.setPrice(s.getPrice());
-        // bookingAfterCare.setBooking(booking);
-        // bookingAfterCares.add(bookingAfterCare);
-
-        // }
         for (BookingAfterCare b : bookingAfterCares) {
             totalBookingPrice = totalBookingPrice + b.getPrice();
         }
-        // List<BookingAfterCare> savedBookingAfterCares =
-        // bookingAfterCareRepo.saveAll(bookingAfterCares);
+
         booking.setBookingAfterCare(bookingAfterCares);
         booking.setTotalPrice(totalBookingPrice);
         booking.setCustomer(user.getCustomerProperty());
         user.getCustomerProperty().setBookings(List.of(booking));
+        booking.setCreatedBy(user.getUsername());
+        booking.setCreatedDate(dateFormatUtil.formatDateTimeNowToString());
         Booking savedBooking = bookingRepo.save(booking);
 
         return savedBooking;

@@ -52,6 +52,7 @@ public class CartService implements ICartService {
             totalPrice = p.getCart().getTotalPrice() + p.getProduct().getPrice() * p.getQuantity();
         }
         customerCart.setTotalPrice(totalPrice);
+        customerCart.setUpdatedBy(customerCart.getCustomer().getUser().getUsername());
         return customerCart;
     }
 
