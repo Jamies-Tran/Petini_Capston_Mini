@@ -143,6 +143,12 @@
 
 .disabled{
   border: 1px solid #d1d1d1;
+  background: greenyellow;
+  color: black;
+  cursor: pointer;
+}
+.busy{
+  border: 1px solid #d1d1d1;
   background: #e8e8e8;
   color: #a3a3a3;
   cursor: not-allowed;
@@ -169,3 +175,4 @@ input:-webkit-autofill:active {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(to right, rgb(238, 42, 123) 0%, rgb(255, 125, 184) 100%);
 }
+

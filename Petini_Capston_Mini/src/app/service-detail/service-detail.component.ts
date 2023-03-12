@@ -17,6 +17,7 @@ export class ServiceDetailComponent implements OnInit {
   date: Date[] = [];
   time: Time[] = [];
   distanceTime = 30;
+  curentDate: any;
 
   get3Day() {
     // day1
@@ -28,38 +29,35 @@ export class ServiceDetailComponent implements OnInit {
       day = ('0' + date.getDate()).slice(-2);
     valueDay1 = [date.getFullYear(), mnth, day].join('-');
     viewValueDay1 = 'Hôm nay, ' + [day, mnth, date.getFullYear()].join('-');
+    this.curentDate = 'Hôm nay, ' + [day, mnth, date.getFullYear()].join('-');
 
     // day2
-    const day2 = new Date();
-    let valueDay2 = '';
-    let viewValueDay2 = '';
-    day2.setDate(day2.getDate() + 1);
-    var date = new Date(day2),
-      mnth = ('0' + (date.getMonth() + 1)).slice(-2),
-      day = ('0' + date.getDate()).slice(-2);
-    valueDay2 = [date.getFullYear(), mnth, day].join('-');
-    viewValueDay2 = 'Ngày mai, ' + [day, mnth, date.getFullYear()].join('-');
+    // const day2 = new Date();
+    // let valueDay2 = '';
+    // let viewValueDay2 = '';
+    // day2.setDate(day2.getDate() + 1);
+    // var date = new Date(day2),
+    //   mnth = ('0' + (date.getMonth() + 1)).slice(-2),
+    //   day = ('0' + date.getDate()).slice(-2);
+    // valueDay2 = [date.getFullYear(), mnth, day].join('-');
+    // viewValueDay2 = 'Ngày mai, ' + [day, mnth, date.getFullYear()].join('-');
 
     // day3
-    const day3 = new Date();
-    let valueDay3 = '';
-    let viewValueDay3 = '';
-    day3.setDate(day3.getDate() + 2);
-    var date = new Date(day3),
-      mnth = ('0' + (date.getMonth() + 1)).slice(-2),
-      day = ('0' + date.getDate()).slice(-2);
-    valueDay3 = [date.getFullYear(), mnth, day].join('-');
-    viewValueDay3 = 'Ngày mốt, ' + [day, mnth, date.getFullYear()].join('-');
+    // const day3 = new Date();
+    // let valueDay3 = '';
+    // let viewValueDay3 = '';
+    // day3.setDate(day3.getDate() + 2);
+    // var date = new Date(day3),
+    //   mnth = ('0' + (date.getMonth() + 1)).slice(-2),
+    //   day = ('0' + date.getDate()).slice(-2);
+    // valueDay3 = [date.getFullYear(), mnth, day].join('-');
+    // viewValueDay3 = 'Ngày mốt, ' + [day, mnth, date.getFullYear()].join('-');
 
-    console.log('hom nay 11-03-2023:    ', valueDay1);
-    console.log('ngay mai 12-03-2023:   ', valueDay2);
-    console.log('ngay mot 13-03-2023    ', valueDay3);
+    // console.log('hom nay 11-03-2023:    ', valueDay1);
+    // console.log('ngay mai 12-03-2023:   ', valueDay2);
+    // console.log('ngay mot 13-03-2023    ', valueDay3);
 
-    this.date.push(
-      { value: valueDay1, viewValue: viewValueDay1 },
-      { value: valueDay2, viewValue: viewValueDay2 },
-      { value: valueDay3, viewValue: viewValueDay3 }
-    );
+    this.date.push({ value: valueDay1, viewValue: viewValueDay1 });
   }
 
   message = '';
@@ -69,9 +67,9 @@ export class ServiceDetailComponent implements OnInit {
   imageUrl = '';
   waste = 0;
   price = '';
-  value:any;
-  ngOnInit(): void {
+  value: any;
 
+  ngOnInit(): void {
     this.get3Day();
     try {
       const name = localStorage.getItem('getServiceName') as string;
@@ -79,16 +77,32 @@ export class ServiceDetailComponent implements OnInit {
       this.httpService.getServiceDetail(name).subscribe(
         async (data) => {
           console.log(data);
-          this.value= data;
-          this.name = this.value.name
+          this.value = data;
+          this.name = this.value.name;
           this.description = this.value.description;
           this.status = this.value.status;
           this.price = this.value.price;
-          this.imageUrl=this.value.imageUrl;
-          for(let item of this.value.afterCareWorkingSchedules){
+          this.imageUrl = this.value.imageUrl;
+          let boxTime = this.value.afterCareWorkingSchedules;
+          for (let item of this.value.afterCareWorkingSchedules) {
+            let statusTime = false;
+            this.httpBooking.checkValidBooking(item.timeLabel).subscribe((data) =>{
+              if (data) {
+                statusTime = true;
+              } else statusTime = false;
+              this.time.push({
+                timeLabel: item.timeLabel,
+                timeValue: item.timeValue,
+                statusTime: statusTime,
+                statusBooking: false,
+              });
+            },(error) =>{
+              this.message = error;
+              console.log(this.message);
+            })
 
           }
-
+          console.log(this.time);
 
           // get file image
           await this.image
@@ -135,7 +149,33 @@ export class ServiceDetailComponent implements OnInit {
     private httpBooking: BookingService
   ) {}
 
-  bookingService() {}
+  createServiceBooking: Array<{ serviceName: string; timeLabel: Array<any> }> =
+    [];
+  timeLabelBooking:any=[];
+  bookingService() {
+    this.timeLabelBooking = [];
+    for(let item of this.time){
+      if(item.statusBooking==true){
+        let timeLabel = "";
+        timeLabel = item.timeLabel;
+        this.timeLabelBooking.push(timeLabel);
+      }
+    }
+    console.log(this.timeLabelBooking)
+    // let timeLabel=[]
+    // timeLabel.push("12:00","13:00");
+    this.createServiceBooking.push({serviceName:this.name ,timeLabel:this.timeLabelBooking} );
+    this.httpBooking.createServiceBooking(this.name,this.timeLabelBooking ).subscribe((data) => {
+      this.message = 'Đăng ký lịch thành công';
+      this.openDialogSuccess();
+      setTimeout(function(){
+        window.location.reload();
+     }, 2000);
+    },(error)=>{
+      this.message= error;
+      this.openDialogMessage();
+    });
+  }
 }
 
 interface Date {
@@ -145,5 +185,6 @@ interface Date {
 interface Time {
   timeLabel: string;
   timeValue: string;
-  status: boolean;
+  statusTime: boolean;
+  statusBooking: boolean;
 }

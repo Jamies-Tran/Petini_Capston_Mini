@@ -41,27 +41,27 @@
             <div class="row w-100 justify-content-center text-center align-items-center">
               <div class="col-8 justify-content-center text-center d-flex flex-column align-items-center">
                 <h4 class="text-titile">Chon ngay va gio</h4>
-                <mat-form-field appearance="fill" class="w-75">
+                <!-- <mat-form-field appearance="fill" class="w-75">
                   <mat-icon matPrefix><i class="fa-solid fa-calendar-days"></i></mat-icon>
                   <mat-select matNativeControl [(value)]="selectedDate" name="date">
                     <mat-option *ngFor="let item of date" [value]="item.value"> {{item.viewValue}}</mat-option>
 
-
-                    <!-- <mat-option value="today">Hom nay, T6 11/03</mat-option>
-                  <mat-option value="tomorrow">Hom nay, T7 12/03</mat-option>
-                  <mat-option value="ngaykia">Hom nay, CN 13/03</mat-option> -->
                   </mat-select>
+                </mat-form-field> -->
+                <mat-form-field appearance="fill" class="w-75">
+                  <mat-icon matPrefix><i class="fa-solid fa-calendar-days"></i></mat-icon>
+                  <input matInput type="text" readonly [(ngModel)]="curentDate" name="selectedDate">
                 </mat-form-field>
                 <div class="card bg-white rounded overflow-auto w-75">
                   <div class="card-body p-0">
                     <div class="container p-3 vh-50">
                       <div class="row w-100 m-0">
                         <!-- box time -->
-                        <div class="col-3 col-xxl-2 col-xl-2 p-1">
-                          <div class="rounded-2 border-1 border border-dark">
+                        <div class="col-3 col-xxl-2 col-xl-2 p-1" *ngFor="let item of time ; let i = index" (click)="item.statusBooking=!item.statusBooking">
+                          <div class="rounded-2 border-1 border border-dark " [class]="item.statusBooking == true ? 'disabled' : item.statusTime == false ? 'busy' : 'enabled'">
                             <div
-                              class="box-time d-flex align-items-center justify-content-center border-bottom border-4 border-success flex-column py-2">
-                              <h4 class="m-0">8:00</h4>
+                              class="box-time d-flex align-items-center justify-content-center border-bottom border-4  flex-column py-2"  [class]="item.statusTime == true ? 'border-success' : 'border-danger'">
+                              <h4 class="m-0">{{item.timeLabel}}</h4>
                             </div>
                           </div>
                         </div>

@@ -109,18 +109,26 @@ export class BookingService {
 
   // 6 POST
   // /api/booking/new-booking
-  public createServiceBooking(afterCareRequestDtos:Array<any>){
+  public createServiceBooking(serviceName:string ,timeLabel:Array<string>){
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json ',
         'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
       }),
     };
-    var value = afterCareRequestDtos;
-    console.log(this.httpOptions.headers);
+    let value:Array<any>=[];
+    let afterCareRequestDtos:afterCareRequestDtos;
+    afterCareRequestDtos={serviceName:serviceName ,timeLabel:["12:00","13:00"] };
+
+     value=[{serviceName:serviceName,timeLabel:timeLabel} ];
+    console.log(value);
     const url = `${this.REST_API_SERVER}/api/booking/new-booking`;
     return this.httpClient
-      .post<any>(url,value, this.httpOptions)
+      .post<any>(url,value,this.httpOptions)
       .pipe(catchError(this.handleError));
   }
+}
+export class afterCareRequestDtos{
+  serviceName!:string ;
+  timeLabel!:Array<string>;
 }
