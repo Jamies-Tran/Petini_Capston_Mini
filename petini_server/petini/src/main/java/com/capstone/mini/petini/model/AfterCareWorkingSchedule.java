@@ -39,7 +39,7 @@ public class AfterCareWorkingSchedule {
     @Column
     private @Setter String status = WorkingHourStatus.FREE.name();
 
-    @ManyToMany(mappedBy = "shedules")
+    @ManyToMany(mappedBy = "bookingSchedules")
     private @Setter List<Booking> bookings;
 
     @ManyToMany(mappedBy = "afterCareWorkingSchedules")

@@ -16,7 +16,7 @@ import com.capstone.mini.petini.model.PetiniAfterCare;
 import com.capstone.mini.petini.model.PetiniUser;
 import com.capstone.mini.petini.model.status.WorkingHourStatus;
 import com.capstone.mini.petini.repositories.AfterCareWorkingScheduleRepo;
-import com.capstone.mini.petini.repositories.BookingAfterCareRepo;
+// import com.capstone.mini.petini.repositories.BookingAfterCareRepo;
 import com.capstone.mini.petini.repositories.BookingRepo;
 import com.capstone.mini.petini.service.IBookingService;
 import com.capstone.mini.petini.service.IPetiniAfterCareService;
@@ -25,8 +25,8 @@ import com.capstone.mini.petini.service.IUserService;
 @Service
 public class BookingService implements IBookingService {
 
-    @Autowired
-    private BookingAfterCareRepo bookingAfterCareRepo;
+    // @Autowired
+    // private BookingAfterCareRepo bookingAfterCareRepo;
 
     @Autowired
     private AfterCareWorkingScheduleRepo afterCareWorkingScheduleRepo;
@@ -45,21 +45,24 @@ public class BookingService implements IBookingService {
         Booking booking = new Booking();
         PetiniUser user = userService.getAuthenticatedUser();
         List<BookingAfterCare> bookingAfterCares = new ArrayList<>();
-        List<AfterCareWorkingSchedule> schedules = new ArrayList<>();
+        Long totalBookingPrice = 0L;
         for (BookingAfterCareRequestDto b : afterRequestList) {
             BookingAfterCare bookingAfterCare = new BookingAfterCare();
-            schedules = b.getTimeLabel().stream()
+            List<AfterCareWorkingSchedule> schedules = b.getTimeLabel().stream()
                     .map(t -> afterCareWorkingScheduleRepo.findWorkingScheduleByTimeLabel(t).get())
                     .collect(Collectors.toList());
             PetiniAfterCare afterCare = petiniAfterCareService.getPetiniAfterCareByName(b.getServiceName());
-            booking.setShedules(schedules);
-            schedules.forEach(s -> s.setBookings(List.of(booking)));
+            booking.setBookingSchedules(schedules);
+            schedules.forEach(s -> {
+                s.setBookings(List.of(booking));
+                s.setStatus(WorkingHourStatus.BUSY.name());
+            });
             bookingAfterCare.setBooking(booking);
             bookingAfterCare.setPetiniAfterCare(afterCare);
-
+            bookingAfterCare.setPrice(afterCare.getPrice());
+            bookingAfterCares.add(bookingAfterCare);
         }
 
-        Long totalBookingPrice = 0L;
         // for (PetiniAfterCare s : afterCareList) {
         // BookingAfterCare bookingAfterCare = new BookingAfterCare();
 
@@ -72,21 +75,13 @@ public class BookingService implements IBookingService {
         for (BookingAfterCare b : bookingAfterCares) {
             totalBookingPrice = totalBookingPrice + b.getPrice();
         }
-        List<BookingAfterCare> savedBookingAfterCares = bookingAfterCareRepo.saveAll(bookingAfterCares);
-        booking.setBookingAfterCare(savedBookingAfterCares);
+        // List<BookingAfterCare> savedBookingAfterCares =
+        // bookingAfterCareRepo.saveAll(bookingAfterCares);
+        booking.setBookingAfterCare(bookingAfterCares);
         booking.setTotalPrice(totalBookingPrice);
         booking.setCustomer(user.getCustomerProperty());
         user.getCustomerProperty().setBookings(List.of(booking));
         Booking savedBooking = bookingRepo.save(booking);
-        afterRequestList.forEach(a -> {
-            a.getTimeLabel().forEach(t -> {
-                AfterCareWorkingSchedule schedule = afterCareWorkingScheduleRepo.findWorkingScheduleByTimeLabel(t)
-                        .orElseThrow(() -> new NotFoundException("Not found working schedule"));
-                schedule.setStatus(WorkingHourStatus.BUSY.name());
-                afterCareWorkingScheduleRepo.save(schedule);
-
-            });
-        });
 
         return savedBooking;
 

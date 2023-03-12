@@ -14,6 +14,7 @@ import lombok.Setter;
 public class BookingResponseDto {
     private Long id;
     private List<BookingAfterCareResponseDto> bookingAfterCare;
+    private List<AfterCareWorkingHourResponseDto> bookingSchedules;
     private String totalPrice;
 
 }

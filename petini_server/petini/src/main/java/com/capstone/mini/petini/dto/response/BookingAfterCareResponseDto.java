@@ -11,5 +11,6 @@ import lombok.Setter;
 @Setter
 public class BookingAfterCareResponseDto {
     private PetiniAfterCareResponseDto petiniAfterCare;
+
     private Long price;
 }

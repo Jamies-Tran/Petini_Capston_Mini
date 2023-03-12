@@ -2,6 +2,7 @@ package com.capstone.mini.petini.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,12 +30,12 @@ public class Booking extends BaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "booking")
+    @OneToMany(mappedBy = "booking", cascade = { CascadeType.PERSIST })
     private @Setter List<BookingAfterCare> bookingAfterCare;
 
     @ManyToMany
     @JoinTable(name = "booking_schedule", joinColumns = @JoinColumn(name = "booking_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "schedule_id", referencedColumnName = "id"))
-    private @Setter List<AfterCareWorkingSchedule> shedules;
+    private @Setter List<AfterCareWorkingSchedule> bookingSchedules;
 
     @Column
     private String status = BookingStatus.PENDING.name();
