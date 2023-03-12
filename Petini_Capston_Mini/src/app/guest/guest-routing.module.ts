@@ -13,6 +13,7 @@ import { OrderDetailComponent } from '../cart-order/order-detail/order-detail.co
 import { HistoryOrderComponent } from '../cart-order/history-order/history-order.component';
 import { ViewCartComponent } from '../cart-order/view-cart/view-cart.component';
 import { ServiceDetailComponent } from '../service-detail/service-detail.component';
+import { BookingComponent } from '../booking/booking.component';
 
 const routes: Routes = [
   { path: 'Home', component: HomeComponent },
@@ -53,6 +54,7 @@ const routes: Routes = [
   { path: 'Cart', component: ViewCartComponent },
   { path: 'History', component: HistoryOrderComponent },
   { path: 'Order', component: OrderDetailComponent },
+  { path: 'Booking', component: BookingComponent },
 ];
 
 @NgModule({

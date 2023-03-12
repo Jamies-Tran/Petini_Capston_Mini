@@ -1,0 +1,73 @@
+<section class="w-100 pt-4 page-body">
+  <div class="container">
+    <div class="row justify-content-center w-100">
+
+      <div class="col-10 mb-5">
+        <div class="cart rounded ">
+          <div class="cart-header text-center">
+            <h2>Lịch sử đặt hàng của bạn</h2>
+          </div>
+          <!-- cart -->
+          <div class="cart-body mt-4"  *ngFor="let item of values">
+            <div class="rounded-bottom bg-white px-4 pt-4 pb-2">
+              <table class="table mt-2 align-middle" style="height:30vh">
+                <thead class="">
+                  <tr class="fw-5">
+                    <th class="w-2 px-0">{{item.date}} </th>
+                    <th>Tên dịch vụ</th>
+                    <th class="w-1 text-center">Giờ đặt lịch</th>
+                    <th class="w-1 text-center">
+                      <h4 class="badge rounded-pill d-inline" [class]="item.status == 'PENDING' ? 'badge-warning ' :'badge-success' " >{{item.status == 'PENDING' ? 'Đang tiến hành' : 'Hoàn thành' }}</h4>
+                    </th>
+
+
+                  </tr>
+                </thead>
+                <tbody class="">
+                  <tr matRipple >
+                    <td class="p-0" *ngFor="let value of item.service">
+                      <img [src]="value.imageUrl" style="width: 80px; height: 80px" class="rounded" />
+                    </td>
+                    <td class="ps-0">
+                      <div class="d-flex align-items-center">
+                        <div class="ms-3" *ngFor="let value of item.service">
+                          <p class="fw-bold mb-1" >
+                            {{value.name}}
+                          </p>
+                          <p class="text-muted mb-0 text-descrip fs-14">{{value.description}}</p>
+
+                        </div>
+                      </div>
+                    </td>
+                    <td class="text-center">
+                      <p *ngFor="let post of item.time"> {{post.timeLabel}}</p>
+
+                    </td>
+                    <td class="text-center">
+                      <p class="fs-14" *ngFor="let value of item.service">{{value.price | currency:'VND'}} </p>
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <hr class="m-0 w-100 bg-body">
+            <div class="rounded-top bg-white px-4 pt-4 pb-2">
+              <div class="d-flex justify-content-end flex-colunm flex-nowrap">
+                <span>Thanh tien: </span>
+                <span> <h4 class="text-danger">{{item.totalPrice | currency: 'VND'}}</h4> </span>
+              </div>
+
+            </div>
+          </div>
+          <hr>
+          <!-- cart -->
+
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+</section>

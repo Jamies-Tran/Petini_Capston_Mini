@@ -95,6 +95,7 @@ import { OrderDetailComponent } from './cart-order/order-detail/order-detail.com
 import { ServiceDetailComponent } from './service-detail/service-detail.component';
 import { DeleteComponent } from './pop-up/delete/delete.component';
 import { ServiceComponent } from './service/service.component';
+import { BookingComponent } from './booking/booking.component';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -128,7 +129,8 @@ export const MY_DATE_FORMATS = {
     OrderDetailComponent,
     ServiceDetailComponent,
     DeleteComponent,
-    ServiceComponent
+    ServiceComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,
