@@ -11,10 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PetiniAfterCareRequestDto {
-    private String name;
-    private Long price;
-    private String description;
-    private String imageUrl;
-    private List<AfterCareWorkingHourRequestDto> afterCareWorkingSchedules;
+public class BookingAfterCareRequestDto {
+    private String serviceName;
+    private List<String> timeLabel;
 }

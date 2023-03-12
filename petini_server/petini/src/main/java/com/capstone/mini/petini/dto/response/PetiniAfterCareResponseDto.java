@@ -16,5 +16,5 @@ public class PetiniAfterCareResponseDto {
     private String name;
     private Long price;
     private String status;
-    private List<AfterCareWorkingHourResponseDto> afterCareWorkingHours;
+    private List<AfterCareWorkingHourResponseDto> afterCareWorkingSchedules;
 }

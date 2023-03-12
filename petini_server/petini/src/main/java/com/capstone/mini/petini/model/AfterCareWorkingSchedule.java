@@ -22,7 +22,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class AfterCareWorkingSchdule {
+public class AfterCareWorkingSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,9 +39,10 @@ public class AfterCareWorkingSchdule {
     @Column
     private @Setter String status = WorkingHourStatus.FREE.name();
 
+    @ManyToMany(mappedBy = "shedules")
+    private @Setter List<Booking> bookings;
+
     @ManyToMany(mappedBy = "afterCareWorkingSchedules")
     private @Setter List<PetiniAfterCare> petiniAfterCares;
 
-    @ManyToMany(mappedBy = "afterCareWorkingSchedules")
-    private @Setter List<Booking> bookings;
 }

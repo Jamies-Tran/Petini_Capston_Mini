@@ -10,15 +10,17 @@ import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "booking_service")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 public class BookingAfterCare {
     @EmbeddedId
-    private BookingAfterCareId bookingAfterCareId;
+    private BookingAfterCareId bookingAfterCareId = new BookingAfterCareId();
 
     @MapsId("bookingId")
     @ManyToOne
@@ -29,5 +31,6 @@ public class BookingAfterCare {
     private PetiniAfterCare petiniAfterCare;
 
     @Column
-    private Long price;
+    private Long price = 0L;
+
 }

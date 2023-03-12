@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class DateFormatConfiguration {
     @Bean
     public SimpleDateFormat simpleDateFormat() {
-        return new SimpleDateFormat("yyyy-MM-dd");
+        return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
     }
 
 }

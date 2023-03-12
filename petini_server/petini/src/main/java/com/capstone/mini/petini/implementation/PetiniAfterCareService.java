@@ -1,5 +1,6 @@
 package com.capstone.mini.petini.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.capstone.mini.petini.handlers.exceptions.DuplicateException;
 import com.capstone.mini.petini.handlers.exceptions.NotFoundException;
+import com.capstone.mini.petini.model.AfterCareWorkingSchedule;
 import com.capstone.mini.petini.model.PetiniAfterCare;
 import com.capstone.mini.petini.model.PetiniUser;
 import com.capstone.mini.petini.model.status.PetiniAfterCareStatus;
+import com.capstone.mini.petini.repositories.AfterCareWorkingScheduleRepo;
 import com.capstone.mini.petini.repositories.PetiniAftercareRepo;
 import com.capstone.mini.petini.service.IPetiniAfterCareService;
 import com.capstone.mini.petini.service.IUserService;
@@ -23,6 +26,9 @@ public class PetiniAfterCareService implements IPetiniAfterCareService {
     private PetiniAftercareRepo petiniAfterCareRepo;
 
     @Autowired
+    private AfterCareWorkingScheduleRepo afterCareWorkingScheduleRepo;
+
+    @Autowired
     private IUserService userService;
 
     @Autowired
@@ -31,10 +37,21 @@ public class PetiniAfterCareService implements IPetiniAfterCareService {
     @Override
     public PetiniAfterCare createService(PetiniAfterCare petiniAfterCare) {
         PetiniUser user = userService.getAuthenticatedUser();
+        List<AfterCareWorkingSchedule> schedules = new ArrayList<>();
         if (petiniAfterCareRepo.findPetiniAfterCareByName(petiniAfterCare.getName()).isPresent()) {
             throw new DuplicateException(petiniAfterCare.getName() + " has been created");
         }
-        petiniAfterCare.getAfterCareWorkingSchedules().forEach(h -> h.setPetiniAfterCares(List.of(petiniAfterCare)));
+        for (AfterCareWorkingSchedule s : petiniAfterCare.getAfterCareWorkingSchedules()) {
+            if (afterCareWorkingScheduleRepo.findWorkingScheduleByTimeLabel(s.getTimeLabel()).isPresent()) {
+                AfterCareWorkingSchedule afterCareWorkingSchedule = afterCareWorkingScheduleRepo
+                        .findWorkingScheduleByTimeLabel(s.getTimeLabel()).get();
+                schedules.add(afterCareWorkingSchedule);
+
+            } else {
+                schedules.add(s);
+            }
+        }
+        petiniAfterCare.setAfterCareWorkingSchedules(schedules);
         petiniAfterCare.setShopOwner(user.getShopOwnerProperty());
         petiniAfterCare.setCreatedBy(user.getUsername());
         petiniAfterCare.setCreatedDate(dateFormatUtil.formatDateTimeNowToString());
@@ -63,14 +80,16 @@ public class PetiniAfterCareService implements IPetiniAfterCareService {
     public PetiniAfterCare updatePetiniAfterCare(String serviceName, PetiniAfterCare newService) {
         PetiniUser user = userService.getAuthenticatedUser();
         List<PetiniAfterCare> petiniAfterCares = this.getPetiniAfterCareList();
+        PetiniAfterCare petiniAfterCare = this.getPetiniAfterCareByName(serviceName);
         for (PetiniAfterCare c : petiniAfterCares) {
             if (!c.getName().equals(serviceName)) {
                 if (c.getName().equals(newService.getName())) {
                     throw new DuplicateException(newService.getName() + " has been created");
                 }
             }
+
         }
-        PetiniAfterCare petiniAfterCare = this.getPetiniAfterCareByName(serviceName);
+
         newService.setUpdatedBy(user.getUsername());
         newService.setUpdatedDate(dateFormatUtil.formatDateTimeNowToString());
         PetiniAfterCare updatedService = petiniAfterCare.newPetiniAfterCareBuilder(newService);

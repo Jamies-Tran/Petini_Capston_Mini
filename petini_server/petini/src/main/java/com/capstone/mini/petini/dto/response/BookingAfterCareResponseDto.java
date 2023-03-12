@@ -9,10 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PetiniServiceResponseDto {
-    private Long id;
-    private String name;
-    private String imageUrl;
-    private String description;
+public class BookingAfterCareResponseDto {
+    private PetiniAfterCareResponseDto petiniAfterCare;
     private Long price;
 }

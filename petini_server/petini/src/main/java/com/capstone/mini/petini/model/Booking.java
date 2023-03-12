@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.capstone.mini.petini.model.status.BookingStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,15 +29,15 @@ public class Booking extends BaseModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private @Setter String startDate;
-
     @OneToMany(mappedBy = "booking")
-    private @Setter List<BookingAfterCare> petiniServices;
+    private @Setter List<BookingAfterCare> bookingAfterCare;
 
     @ManyToMany
     @JoinTable(name = "booking_schedule", joinColumns = @JoinColumn(name = "booking_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "schedule_id", referencedColumnName = "id"))
-    private @Setter List<AfterCareWorkingSchdule> afterCareWorkingSchedules;
+    private @Setter List<AfterCareWorkingSchedule> shedules;
+
+    @Column
+    private String status = BookingStatus.PENDING.name();
 
     @Column
     private @Setter Long totalPrice;
