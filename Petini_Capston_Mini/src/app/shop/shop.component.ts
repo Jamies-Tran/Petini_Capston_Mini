@@ -13,7 +13,6 @@ export class ShopComponent implements OnInit{
   value:any;
 
   public onItemSelector(name: string) {
-
     localStorage.setItem('getItemsName', name);
   }
 

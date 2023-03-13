@@ -25,11 +25,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr matRipple *ngFor="let post of valuesAll | paginate:{
-                itemsPerPage: tableSizeAll,
-                currentPage: pageAll,
-                totalItems: countAll
-                };
+                <tr matRipple *ngFor="let post of valuesAll ;
                 let i = index" [style.cursor]="'pointer'" routerLink="BookDetail" (click)="onItemSelector(post.id)">
                   <td>
                     {{post.id}}
@@ -61,23 +57,56 @@
                     <button mat-icon-button color="accent"> <mat-icon>edit</mat-icon></button>
                   </td>
                 </tr>
-
+                <tr *ngIf="valuesAll.length < 1">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="valuesAll.length < 2">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="valuesAll.length < 3">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="valuesAll.length < 4">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="valuesAll.length < 5">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
 
 
               </tbody>
             </table>
-            <!-- pagination -->
-            <div class="row w-100">
-              <div class="col-sm-6">
 
-              </div>
-              <div class="col-sm-6 d-flex justify-content-center">
-                <pagination-controls previousLabel="Prev" nextLabel="Next"
-                  (pageChange)="onTableDataChangeAll($event)">
-                </pagination-controls>
-              </div>
-
-            </div>
           </mat-tab>
           <mat-tab label="Đang chờ">
 
@@ -94,11 +123,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr matRipple *ngFor="let post of valuesPending | paginate:{
-                itemsPerPage: tableSizePending,
-                currentPage: pagePending,
-                totalItems: countPending
-                };
+                <tr matRipple *ngFor="let post of valuesPending;
                 let i = index" [style.cursor]="'pointer'" routerLink="BookDetail" (click)="onItemSelector(post.id)">
                   <td>
                     {{post.id}}
@@ -131,22 +156,55 @@
                   </td>
                 </tr>
 
-
+                <tr *ngIf="valuesPending.length < 1">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="valuesPending.length < 2">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="valuesPending.length < 3">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="valuesPending.length < 4">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="valuesPending.length < 5">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
 
               </tbody>
             </table>
-            <!-- pagination -->
-            <div class="row w-100">
-              <div class="col-sm-6">
 
-              </div>
-              <div class="col-sm-6 d-flex justify-content-center">
-                <pagination-controls previousLabel="Prev" nextLabel="Next"
-                  (pageChange)="onTableDataChangePending($event)">
-                </pagination-controls>
-              </div>
-
-            </div>
           </mat-tab>
           <mat-tab label="Hoàn thành">
 
@@ -164,11 +222,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr matRipple *ngFor="let post of valuesFinished| paginate:{
-                itemsPerPage: tableSizeFinished,
-                currentPage: pageFinished,
-                totalItems: countFinished
-                };
+                <tr matRipple *ngFor="let post of valuesFinished;
                 let i = index" [style.cursor]="'pointer'" routerLink="BookDetail" (click)="onItemSelector(post.id)">
                   <td>
                     {{post.id}}
@@ -202,21 +256,54 @@
                 </tr>
 
 
-
+                <tr *ngIf="valuesFinished.length < 1">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="valuesFinished.length < 2">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="valuesFinished.length < 3">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="valuesFinished.length < 4">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr *ngIf="valuesFinished.length < 5">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
               </tbody>
             </table>
-            <!-- pagination -->
-            <div class="row w-100">
-              <div class="col-sm-6">
 
-              </div>
-              <div class="col-sm-6 d-flex justify-content-center">
-                <pagination-controls previousLabel="Prev" nextLabel="Next"
-                  (pageChange)="onTableDataChangeFinished($event)">
-                </pagination-controls>
-              </div>
-
-            </div>
           </mat-tab>
         </mat-tab-group>
       </div>

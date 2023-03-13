@@ -18,7 +18,7 @@
                     <mat-form-field class="input-username w-100" appearance="outline">
                       <mat-label>
                         Name</mat-label>
-                      <input matInput type="text" required [(ngModel)]="value.name" name="txtname{{i}}" >
+                      <input matInput type="text" required [(ngModel)]="value.name" name="txtname{{i}}">
 
 
                     </mat-form-field>
@@ -33,7 +33,9 @@
                     <div class="password">
                       <mat-form-field class="input-password w-100" appearance="outline">
                         <mat-label>Price</mat-label>
-                        <input matInput type="number" name="txtPrice{{i}}" [(ngModel)]="value.price" required>
+                        <input matInput type="number" name="txtPrice{{i}}" [(ngModel)]="value.price" required
+                          minlength="1" maxlength="9" min="1000"
+                          oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                       </mat-form-field>
                     </div>
 
@@ -76,8 +78,8 @@
               <div class="row">
                 <div class="col">
 
-                  <div ngx-dropzone class="upload" [multiple]="false" [accept]="'image/*'" (change)="onSelect($event ,i)"
-                    *ngIf="!value.showDiv" required>
+                  <div ngx-dropzone class="upload" [multiple]="false" [accept]="'image/*'"
+                    (change)="onSelect($event ,i)" *ngIf="!value.showDiv" required>
                     <ngx-dropzone-label>
                       <div>
                         <i class="fas fa-cloud-upload-alt icon-upload"></i>
@@ -85,7 +87,7 @@
                       </div>
                     </ngx-dropzone-label>
                   </div>
-                  <div class="wrapper"*ngIf="value.showDiv" >
+                  <div class="wrapper" *ngIf="value.showDiv">
                     <ngx-dropzone-image-preview class="image-preview overflow-hidden" ngProjectAs="ngx-dropzone-preview"
                       [file]="value.file" [removable]="true" (removed)="onRemove(value.file ,i)">
                     </ngx-dropzone-image-preview>

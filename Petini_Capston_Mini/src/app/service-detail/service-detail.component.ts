@@ -68,6 +68,8 @@ export class ServiceDetailComponent implements OnInit {
   waste = 0;
   price = '';
   value: any;
+  messageTimeBox: any;
+  isLogin = false;
 
   ngOnInit(): void {
     this.get3Day();
@@ -84,23 +86,33 @@ export class ServiceDetailComponent implements OnInit {
           this.price = this.value.price;
           this.imageUrl = this.value.imageUrl;
           let boxTime = this.value.afterCareWorkingSchedules;
-          for (let item of this.value.afterCareWorkingSchedules) {
-            let statusTime = false;
-            this.httpBooking.checkValidBooking(item.timeLabel).subscribe((data) =>{
-              if (data) {
-                statusTime = true;
-              } else statusTime = false;
-              this.time.push({
-                timeLabel: item.timeLabel,
-                timeValue: item.timeValue,
-                statusTime: statusTime,
-                statusBooking: false,
-              });
-            },(error) =>{
-              this.message = error;
-              console.log(this.message);
-            })
-
+          this.messageTimeBox = '';
+          this.isLogin = false;
+          if (localStorage.getItem('userToken')) {
+            this.isLogin = true;
+            for (let item of this.value.afterCareWorkingSchedules) {
+              let statusTime = false;
+              this.httpBooking.checkValidBooking(item.timeLabel).subscribe(
+                (data) => {
+                  if (data) {
+                    statusTime = true;
+                  } else statusTime = false;
+                  this.time.push({
+                    timeLabel: item.timeLabel,
+                    timeValue: item.timeValue,
+                    statusTime: statusTime,
+                    statusBooking: false,
+                  });
+                },
+                (error) => {
+                  this.message = error;
+                  console.log(this.message);
+                }
+              );
+            }
+          } else {
+            this.messageTimeBox = 'Mời bạn đăng nhập ';
+            this.isLogin = false;
           }
           console.log(this.time);
 
@@ -151,30 +163,43 @@ export class ServiceDetailComponent implements OnInit {
 
   createServiceBooking: Array<{ serviceName: string; timeLabel: Array<any> }> =
     [];
-  timeLabelBooking:any=[];
+  timeLabelBooking: any = [];
   bookingService() {
     this.timeLabelBooking = [];
-    for(let item of this.time){
-      if(item.statusBooking==true){
-        let timeLabel = "";
+    for (let item of this.time) {
+      if (item.statusBooking == true) {
+        let timeLabel = '';
         timeLabel = item.timeLabel;
         this.timeLabelBooking.push(timeLabel);
       }
     }
-    console.log(this.timeLabelBooking)
+    console.log(this.timeLabelBooking);
     // let timeLabel=[]
     // timeLabel.push("12:00","13:00");
-    this.createServiceBooking.push({serviceName:this.name ,timeLabel:this.timeLabelBooking} );
-    this.httpBooking.createServiceBooking(this.name,this.timeLabelBooking ).subscribe((data) => {
-      this.message = 'Đăng ký lịch thành công';
-      this.openDialogSuccess();
-      setTimeout(function(){
-        window.location.reload();
-     }, 2000);
-    },(error)=>{
-      this.message= error;
-      this.openDialogMessage();
+    this.createServiceBooking.push({
+      serviceName: this.name,
+      timeLabel: this.timeLabelBooking,
     });
+    if (localStorage.getItem('userToken')) {
+      this.httpBooking
+        .createServiceBooking(this.name, this.timeLabelBooking)
+        .subscribe(
+          (data) => {
+            this.message = 'Đăng ký lịch thành công';
+            this.openDialogSuccess();
+            setTimeout(function () {
+              window.location.reload();
+            }, 2000);
+          },
+          (error) => {
+            this.message = error;
+            this.openDialogMessage();
+          }
+        );
+    } else {
+      this.message = 'Mời bạn đăng nhập ';
+      this.openDialogMessage();
+    }
   }
 }
 

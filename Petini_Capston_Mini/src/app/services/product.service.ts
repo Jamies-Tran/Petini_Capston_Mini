@@ -52,7 +52,7 @@ export class ProductService {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json ',
-        Authorization: 'Bearer ' + localStorage.getItem('userToken'),
+        // 'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
       }),
     };
     // get API

@@ -341,6 +341,7 @@ export class ServiceDetailComponent implements OnInit {
     }
   }
   openDialogDelete() {
+    this.message = "Bạn có chắc xóa bỏ dịch vụ này";
     this.dialog.open(DeleteComponent, {
       data: { data: this.message, name: this.value.name , filter:'service'},
     });

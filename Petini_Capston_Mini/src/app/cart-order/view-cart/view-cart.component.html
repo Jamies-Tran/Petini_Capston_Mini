@@ -65,9 +65,10 @@
         <div class="card rounded">
           <div class="card-body">
             <div class="d-flex flex-row justify-content-end">
-              <div class="d-flex flex-row flex-nowarp">
-                <div> Tổng thanh toán: </div>
-                <div class="Total-price"> 0 </div>
+              <div class="d-flex flex-row flex-nowarp px-4 align-items-end ">
+                <span> Tổng thanh toán:</span>
+                <div class="Total-price ps-1 text-danger fs-5">
+                  {{totalPrice | currency:'VND'}} </div>
               </div>
               <div>
                 <button mat-raised-button

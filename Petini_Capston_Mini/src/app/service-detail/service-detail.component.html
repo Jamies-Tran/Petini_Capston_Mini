@@ -53,7 +53,7 @@
                   <input matInput type="text" readonly [(ngModel)]="curentDate" name="selectedDate">
                 </mat-form-field>
                 <div class="card bg-white rounded overflow-auto w-75">
-                  <div class="card-body p-0">
+                  <div class="card-body p-0" *ngIf="isLogin">
                     <div class="container p-3 vh-50">
                       <div class="row w-100 m-0">
                         <!-- box time -->
@@ -66,6 +66,13 @@
                           </div>
                         </div>
                         <!-- box time -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body p-0" *ngIf="!isLogin">
+                    <div class="container p-3 vh-50">
+                      <div class="d-flex justify-content-center align-items-center ">
+                        <h5 class="text-danger m-0">{{messageTimeBox}} </h5>
                       </div>
                     </div>
                   </div>

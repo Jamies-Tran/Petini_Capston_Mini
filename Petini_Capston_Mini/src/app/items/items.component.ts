@@ -14,37 +14,34 @@ import { CartService } from '../services/cart.service';
 })
 export class ItemsComponent implements OnInit {
   isLogin = false;
+
   ngOnInit(): void {
     try {
-      if (localStorage.getItem('userToken')) {
-        const name = localStorage.getItem('getItemsName') as string;
-        console.log(name);
-        this.httpProduct.getProductDetail(name).subscribe(
-          async (data) => {
-            console.log(data);
-            this.name = data['name'];
-            this.description = data['description'];
-            this.status = '';
-            this.quantity = data['quantity'];
-            this.price = data['price'];
+      const name = localStorage.getItem('getItemsName') as string;
+      console.log(name);
+      this.httpProduct.getProductDetail(name).subscribe(
+        async (data) => {
+          console.log(data);
+          this.name = data['name'];
+          this.description = data['description'];
+          this.status = '';
+          this.quantity = data['quantity'];
+          this.price = data['price'];
 
-            // get file image
-            await this.image
-              .getImage('items/' + data['imageUrl'])
-              .then((url) => {
-                this.imageUrl = url;
-              })
-              .catch((error) => {});
-            console.log(this.imageUrl);
-          },
-          (error) => {
-            this.message = error.message;
-            this.openDialogMessage();
-          }
-        );
-      } else {
-        this.router.navigate(['/Login'], { relativeTo: this.route });
-      }
+          // get file image
+          await this.image
+            .getImage('items/' + data['imageUrl'])
+            .then((url) => {
+              this.imageUrl = url;
+            })
+            .catch((error) => {});
+          console.log(this.imageUrl);
+        },
+        (error) => {
+          this.message = error.message;
+          this.openDialogMessage();
+        }
+      );
     } catch (error) {}
   }
   constructor(
@@ -72,16 +69,23 @@ export class ItemsComponent implements OnInit {
   }
 
   addToCart() {
-    console.log(this.amount)
-    this.httpCart.addProductToShoppingCart(this.name, this.amount).subscribe((data)=>{
-      console.log("suces");
-      this.message = "Thành Công";
-      this.openDialogSuccess();
-    },
-    (error) => {
-      this.message = error;
+    if (localStorage.getItem('userToken')) {
+      console.log(this.amount);
+      this.httpCart.addProductToShoppingCart(this.name, this.amount).subscribe(
+        (data) => {
+          console.log('suces');
+          this.message = 'Thành Công';
+          this.openDialogSuccess();
+        },
+        (error) => {
+          this.message = error;
+          this.openDialogMessage();
+        }
+      );
+    } else {
+      this.message = 'Mời bạn đăng nhập ';
       this.openDialogMessage();
-    })
+    }
   }
   openDialogSuccess() {
     localStorage.setItem('registerSuccess', '');

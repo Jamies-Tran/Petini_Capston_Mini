@@ -2,17 +2,17 @@
 <div class="header">
   <div><mat-icon class="mat-18">warning</mat-icon></div>
   <div class="warnning">
-    Are you sure?
+   Lưu ý
   </div>
 </div>
 <div class="container">
   <div class="content">
     <div class="text mb-3">
-      <p class="fs-5"></p>
+      <p class="fs-5">{{data.data}} </p>
     </div>
     <div class="button">
-      <button class="cancel" mat-button mat-dialog-close>No, cancel It!</button>
-      <button class="delete" mat-button mat-dialog-close (click)="deleteAction()">Yes, delete It!</button>
+      <button class="cancel" mat-button mat-dialog-close>Hủy bỏ</button>
+      <button class="delete" mat-button mat-dialog-close (click)="deleteAction()">Có, tôi muốn {{filter}} nó!</button>
     </div>
   </div>
 </div>

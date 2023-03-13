@@ -13,6 +13,8 @@ import { ServiceDetailComponent } from './manage-service/service-detail/service-
 import { AddServiceComponent } from './manage-service/add-service/add-service.component';
 import { ManageBookingComponent } from './manage-booking/manage-booking.component';
 import { BookingDetailComponent } from './manage-booking/booking-detail/booking-detail.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { OrderDetailComponent } from './manage-order/order-detail/order-detail.component';
 
 const routes: Routes = [
   {
@@ -75,6 +77,16 @@ const routes: Routes = [
           {
             path: 'BookingDetail',
             component: BookingDetailComponent,
+          },
+        ],
+      },
+      { path: 'Order', component: ManageOrderComponent },
+      {
+        path: 'Order',
+        children: [
+          {
+            path: 'OrderDetail',
+            component: OrderDetailComponent,
           },
         ],
       },

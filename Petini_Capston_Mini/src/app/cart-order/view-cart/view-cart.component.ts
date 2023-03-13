@@ -14,6 +14,7 @@ import { OrderService } from '../../services/order.service';
 })
 export class ViewCartComponent implements OnInit {
   value: data[] = [];
+  totalPrice=0;
   cart: any;
 
   ngOnInit(): void {
@@ -36,9 +37,13 @@ export class ViewCartComponent implements OnInit {
             quantity: i.quantity,
             imageUrl: imgUrl,
           });
+
+        }
+        for(let item of this.value){
+          this.totalPrice = this.totalPrice + (item.price * item.quantity);
         }
 
-        console.log(data);
+        console.log(this.totalPrice);
         console.log(this.value);
       },
       (error) => {
@@ -77,6 +82,10 @@ export class ViewCartComponent implements OnInit {
     this.httpOrder.createOrder().subscribe((data) =>{
       this.message = " Đặt hàng thành công";
       this.openDialogSuccess();
+      setTimeout(function(){
+        window.location.reload();
+     }, 2000);
+
     },(error)=>{
       this.message=error;
       this.openDialogMessage();

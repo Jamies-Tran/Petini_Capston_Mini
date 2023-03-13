@@ -3,7 +3,7 @@
     <div class="content row justify-content-between">
       <div class="col-md-7">
         <div class="img-fluid img-thumbnail rounded justify-content-center d-flex pt-2">
-          <img [src]="imageUrl">
+          <img class="  rounded img-fluid " [src]="imageUrl">
 
         </div>
       </div>
@@ -16,26 +16,28 @@
           <span class="fs-4 price">{{price}} &#8363;</span>
           <span class="second-text mb-3">
             {{description}}
-          </span >
+          </span>
           <hr class="w-100">
           <form (ngSubmit)="addToCart()">
 
-          <div class="row w-100 value-items-box ">
-            <div class="col-4">
-              <mat-form-field class="value-items w-100" appearance="outline">
-                <mat-label>Số lượng: </mat-label>
-                <input matInput value="0" name="amount" type="number" min="0" [(ngModel)]="amount">
-              </mat-form-field>
-            </div>
+            <div class="row w-100 value-items-box ">
+              <div class="col-4">
+                <mat-form-field class="value-items w-100" appearance="outline">
+                  <mat-label>Số lượng: </mat-label>
+                  <input matInput value="0" name="amount" type="number"  max="{{quantity}}" [(ngModel)]="amount"
+                    minlength="1" maxlength="7" min="1"
+                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+                </mat-form-field>
+              </div>
 
-            <div class="col-8 pe-0">
-              <button mat-raised-button color="primary" type="submit"> Thêm Vào Giỏ Hàng</button>
+              <div class="col-8 pe-0">
+                <button mat-raised-button color="primary" type="submit"> Thêm Vào Giỏ Hàng</button>
+              </div>
             </div>
-          </div>
-          <div class="row w-100 value-item-box">
-            <div class="col">Kho: {{quantity}}</div>
-          </div>
-        </form>
+            <div class="row w-100 value-item-box">
+              <div class="col">Kho: {{quantity}}</div>
+            </div>
+          </form>
 
 
 

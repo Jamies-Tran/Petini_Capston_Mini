@@ -33,7 +33,7 @@ export class OrderService {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json ',
-        Authorization: 'Bearer ' + localStorage.getItem('userToken'),
+        'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
       }),
     };
     console.log(this.httpOptions.headers);
@@ -49,13 +49,11 @@ export class OrderService {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json ',
-        Authorization: 'Bearer ' + localStorage.getItem('userToken'),
+        'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
       }),
     };
     console.log(this.httpOptions.headers);
-    const url = `${this.REST_API_SERVER}/api/order/customer-orders?username=${{
-      username,
-    }}`;
+    const url = `${this.REST_API_SERVER}/api/order/customer-orders?username=${username}`;
     return this.httpClient
       .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
@@ -79,16 +77,14 @@ export class OrderService {
 
   // 4 PUT
   // /api/order/order-accepting
-  public acceptOrder(id: number) {
+  public acceptOrder(id: any) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json ',
-        Authorization: 'Bearer ' + localStorage.getItem('userToken'),
+        'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
       }),
     };
-    const url = `${this.REST_API_SERVER}/api/order/order-accepting?id=${{
-      id,
-    }}`;
+    const url = `${this.REST_API_SERVER}/api/order/order-accepting?id=${id}`;
     return this.httpClient
       .put<any>(url, null, this.httpOptions)
       .pipe(catchError(this.handleError));
@@ -96,16 +92,14 @@ export class OrderService {
 
   // 5 PUT
   // /api/order/order-rejecting
-  public rejectOrder(id: number) {
+  public rejectOrder(id: any) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json ',
-        Authorization: 'Bearer ' + localStorage.getItem('userToken'),
+        'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
       }),
     };
-    const url = `${this.REST_API_SERVER}/api/order/order-rejecting?id=${{
-      id,
-    }}`;
+    const url = `${this.REST_API_SERVER}/api/order/order-rejecting?id=${id}`;
     return this.httpClient
       .put<any>(url, null, this.httpOptions)
       .pipe(catchError(this.handleError));
@@ -113,34 +107,48 @@ export class OrderService {
 
   // 6 GET
   // /api/order/status-orders
-  public updateProduct(
-    id: number,
-    description: string,
-    imageUrl: string,
-    name: string,
-    price: number,
-    quantity: string,
-    status: string
-  ) {
+  // PENGDING
+  public getOrderByStatusPENGDING() {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json ',
-        Authorization: 'Bearer ' + localStorage.getItem('userToken'),
+        'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
       }),
     };
-    var value = {
-      description: description,
-      imageUrl: imageUrl,
-      name: name,
-      price: price,
-      quantity: quantity,
-      status: status,
-    };
-    const url = `${
-      this.REST_API_SERVER
-    }/api/product/product-update?productName=${{ id }}`;
+
+    const url = `${this.REST_API_SERVER}/api/order/status-orders?status=PENGDING`;
     return this.httpClient
-      .put<any>(url, value, this.httpOptions)
+      .get<any>(url, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
+
+  // ACCEPT
+  public getOrderByStatusACCEPT() {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json ',
+        'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
+      }),
+    };
+
+    const url = `${this.REST_API_SERVER}/api/order/status-orders?status=ACCEPT`;
+    return this.httpClient
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+  // REJECT
+  public getOrderByStatusREJECT() {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json ',
+        'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
+      }),
+    };
+
+    const url = `${this.REST_API_SERVER}/api/order/status-orders?status=REJECT`;
+    return this.httpClient
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
 }
