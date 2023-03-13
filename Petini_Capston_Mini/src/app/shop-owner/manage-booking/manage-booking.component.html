@@ -9,75 +9,216 @@
   <div class="row">
     <div class="col col ">
       <div class="body card mb-4">
+        <mat-tab-group>
+          <mat-tab label="Tất cả">
 
-
-
-        <table class="table table-striped table-hover mt-2 align-middle" style="height:60vh">
-          <thead class="">
-            <tr class="fw-5">
-              <th class="w-2">ID</th>
-              <th>Tên</th>
-              <th class="w-1">Dịch vụ</th>
-              <th class="w-1">ngày và giờ đặt</th>
-              <th class="w-1">Trạng thái</th>
-              <th class="w-1">Tổng tiền</th>
-              <th class="w-1">Xem và Sửa</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr matRipple *ngFor="let post of values | paginate:{
-                itemsPerPage: tableSize,
-                currentPage: page,
-                totalItems: count
+            <table class="table table-striped table-hover mt-2 align-middle" style="height:60vh">
+              <thead class="">
+                <tr class="fw-5">
+                  <th class="w-2">ID</th>
+                  <th>Tên</th>
+                  <th class="w-1">Dịch vụ</th>
+                  <th class="w-1">ngày và giờ đặt</th>
+                  <th class="w-1">Trạng thái</th>
+                  <th class="w-1">Tổng tiền</th>
+                  <th class="w-1">Xem và Sửa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr matRipple *ngFor="let post of valuesAll | paginate:{
+                itemsPerPage: tableSizeAll,
+                currentPage: pageAll,
+                totalItems: countAll
                 };
-                let i = index" [style.cursor]="'pointer'" routerLink="ItemsDetail"
-              (click)="onItemSelector(post.id)">
-              <td>
-                {{post.id}}
-              </td>
-              <td>
+                let i = index" [style.cursor]="'pointer'" routerLink="BookDetail" (click)="onItemSelector(post.id)">
+                  <td>
+                    {{post.id}}
+                  </td>
+                  <td>
 
-                <div class="d-flex align-items-center">
-                  <!-- <img [src]="post.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" /> -->
-                  <div class="ms-3">
-                    <p class="fw-bold mb-1"> {{post.createdBy}}</p>
-                    <!-- <p class="text-muted mb-0 overflow-hidden text-break"> {{post.description}}</p> -->
-                  </div>
-                </div>
-              </td>
-              <td>
-                {{post.bookingAfterCare[0].petiniAfterCare.name}}
-              </td>
-              <td>
-                {{post.bookingSchedules[0].timeLabel}}
-              </td>
+                    <div class="d-flex align-items-center">
+                      <!-- <img [src]="post.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" /> -->
+                      <div class="ms-3">
+                        <p class="fw-bold mb-1"> {{post.createdBy}}</p>
+                        <!-- <p class="text-muted mb-0 overflow-hidden text-break"> {{post.description}}</p> -->
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    {{post.bookingAfterCare[0].petiniAfterCare.name}}
+                  </td>
+                  <td>
+                    {{post.bookingSchedules[0].timeLabel}}
+                  </td>
 
-              <td> <span class="badge rounded-pill d-inline"
-                  [class]="post.status != 'PENDING' ? 'badge-success' : 'badge-warning' ">{{post.status
-                  == 'PENDING' ? 'Chờ duyệt' :  'Chấp nhận' }}</span></td>
-              <td>
-                {{post.bookingAfterCare[0].petiniAfterCare.price}}
-              </td>
-              <td class="text-center">
-                <button mat-icon-button color="accent"> <mat-icon>edit</mat-icon></button>
-              </td>
-            </tr>
-
+                  <td> <span class="badge rounded-pill d-inline"
+                      [class]="post.status != 'PENDING' ? 'badge-success' : 'badge-warning' ">{{post.status
+                      == 'PENDING' ? 'Chờ duyệt' : 'Chấp nhận' }}</span></td>
+                  <td>
+                    {{post.bookingAfterCare[0].petiniAfterCare.price}}
+                  </td>
+                  <td class="text-center">
+                    <button mat-icon-button color="accent"> <mat-icon>edit</mat-icon></button>
+                  </td>
+                </tr>
 
 
-          </tbody>
-        </table>
-        <!-- pagination -->
-        <div class="row w-100">
-          <div class="col-sm-6">
 
-          </div>
-          <div class="col-sm-6 d-flex justify-content-center">
-            <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChangeCustomer($event)">
-            </pagination-controls>
-          </div>
+              </tbody>
+            </table>
+            <!-- pagination -->
+            <div class="row w-100">
+              <div class="col-sm-6">
 
-        </div>
+              </div>
+              <div class="col-sm-6 d-flex justify-content-center">
+                <pagination-controls previousLabel="Prev" nextLabel="Next"
+                  (pageChange)="onTableDataChangeAll($event)">
+                </pagination-controls>
+              </div>
+
+            </div>
+          </mat-tab>
+          <mat-tab label="Đang chờ">
+
+            <table class="table table-striped table-hover mt-2 align-middle" style="height:60vh">
+              <thead class="">
+                <tr class="fw-5">
+                  <th class="w-2">ID</th>
+                  <th>Tên</th>
+                  <th class="w-1">Dịch vụ</th>
+                  <th class="w-1">ngày và giờ đặt</th>
+                  <th class="w-1">Trạng thái</th>
+                  <th class="w-1">Tổng tiền</th>
+                  <th class="w-1">Xem và Sửa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr matRipple *ngFor="let post of valuesPending | paginate:{
+                itemsPerPage: tableSizePending,
+                currentPage: pagePending,
+                totalItems: countPending
+                };
+                let i = index" [style.cursor]="'pointer'" routerLink="BookDetail" (click)="onItemSelector(post.id)">
+                  <td>
+                    {{post.id}}
+                  </td>
+                  <td>
+
+                    <div class="d-flex align-items-center">
+                      <!-- <img [src]="post.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" /> -->
+                      <div class="ms-3">
+                        <p class="fw-bold mb-1"> {{post.createdBy}}</p>
+                        <!-- <p class="text-muted mb-0 overflow-hidden text-break"> {{post.description}}</p> -->
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    {{post.bookingAfterCare[0].petiniAfterCare.name}}
+                  </td>
+                  <td>
+                    {{post.bookingSchedules[0].timeLabel}}
+                  </td>
+
+                  <td> <span class="badge rounded-pill d-inline"
+                      [class]="post.status != 'PENDING' ? 'badge-success' : 'badge-warning' ">{{post.status
+                      == 'PENDING' ? 'Chờ duyệt' : 'Chấp nhận' }}</span></td>
+                  <td>
+                    {{post.bookingAfterCare[0].petiniAfterCare.price}}
+                  </td>
+                  <td class="text-center">
+                    <button mat-icon-button color="accent"> <mat-icon>edit</mat-icon></button>
+                  </td>
+                </tr>
+
+
+
+              </tbody>
+            </table>
+            <!-- pagination -->
+            <div class="row w-100">
+              <div class="col-sm-6">
+
+              </div>
+              <div class="col-sm-6 d-flex justify-content-center">
+                <pagination-controls previousLabel="Prev" nextLabel="Next"
+                  (pageChange)="onTableDataChangePending($event)">
+                </pagination-controls>
+              </div>
+
+            </div>
+          </mat-tab>
+          <mat-tab label="Hoàn thành">
+
+
+            <table class="table table-striped table-hover mt-2 align-middle" style="height:60vh">
+              <thead class="">
+                <tr class="fw-5">
+                  <th class="w-2">ID</th>
+                  <th>Tên</th>
+                  <th class="w-1">Dịch vụ</th>
+                  <th class="w-1">ngày và giờ đặt</th>
+                  <th class="w-1">Trạng thái</th>
+                  <th class="w-1">Tổng tiền</th>
+                  <th class="w-1">Xem và Sửa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr matRipple *ngFor="let post of valuesFinished| paginate:{
+                itemsPerPage: tableSizeFinished,
+                currentPage: pageFinished,
+                totalItems: countFinished
+                };
+                let i = index" [style.cursor]="'pointer'" routerLink="BookDetail" (click)="onItemSelector(post.id)">
+                  <td>
+                    {{post.id}}
+                  </td>
+                  <td>
+
+                    <div class="d-flex align-items-center">
+                      <!-- <img [src]="post.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" /> -->
+                      <div class="ms-3">
+                        <p class="fw-bold mb-1"> {{post.createdBy}}</p>
+                        <!-- <p class="text-muted mb-0 overflow-hidden text-break"> {{post.description}}</p> -->
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    {{post.bookingAfterCare[0].petiniAfterCare.name}}
+                  </td>
+                  <td>
+                    {{post.bookingSchedules[0].timeLabel}}
+                  </td>
+
+                  <td> <span class="badge rounded-pill d-inline"
+                      [class]="post.status != 'PENDING' ? 'badge-success' : 'badge-warning' ">{{post.status
+                      == 'PENDING' ? 'Chờ duyệt' : 'Chấp nhận' }}</span></td>
+                  <td>
+                    {{post.bookingAfterCare[0].petiniAfterCare.price}}
+                  </td>
+                  <td class="text-center">
+                    <button mat-icon-button color="accent"> <mat-icon>edit</mat-icon></button>
+                  </td>
+                </tr>
+
+
+
+              </tbody>
+            </table>
+            <!-- pagination -->
+            <div class="row w-100">
+              <div class="col-sm-6">
+
+              </div>
+              <div class="col-sm-6 d-flex justify-content-center">
+                <pagination-controls previousLabel="Prev" nextLabel="Next"
+                  (pageChange)="onTableDataChangeFinished($event)">
+                </pagination-controls>
+              </div>
+
+            </div>
+          </mat-tab>
+        </mat-tab-group>
       </div>
     </div>
 

@@ -5,6 +5,7 @@ import { MessageComponent } from '../../pop-up/message/message.component';
 import { ImageService } from '../../services/image.service';
 import { ProductService } from '../../services/product.service';
 import { CartService } from '../../services/cart.service';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-view-cart',
@@ -16,26 +17,26 @@ export class ViewCartComponent implements OnInit {
   cart: any;
 
   ngOnInit(): void {
-    this.http.getCustomerShoppingCart().subscribe(
+    this.httpCart.getCustomerShoppingCart().subscribe(
       async (data) => {
-         const cartProduct = data['cartProduct'];
-         let imgUrl ='';
-         for( let i of cartProduct){
+        const cartProduct = data['cartProduct'];
+        let imgUrl = '';
+        for (let i of cartProduct) {
           await this.image
-              .getImage('items/' + i.product.imageUrl)
-              .then((url) => {
-                imgUrl = url;
-              })
-              .catch((error) => {});
+            .getImage('items/' + i.product.imageUrl)
+            .then((url) => {
+              imgUrl = url;
+            })
+            .catch((error) => {});
 
           this.value.push({
-            name:i.product.name,
-            description:i.product.description,
-            price:i.product.price,
-            quantity:i.quantity,
-            imageUrl:imgUrl
-          })
-         }
+            name: i.product.name,
+            description: i.product.description,
+            price: i.product.price,
+            quantity: i.quantity,
+            imageUrl: imgUrl,
+          });
+        }
 
         console.log(data);
         console.log(this.value);
@@ -43,12 +44,16 @@ export class ViewCartComponent implements OnInit {
       (error) => {
         console.log(error);
         this.message = error;
-        this.openDialogMessage();
       }
     );
   }
   message: any;
-  constructor(private http: CartService, public dialog: MatDialog, private image: ImageService,) {}
+  constructor(
+    private httpCart: CartService,
+    public dialog: MatDialog,
+    private image: ImageService,
+    private httpOrder: OrderService
+  ) {}
   openDialogSuccess() {
     localStorage.setItem('registerSuccess', '');
 
@@ -66,6 +71,16 @@ export class ViewCartComponent implements OnInit {
     this.dialog.open(MessageComponent, {
       data: this.message,
     });
+  }
+
+  order() {
+    this.httpOrder.createOrder().subscribe((data) =>{
+      this.message = " Đặt hàng thành công";
+      this.openDialogSuccess();
+    },(error)=>{
+      this.message=error;
+      this.openDialogMessage();
+    })
   }
 }
 

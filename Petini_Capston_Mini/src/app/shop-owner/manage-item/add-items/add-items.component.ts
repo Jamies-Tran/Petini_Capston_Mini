@@ -162,9 +162,7 @@ export class AddItemsComponent implements OnInit {
         this.message = 'Tạo sản phẩm thành công';
         this.openDialogSuccess();
       });
-
-    }
-    else this.openDialogMessage();
+    } else this.openDialogMessage();
   }
 
   public valid() {
@@ -174,9 +172,21 @@ export class AddItemsComponent implements OnInit {
         this.message = 'Xin nhập ảnh sản phẩm vào';
         return;
       }
+
     }
+    for(let i =0 ; i < this.items.length; i++){
+      for(let j = i+1 ; j<= this.items.length ; ){
+        if(this.items[i].name == this.items[j].name){
+          this.message = "Tên sản phẩm " + this.items[j].name+" bị trùng với " + this.items[i].name ;
+          this.openDialogMessage();
+          return;
+        }
+      }
+    }
+
     return true;
   }
+
 
   openDialogMessage() {
     this.dialog.open(MessageComponent, {

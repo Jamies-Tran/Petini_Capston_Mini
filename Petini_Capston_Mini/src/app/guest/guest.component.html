@@ -67,12 +67,16 @@
                             <span>Giỏ hàng</span>
                           </a>
                           <a mat-menu-item routerLink="/History">
-                            <mat-icon>shopping_cart</mat-icon>
+                            <mat-icon>description</mat-icon>
                             <span>Lịch sử đặt hàng</span>
                           </a>
                           <a mat-menu-item routerLink="/ShopOwner" *ngIf="role == 'SHOPOWNER' ">
                             <mat-icon>manage_accounts</mat-icon>
                             <span>Trang quản lý</span>
+                          </a>
+                          <a mat-menu-item routerLink="/Booking" >
+                            <mat-icon>calendar_month</mat-icon>
+                            <span>Lịch sử đặt lịch</span>
                           </a>
                           <button mat-menu-item (click)="logout()">
                             <mat-icon>logout</mat-icon>

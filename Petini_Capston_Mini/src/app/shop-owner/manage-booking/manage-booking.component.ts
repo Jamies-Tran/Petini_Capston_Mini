@@ -8,14 +8,15 @@ import { ImageService } from 'src/app/services/image.service';
 @Component({
   selector: 'app-manage-booking',
   templateUrl: './manage-booking.component.html',
-  styleUrls: ['./manage-booking.component.scss']
+  styleUrls: ['./manage-booking.component.scss'],
 })
 export class ManageBookingComponent implements OnInit {
-  values:any
+  valuesAll: any;
+  valuesPending: any;
+  valuesFinished: any;
   i: any;
   message!: string;
-  status = 'sellin';
-  datas:any;
+  datas: any;
 
   constructor(
     public dialog: MatDialog,
@@ -23,29 +24,74 @@ export class ManageBookingComponent implements OnInit {
     private http: BookingService
   ) {}
   ngOnInit(): void {
-    this.values = [];
+    // All
+    this.valuesAll = [];
     this.datas = [];
     this.http.getAllBooking().subscribe(async (data) => {
       console.log(data);
-      this.datas = data
-      for(let value of this.datas){
-        if(value.bookingSchedules.length >0){
-          this.values.push(value);
+      this.datas = data;
+      for (let value of this.datas) {
+        if (value.bookingSchedules.length > 0) {
+          this.valuesAll.push(value);
         }
       }
+    });
 
+    // All
+    this.valuesPending = [];
+    this.datas = [];
+    this.http.getBookingListByStatus('PENDING').subscribe(async (data) => {
+      console.log(data);
+      this.datas = data;
+      for (let value of this.datas) {
+        if (value.bookingSchedules.length > 0) {
+          this.valuesPending.push(value);
+        }
+      }
+    });
+
+    // All
+    this.valuesFinished = [];
+    this.datas = [];
+    this.http.getBookingListByStatus('FINISHED').subscribe(async (data) => {
+      console.log(data);
+      this.datas = data;
+      for (let value of this.datas) {
+        if (value.bookingSchedules.length > 0) {
+          this.valuesFinished.push(value);
+        }
+      }
     });
   }
 
-  title = 'pagination';
-  page: number = 1;
-  count: number = 0;
-  tableSize: number = 5;
+  // All
+  pageAll: number = 1;
+  countAll: number = 0;
+  tableSizeAll: number = 5;
 
-  // Customer
-  onTableDataChangeCustomer(event: any) {
-    this.page = event;
-    this.values;
+  onTableDataChangeAll(event: any) {
+    this.pageAll = event;
+    this.valuesAll;
+  }
+
+  // Pending
+  pagePending: number = 1;
+  countPending: number = 0;
+  tableSizePending: number = 5;
+
+  onTableDataChangePending(event: any) {
+    this.pagePending = event;
+    this.valuesPending;
+  }
+
+  // Finished
+  pageFinished: number = 1;
+  countFinished: number = 0;
+  tableSizeFinished: number = 5;
+
+  onTableDataChangeFinished(event: any) {
+    this.pageFinished = event;
+    this.valuesFinished;
   }
 
   public onItemSelector(id: number) {
@@ -62,5 +108,4 @@ export class ManageBookingComponent implements OnInit {
       data: this.message,
     });
   }
-
 }
