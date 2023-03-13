@@ -1,4 +1,4 @@
-package com.capstone.mini.petini.dto.response;
+package com.capstone.mini.petini.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,14 +9,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PetResponseDto {
-    private Long id;
+public class PetRequestDto {
     private String name;
     private String imageUrl;
     private String color;
     private String petType;
     private Double weight;
     private Integer age;
-    private String status;
+    private String gender;
+    private String description;
 
 }

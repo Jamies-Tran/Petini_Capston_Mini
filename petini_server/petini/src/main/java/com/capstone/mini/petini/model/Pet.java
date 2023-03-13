@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.capstone.mini.petini.model.status.PetStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +27,9 @@ public class Pet extends BaseModel {
     private @Setter String name;
 
     @Column
+    private @Setter String imageUrl;
+
+    @Column
     private @Setter String color;
 
     @Column
@@ -40,8 +45,12 @@ public class Pet extends BaseModel {
     private @Setter String gender;
 
     @Column
-    private @Setter boolean isForAdopted;
+    private @Setter String status = PetStatus.NOT_ADOPTED.name();
+
+    @Column(columnDefinition = "nvarchar(500)")
+    private @Setter String description;
 
     @ManyToOne
-    private @Setter Customer customer;
+    private @Setter ShopOwner shopOwner;
+
 }

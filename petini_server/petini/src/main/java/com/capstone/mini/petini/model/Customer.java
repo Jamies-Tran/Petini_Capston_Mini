@@ -25,9 +25,6 @@ public class Customer {
     private @Setter Long id;
 
     @OneToMany(mappedBy = "customer")
-    private @Setter List<Pet> pets;
-
-    @OneToMany(mappedBy = "customer")
     private @Setter List<Booking> bookings;
 
     @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
