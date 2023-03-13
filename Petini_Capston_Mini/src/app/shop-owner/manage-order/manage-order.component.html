@@ -34,19 +34,19 @@
                     <div class="d-flex align-items-center">
                       <!-- <img [src]="post.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" /> -->
                       <div class="ms-3">
-                        <p class="fw-bold mb-1"> {{post.createdBy}}</p>
+                        <p class="fw-bold mb-1"> {{post.name}}</p>
                         <!-- <p class="text-muted mb-0 overflow-hidden text-break"> {{post.description}}</p> -->
                       </div>
                     </div>
                   </td>
                   <td>
-                    <div class="ms-3">
-                      <p class="fw-bold mb-1"> {{post.cart.cartProduct[0].product.name}}</p>
-                      <p class="text-muted mb-0 overflow-hidden text-break"> x {{post.cart.cartProduct[0].quantity}}</p>
+                    <div class="ms-3" *ngFor="let item of post.carts">
+                      <p class="fw-bold mb-1"> {{item.product}}</p>
+                      <p class="text-muted mb-0 overflow-hidden text-break"> x {{item.quantity}}</p>
                     </div>
                   </td>
                   <td>
-                    {{post.cart.totalPrice}}
+                    {{post.total}}
                   </td>
                   <td> <span class="badge rounded-pill d-inline"
                       [class]="post.status != 'PENDING' ? 'badge-success' : 'badge-warning' ">
@@ -127,19 +127,19 @@
                     <div class="d-flex align-items-center">
                       <!-- <img [src]="post.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" /> -->
                       <div class="ms-3">
-                        <p class="fw-bold mb-1"> {{post.createdBy}}</p>
+                        <p class="fw-bold mb-1"> {{post.name}}</p>
                         <!-- <p class="text-muted mb-0 overflow-hidden text-break"> {{post.description}}</p> -->
                       </div>
                     </div>
                   </td>
                   <td>
-                    <div class="ms-3">
-                      <p class="fw-bold mb-1"> {{post.cart.cartProduct[0].product.name}}</p>
-                      <p class="text-muted mb-0 overflow-hidden text-break"> x {{post.cart.cartProduct[0].quantity}}</p>
+                    <div class="ms-3" *ngFor="let item of post.carts">
+                      <p class="fw-bold mb-1"> {{item.product}}</p>
+                      <p class="text-muted mb-0 overflow-hidden text-break"> x {{item.quantity}}</p>
                     </div>
                   </td>
                   <td>
-                    {{post.cart.totalPrice}}
+                    {{post.total}}
                   </td>
                   <td> <span class="badge rounded-pill d-inline"
                       [class]="post.status != 'PENDING' ? 'badge-success' : 'badge-warning' ">{{post.status
@@ -217,19 +217,19 @@
                     <div class="d-flex align-items-center">
                       <!-- <img [src]="post.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" /> -->
                       <div class="ms-3">
-                        <p class="fw-bold mb-1"> {{post.createdBy}}</p>
+                        <p class="fw-bold mb-1"> {{post.name}}</p>
                         <!-- <p class="text-muted mb-0 overflow-hidden text-break"> {{post.description}}</p> -->
                       </div>
                     </div>
                   </td>
                   <td>
-                    <div class="ms-3">
-                      <p class="fw-bold mb-1"> {{post.cart.cartProduct[0].product.name}}</p>
-                      <p class="text-muted mb-0 overflow-hidden text-break"> x {{post.cart.cartProduct[0].quantity}}</p>
+                    <div class="ms-3" *ngFor="let item of post.carts">
+                      <p class="fw-bold mb-1"> {{item.product}}</p>
+                      <p class="text-muted mb-0 overflow-hidden text-break"> x {{item.quantity}}</p>
                     </div>
                   </td>
                   <td>
-                    {{post.cart.totalPrice}}
+                    {{post.total}}
                   </td>
                   <td> <span class="badge rounded-pill d-inline"
                       [class]="post.status != 'PENDING' ? 'badge-success' : 'badge-warning' ">{{post.status
@@ -307,19 +307,19 @@
                     <div class="d-flex align-items-center">
                       <!-- <img [src]="post.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" /> -->
                       <div class="ms-3">
-                        <p class="fw-bold mb-1"> {{post.createdBy}}</p>
+                        <p class="fw-bold mb-1"> {{post.name}}</p>
                         <!-- <p class="text-muted mb-0 overflow-hidden text-break"> {{post.description}}</p> -->
                       </div>
                     </div>
                   </td>
                   <td>
-                    <div class="ms-3">
-                      <p class="fw-bold mb-1"> {{post.cart.cartProduct[0].product.name}}</p>
-                      <p class="text-muted mb-0 overflow-hidden text-break"> x {{post.cart.cartProduct[0].quantity}}</p>
+                    <div class="ms-3" *ngFor="let item of post.carts">
+                      <p class="fw-bold mb-1"> {{item.product}}</p>
+                      <p class="text-muted mb-0 overflow-hidden text-break"> x {{item.quantity}}</p>
                     </div>
                   </td>
                   <td>
-                    {{post.cart.totalPrice}}
+                    {{post.total}}
                   </td>
                   <td> <span class="badge rounded-pill d-inline"
                       [class]="post.status != 'PENDING' ? 'badge-success' : 'badge-warning' ">{{post.status

@@ -191,22 +191,22 @@ export class AddPetComponent implements OnInit {
         return;
       }
     }
-    if(this.items.length>1){
+    if (this.items.length > 1) {
       for (let i = 0; i < this.items.length; i++) {
-        for (let j = i + 1; j <= this.items.length; ) {
-          if (this.items[i].name == this.items[j].name) {
-            this.message =
-              'Tên thú cưng ' +
-              this.items[j].name +
-              ' bị trùng với ' +
-              this.items[i].name;
-            this.openDialogMessage();
-            return;
-          }
+        let j = i + 1;
+        if (j >= this.items.length) {
+          return true;
+        } else if (this.items[i].name == this.items[j].name) {
+          this.message =
+            'Tên thú cưng ' +
+            this.items[j].name +
+            ' bị trùng với ' +
+            this.items[i].name;
+          this.openDialogMessage();
+          return;
         }
       }
     }
-
 
     return true;
   }

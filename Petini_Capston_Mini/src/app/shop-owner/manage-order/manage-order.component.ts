@@ -19,7 +19,6 @@ export class ManageOrderComponent implements OnInit {
   i: any;
   message!: string;
 
-
   constructor(
     public dialog: MatDialog,
     private image: ImageService,
@@ -28,14 +27,71 @@ export class ManageOrderComponent implements OnInit {
   ngOnInit(): void {
     // All
     this.http.getAllOrders().subscribe(async (data) => {
-      this.valuesAll = data;
-      console.log(data);
+      let datas = data;
+      let carts: any[] = [];
+      let productName = '';
+      let productQuantity = '';
+      let totalPrice = '';
+      let createdBy = '';
+      if (data) {
+        for (let data of datas) {
+          carts = [];
+          let cart = data.cart;
+          for (let cartProduct of cart.cartProduct) {
+            let product = cartProduct.product;
+            productName = product.name;
+            productQuantity = cartProduct.quantity;
+            carts.push({ product: productName, quantity: productQuantity });
+          }
+          totalPrice = cart.totalPrice;
+          createdBy = data.createdBy;
+          this.valuesAll.push({
+            name: createdBy,
+            carts: carts,
+            total: totalPrice,
+            status: data.status,
+            id: data.id,
+          });
+        }
+      }
+
+      console.log(this.valuesAll);
     });
 
     // Pending
     this.http.getOrderByStatusPENGDING().subscribe(
       (data) => {
-        this.valuesPending = data;
+        console.log('pending', data);
+        let datas = data;
+        let carts: any[] = [];
+        let productName = '';
+        let productQuantity = '';
+        let totalPrice = '';
+        let createdBy = '';
+
+        if (data) {
+          for (let data of datas) {
+            carts = [];
+            let cart = data.cart;
+            for (let cartProduct of cart.cartProduct) {
+              let product = cartProduct.product;
+              productName = product.name;
+              productQuantity = cartProduct.quantity;
+              carts.push({ product: productName, quantity: productQuantity });
+            }
+            totalPrice = cart.totalPrice;
+            createdBy = data.createdBy;
+            this.valuesPending.push({
+              name: createdBy,
+              carts: carts,
+              total: totalPrice,
+              status: data.status,
+              id: data.id,
+            });
+          }
+        }
+
+        console.log(this.valuesPending);
       },
       (error) => {
         console.log(error);
@@ -45,7 +101,36 @@ export class ManageOrderComponent implements OnInit {
     // Accept
     this.http.getOrderByStatusACCEPT().subscribe(
       (data) => {
-        this.valuesFinished = data;
+        console.log('accept', data);
+        let datas = data;
+        let carts: any[] = [];
+        let productName = '';
+        let productQuantity = '';
+        let totalPrice = '';
+        let createdBy = '';
+        if (data) {
+          for (let data of datas) {
+            carts = [];
+            let cart = data.cart;
+            for (let cartProduct of cart.cartProduct) {
+              let product = cartProduct.product;
+              productName = product.name;
+              productQuantity = cartProduct.quantity;
+              carts.push({ product: productName, quantity: productQuantity });
+            }
+            totalPrice = cart.totalPrice;
+            createdBy = data.createdBy;
+            this.valuesFinished.push({
+              name: createdBy,
+              carts: carts,
+              total: totalPrice,
+              status: data.status,
+              id: data.id,
+            });
+          }
+        }
+
+        console.log(this.valuesFinished);
       },
       (error) => {
         console.log(error);
@@ -55,7 +140,36 @@ export class ManageOrderComponent implements OnInit {
     // Reject
     this.http.getOrderByStatusREJECT().subscribe(
       (data) => {
-        this.valuesCancel = data;
+        console.log('reject', data);
+        let datas = data;
+        let carts: any[] = [];
+        let productName = '';
+        let productQuantity = '';
+        let totalPrice = '';
+        let createdBy = '';
+        if (data) {
+          for (let data of datas) {
+            carts = [];
+            let cart = data.cart;
+            for (let cartProduct of cart.cartProduct) {
+              let product = cartProduct.product;
+              productName = product.name;
+              productQuantity = cartProduct.quantity;
+              carts.push({ product: productName, quantity: productQuantity });
+            }
+            totalPrice = cart.totalPrice;
+            createdBy = data.createdBy;
+            this.valuesCancel.push({
+              name: createdBy,
+              carts: carts,
+              total: totalPrice,
+              status: data.status,
+              id: data.id,
+            });
+          }
+        }
+
+        console.log(this.valuesCancel);
       },
       (error) => {
         console.log(error);
@@ -79,7 +193,7 @@ export class ManageOrderComponent implements OnInit {
   }
 
   accept(event: number) {
-    let id =event;
+    let id = event;
     console.log(id);
     this.http.acceptOrder(id).subscribe(
       (data) => {
@@ -94,12 +208,12 @@ export class ManageOrderComponent implements OnInit {
     );
   }
 
-  reject(event:number){
-    let id =event;
+  reject(event: number) {
+    let id = event;
     console.log(id);
-    this.message =" Bạn có chắc từ chối đơn hàng này"
+    this.message = ' Bạn có chắc từ chối đơn hàng này';
     this.dialog.open(DeleteComponent, {
-      data: { data: this.message, name: id , filter:'order'},
+      data: { data: this.message, name: id, filter: 'order' },
     });
   }
 }

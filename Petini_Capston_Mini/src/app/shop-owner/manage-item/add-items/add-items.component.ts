@@ -138,14 +138,14 @@ export class AddItemsComponent implements OnInit {
       console.log(myItemsList);
 
       this.http.createListProduct(myItemsList).subscribe((data) => {
+        console.log(data);
+        console.log('success');
         for (let value of this.items) {
           this.file = value.file;
           const path = 'items/' + value.name + ' ' + this.file.name;
           const fileRef = this.storage.ref(path);
           this.storage.upload(path, this.file);
         }
-        console.log(data);
-        console.log('success');
         this.items = [
           {
             name: '',
@@ -172,25 +172,28 @@ export class AddItemsComponent implements OnInit {
         this.message = 'Xin nhập ảnh sản phẩm vào';
         return;
       }
-
     }
-    if(this.items.length>1){
-      for(let i =0 ; i < this.items.length; i++){
-      for(let j = i+1 ; j<= this.items.length ; ){
-        if(this.items[i].name == this.items[j].name){
-          this.message = "Tên sản phẩm " + this.items[j].name+" bị trùng với " + this.items[i].name ;
-          this.openDialogMessage();
-          return;
-        }
+
+    for (let i = 0; i < this.items.length; i++) {
+      let j = i + 1;
+      if (j >= this.items.length) {
+        return true;
+      }else
+      if (this.items[i].name == this.items[j].name) {
+        this.message =
+          'Tên sản phẩm ' +
+          this.items[j].name +
+          ' bị trùng với ' +
+          this.items[i].name;
+        this.openDialogMessage();
+        return;
       }
-    }
-    }
 
 
+    }
 
     return true;
   }
-
 
   openDialogMessage() {
     this.dialog.open(MessageComponent, {
