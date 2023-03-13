@@ -3,7 +3,7 @@
     <div class="content row justify-content-between mb-4">
       <div class="col-md-7">
         <div class=" justify-content-center d-flex pt-4">
-          <img src="" class="  rounded img-fluid ">
+          <img [src]="imageUrl" class=" rounded img-fluid ">
 
         </div>
       </div>
@@ -11,7 +11,7 @@
         <div class="content-left">
           <p class="m-0"></p>
           <span class="first-text">
-            Mèo Anh Lông Ngắn
+           {{values.name}}
           </span>
 
           <span class="infor-text text-uppercase fs-4 fw-bolder  mb-2">
@@ -20,23 +20,23 @@
           <div class="container">
             <p class="">
               <i class="fa-solid fa-paw"></i>
-              <span class="ms-3 fs-5">Giống:   </span>
+              <span class="ms-3 fs-5">Giống:  {{values.petType}} </span>
             </p>
             <p class="">
               <i class="fa-solid fa-paw"></i>
-              <span class="ms-3 fs-5">Màu Sắc:  </span>
+              <span class="ms-3 fs-5">Màu Sắc: {{values.color}} </span>
+            </p>
+            <!-- <p class="">
+              <i class="fa-solid fa-paw"></i>
+              <span class="ms-3 fs-5">Giới tính: {{values.gender}}  </span>
+            </p> -->
+            <p class="">
+              <i class="fa-solid fa-paw"></i>
+              <span class="ms-3 fs-5">Tuổi:  {{values.age}} </span>
             </p>
             <p class="">
               <i class="fa-solid fa-paw"></i>
-              <span class="ms-3 fs-5">Giới tính:   </span>
-            </p>
-            <p class="">
-              <i class="fa-solid fa-paw"></i>
-              <span class="ms-3 fs-5">Tuổi:   </span>
-            </p>
-            <p class="">
-              <i class="fa-solid fa-paw"></i>
-              <span class="ms-3 fs-5">Nguồn gốc:   </span>
+              <span class="ms-3 fs-5">Cân nặng: {{values.weight}}  </span>
             </p>
 
           </div>
@@ -52,7 +52,7 @@
     </div>
     <div class="container w-100 justify-content-center">
       <div class=" img-thumbnail rounded justify-content-center d-flex p-4 mb-4">
-        <img class="img-fluid rounded" src="/assets/images/pet-1.jpg">
+        <img class="img-fluid rounded" [src]="imageUrl">
       </div>
 
     </div>
