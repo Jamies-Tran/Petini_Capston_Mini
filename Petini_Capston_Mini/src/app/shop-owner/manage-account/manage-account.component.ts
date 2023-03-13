@@ -24,7 +24,7 @@ export class ManageAccountComponent implements OnInit {
     },
     (error) =>{
       this.message = error;
-      this.openDialogMessage();
+
     });
     this.http.getUserListByTypeAndStatus('OWNER').subscribe((data) =>{
       console.log(data);
@@ -33,7 +33,6 @@ export class ManageAccountComponent implements OnInit {
     },
     (error) =>{
       this.message = error;
-      this.openDialogMessage();
     });
   }
 

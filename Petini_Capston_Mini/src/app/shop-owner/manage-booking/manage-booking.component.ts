@@ -24,6 +24,7 @@ export class ManageBookingComponent implements OnInit {
     private http: BookingService
   ) {}
   ngOnInit(): void {
+
     // All
     this.valuesAll = [];
     this.datas = [];

@@ -19,6 +19,7 @@ export class ManageOrderComponent implements OnInit {
   i: any;
   message!: string;
 
+
   constructor(
     public dialog: MatDialog,
     private image: ImageService,

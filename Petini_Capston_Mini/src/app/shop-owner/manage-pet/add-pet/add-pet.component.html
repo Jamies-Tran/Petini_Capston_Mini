@@ -1,0 +1,185 @@
+<section class="page">
+  <div class="login container  h-100 py-4">
+    <div class="login-row row mt-3 ">
+      <div class="login-col col-12 col-md-10 col-lg-9 col-xl-8">
+        <form (ngSubmit)="addPet(myForm)" #myForm="ngForm">
+
+          <div class="login-card card rounded  border-0 mb-4" *ngFor="let value of items; let i = index">
+            <div class="login-card-body card-body text-center ">
+
+              <div class="login-text">
+                <h2>Tạo thú cưng - No.{{i+1}}</h2>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <!-- name -->
+                  <div class="username">
+                    <mat-form-field class="input-username w-100" appearance="outline">
+                      <mat-label>
+                        Tên thú cưng</mat-label>
+                      <input matInput type="text" required [(ngModel)]="value.name" name="txtname{{i}}">
+
+
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <div class="login-input">
+                    <!-- color -->
+                    <div class="password">
+                      <mat-form-field class="input-password w-100" appearance="outline">
+                        <mat-label>Màu sắc</mat-label>
+                        <input matInput type="text" required [(ngModel)]="value.color" name="txtcolor{{i}}">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <div class="login-input">
+
+                    <!-- pet type-->
+                    <div class="username">
+                      <mat-form-field class="input-password w-100" appearance="outline">
+                        <mat-label>Giống loại</mat-label>
+                        <input matInput type="text" required [(ngModel)]="value.petType" name="txtpettype{{i}}">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+              </div>
+              <div class="row">
+                <div class="col-4">
+                  <!-- age-->
+                  <div class="username">
+                    <mat-form-field class="input-username w-100" appearance="outline">
+                      <mat-label>
+                        Tuổi </mat-label>
+                      <input matInput type="number" required [(ngModel)]="value.age" name="txtage{{i}}"
+                      minlength="1" maxlength="2" min="1"  max="99"
+                          oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <!-- weight  -->
+                  <div class="username">
+                    <mat-form-field class="input-username w-100" appearance="outline">
+                      <mat-label>
+                        Cân nặng</mat-label>
+                      <input matInput type="number" required [(ngModel)]="value.weight" name="txtweight{{i}}"
+                      minlength="1" maxlength="2" min="1"  max="99"
+                          oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <!-- gender -->
+                  <div class="username">
+                    <mat-form-field class="input-username w-100" appearance="outline">
+
+
+                      <mat-label>
+                        Giới tính</mat-label>
+                        <mat-select matNativeControl [(value)]="value.gender"  name="waste">
+                          <mat-option *ngFor="let item of genders" [value]="item.value">{{item.value}} </mat-option>
+                        </mat-select>
+
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col">
+                  <!-- Descriptiuon -->
+                  <div class="username">
+                    <mat-form-field class="input-username w-100" appearance="outline">
+                      <mat-label>
+                       Mô tả</mat-label>
+                      <textarea matInput type="text" required [(ngModel)]="value.description"
+                        name="txtdescription{{i}}"></textarea>
+
+
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+
+                  <div ngx-dropzone class="upload" [multiple]="false" [accept]="'image/*'"
+                    (change)="onSelect($event ,i)" *ngIf="!value.showDiv" required>
+                    <ngx-dropzone-label>
+                      <div>
+                        <i class="fas fa-cloud-upload-alt icon-upload"></i>
+                        <header>Drop files here or click to upload *</header>
+                      </div>
+                    </ngx-dropzone-label>
+                  </div>
+                  <div class="wrapper" *ngIf="value.showDiv">
+                    <ngx-dropzone-image-preview class="image-preview overflow-hidden" ngProjectAs="ngx-dropzone-preview"
+                      [file]="value.file" [removable]="true" (removed)="onRemove(value.file ,i)">
+                    </ngx-dropzone-image-preview>
+                    <ngx-dropzone-label ngProjectAs="ngx-dropzone-preview"
+                      (removed)="onRemove(value.file ,i)">{{value.imageUrl}}
+                    </ngx-dropzone-label>
+                  </div>
+
+                </div>
+              </div>
+
+              <br>
+              <br>
+              <hr>
+
+              <div class="text-center  login-button-div">
+                <button class="login-button btn  btn-block w-100 fa-lg" type="button" mat-raised-button color="warn"
+                  (click)="removeItems(i)">
+                  <span class="fs-5">
+                    <mat-icon><i class="fa-solid fa-xmark m-0 p-0 fs-5"></i></mat-icon>
+                    Xóa thú cưng
+                  </span>
+
+                </button>
+              </div>
+
+
+
+
+
+
+            </div>
+          </div>
+          <hr>
+          <div class="text-center  login-button-div">
+            <button class="login-button btn  btn-block w-100 fa-lg" type="button" mat-raised-button
+              (click)="addMoreItems()">
+              <span class="fs-5">
+                <mat-icon><i class="fa-solid fa-plus m-0 p-0 fs-5"></i></mat-icon>
+               Thêm thú cưng nữa
+              </span>
+
+            </button>
+          </div>
+          <hr>
+          <div class="text-center pt-1  pb-1 login-button-div">
+            <button class="login-button btn btn-primary btn-block w-100 fa-lg gradient-custom-2 mb-3" mat-raised-button
+              type="submit" [disabled]="!myForm.valid">
+              Đăng thú cưng</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

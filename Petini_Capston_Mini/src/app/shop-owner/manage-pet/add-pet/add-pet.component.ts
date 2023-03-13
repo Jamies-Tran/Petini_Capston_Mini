@@ -1,33 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { SuccessComponent } from '../../../pop-up/success/success.component';
+import { MessageComponent } from '../../../pop-up/message/message.component';
 import { NgForm } from '@angular/forms';
+import { PetService } from '../../../services/pet.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { ImageService } from '../../../services/image.service';
-import { MessageComponent } from '../../../pop-up/message/message.component';
-import { SuccessComponent } from '../../../pop-up/success/success.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ProductService } from '../../../services/product.service';
 
 @Component({
-  selector: 'app-add-items',
-  templateUrl: './add-items.component.html',
-  styleUrls: ['./add-items.component.scss'],
+  selector: 'app-add-pet',
+  templateUrl: './add-pet.component.html',
+  styleUrls: ['./add-pet.component.scss'],
 })
-export class AddItemsComponent implements OnInit {
+export class AddPetComponent implements OnInit {
   ngOnInit(): void {
     this.items.push({
       name: '',
-      price: '',
-      quantity: '',
+      color: '',
+      gender: this.genders[0].value,
       description: '',
       imageUrl: '',
       files: [],
       file: this.file,
       showDiv: false,
+      age: 0,
+      petType: '',
+      weight: 0,
     });
   }
   constructor(
-    private http: ProductService,
+    private http: PetService,
     private router: Router,
     private route: ActivatedRoute,
     private storage: AngularFireStorage,
@@ -41,13 +44,16 @@ export class AddItemsComponent implements OnInit {
   // imageUrl!: any;
   items: {
     name: any;
-    price: any;
-    quantity: any;
+    color: any;
+    gender: any;
     description: any;
     imageUrl: any;
     files: File[];
     file: File;
     showDiv: boolean;
+    age: any;
+    petType: string;
+    weight: number;
   }[] = [];
 
   //
@@ -99,13 +105,16 @@ export class AddItemsComponent implements OnInit {
   addMoreItems() {
     this.items.push({
       name: '',
-      price: '',
-      quantity: '',
+      color: '',
+      gender: this.genders[0].value,
       description: '',
       imageUrl: '',
       files: [],
       file: this.file,
       showDiv: false,
+      age: 0,
+      petType: '',
+      weight: 0,
     });
   }
 
@@ -114,33 +123,39 @@ export class AddItemsComponent implements OnInit {
   }
   message: any;
   isValidImage = false;
-  addItems(form: NgForm) {
+  addPet(form: NgForm) {
     if (this.valid() == true) {
       type itemsList = Array<{
-        name: string;
-        price: string;
-        quantity: string;
+        age: number;
+        color: string;
         description: string;
+        gender: string;
         imageUrl: string;
+        name: string;
+        petType: string;
+        weight: number;
       }>;
       const myItemsList: itemsList = [];
       for (let item of this.items) {
         if (item.file) {
           myItemsList.push({
-            name: item.name,
-            price: item.price,
-            quantity: item.quantity,
+            age: item.age,
+            color: item.color,
             description: item.description,
+            gender: item.gender,
             imageUrl: item.name + ' ' + item.imageUrl,
+            name: item.name,
+            petType: item.petType,
+            weight: item.weight,
           });
         }
       }
       console.log(myItemsList);
 
-      this.http.createListProduct(myItemsList).subscribe((data) => {
+      this.http.createPetList(myItemsList).subscribe((data) => {
         for (let value of this.items) {
           this.file = value.file;
-          const path = 'items/' + value.name + ' ' + this.file.name;
+          const path = 'pets/' + value.name + ' ' + this.file.name;
           const fileRef = this.storage.ref(path);
           this.storage.upload(path, this.file);
         }
@@ -149,17 +164,20 @@ export class AddItemsComponent implements OnInit {
         this.items = [
           {
             name: '',
-            price: '',
-            quantity: '',
+            color: '',
+            gender: this.genders[0].value,
             description: '',
             imageUrl: '',
             files: [],
             file: this.file,
             showDiv: false,
+            age: 0,
+            petType: '',
+            weight: 0,
           },
         ];
         form.resetForm();
-        this.message = 'Tạo sản phẩm thành công';
+        this.message = 'Đăng thú cưng thành công';
         this.openDialogSuccess();
       });
     } else this.openDialogMessage();
@@ -169,28 +187,29 @@ export class AddItemsComponent implements OnInit {
     for (let item of this.items) {
       if (!item.file) {
         console.log('kh co anh');
-        this.message = 'Xin nhập ảnh sản phẩm vào';
+        this.message = 'Xin nhập ảnh thú cưng vào';
         return;
       }
-
     }
     if(this.items.length>1){
-      for(let i =0 ; i < this.items.length; i++){
-      for(let j = i+1 ; j<= this.items.length ; ){
-        if(this.items[i].name == this.items[j].name){
-          this.message = "Tên sản phẩm " + this.items[j].name+" bị trùng với " + this.items[i].name ;
-          this.openDialogMessage();
-          return;
+      for (let i = 0; i < this.items.length; i++) {
+        for (let j = i + 1; j <= this.items.length; ) {
+          if (this.items[i].name == this.items[j].name) {
+            this.message =
+              'Tên thú cưng ' +
+              this.items[j].name +
+              ' bị trùng với ' +
+              this.items[i].name;
+            this.openDialogMessage();
+            return;
+          }
         }
       }
     }
-    }
-
 
 
     return true;
   }
-
 
   openDialogMessage() {
     this.dialog.open(MessageComponent, {
@@ -202,4 +221,15 @@ export class AddItemsComponent implements OnInit {
       data: this.message,
     });
   }
+  genders: Gender[] = [
+    {
+      value: 'Đực',
+    },
+    {
+      value: 'Cái',
+    },
+  ];
+}
+export interface Gender {
+  value: string;
 }

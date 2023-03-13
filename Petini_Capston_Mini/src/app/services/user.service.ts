@@ -46,6 +46,12 @@ export class UserService {
       phone,
       username,
     };
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json ',
+        // 'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
+      }),
+    };
     console.log('value:', value);
     const url = `${this.REST_API_SERVER}/api/user/customer-register`;
     console.log(url);
@@ -78,6 +84,12 @@ export class UserService {
       password,
       username,
     };
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json ',
+        // 'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
+      }),
+    };
     console.log(value);
     const url = `${this.REST_API_SERVER}/api/user/login`;
     return this.httpClient
@@ -102,6 +114,12 @@ export class UserService {
       password,
       phone,
       username
+    };
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json ',
+        'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
+      }),
     };
     const url = `${this.REST_API_SERVER}/api/user/owner-register`;
     console.log(url);

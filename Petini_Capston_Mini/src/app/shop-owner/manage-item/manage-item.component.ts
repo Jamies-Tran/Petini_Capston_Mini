@@ -14,7 +14,6 @@ export class ManageItemComponent implements OnInit {
   values: data[] = [];
   i: any;
   message!: string;
-  status = 'sellin';
 
   constructor(
     public dialog: MatDialog,
@@ -35,7 +34,7 @@ export class ManageItemComponent implements OnInit {
           quantity: this.i.quantity,
           price: this.i.price,
         });
-        console.log(this.status);
+
       }
     });
   }

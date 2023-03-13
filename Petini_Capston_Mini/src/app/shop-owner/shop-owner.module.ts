@@ -35,6 +35,7 @@ import { AddServiceComponent } from './manage-service/add-service/add-service.co
 import { ManageBookingComponent } from './manage-booking/manage-booking.component';
 import { BookingDetailComponent } from './manage-booking/booking-detail/booking-detail.component';
 import { OrderDetailComponent } from './manage-order/order-detail/order-detail.component';
+import { AddPetComponent } from './manage-pet/add-pet/add-pet.component';
 
 
 
@@ -54,7 +55,8 @@ import { OrderDetailComponent } from './manage-order/order-detail/order-detail.c
     AddServiceComponent,
     ManageBookingComponent,
     BookingDetailComponent,
-    OrderDetailComponent
+    OrderDetailComponent,
+    AddPetComponent
   ],
   imports: [
     CommonModule,

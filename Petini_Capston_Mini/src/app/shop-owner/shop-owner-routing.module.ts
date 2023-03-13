@@ -15,6 +15,9 @@ import { ManageBookingComponent } from './manage-booking/manage-booking.componen
 import { BookingDetailComponent } from './manage-booking/booking-detail/booking-detail.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
 import { OrderDetailComponent } from './manage-order/order-detail/order-detail.component';
+import { PetComponent } from '../pet/pet.component';
+import { AddPetComponent } from './manage-pet/add-pet/add-pet.component';
+import { ManagePetComponent } from './manage-pet/manage-pet.component';
 
 const routes: Routes = [
   {
@@ -89,6 +92,14 @@ const routes: Routes = [
             component: OrderDetailComponent,
           },
         ],
+      },
+      {
+        path:"Pet" , component: ManagePetComponent
+      },
+      {
+        path:"Pet" , children:[{
+          path: "AddPet" , component: AddPetComponent
+        }]
       },
     ],
   },

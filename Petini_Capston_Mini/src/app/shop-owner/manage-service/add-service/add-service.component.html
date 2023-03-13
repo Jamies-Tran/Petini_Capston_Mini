@@ -90,15 +90,6 @@
                         Thoi gian mot dich vu</mat-label>
                         <mat-select matNativeControl [(value)]="waste" (valueChange)="getTimeBox()" name="waste">
                           <mat-option *ngFor="let item of wastes" [value]="item.value">{{item.viewValue}} </mat-option>
-
-
-                        <!-- <mat-option value="10">10 phut</mat-option>
-                          <mat-option value="20">20 phut</mat-option>
-                          <mat-option value="30">30 phut</mat-option>
-                          <mat-option value="40">40 phut</mat-option>
-                          <mat-option value="50">50 phut</mat-option>
-                          <mat-option value="60">60 phut</mat-option> -->
-
                         </mat-select>
                     </mat-form-field>
 
