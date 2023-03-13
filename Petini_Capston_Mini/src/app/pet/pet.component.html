@@ -11,20 +11,87 @@
         </div>
         <div class="content-items container">
           <div class="row">
-            <!-- items -->
-            <a href="#"*ngFor="let item of values"  routerLink="PetDetail" [title]="item.name" (click)="onItemSelector(item.name)"
-              class="col-lg-3 col-md-4 col-sm-6 col-12 pb-3 ">
-              <div class="card p-2  text-center">
-                <img [src]="item.imgURL" [alt]="item.name"
-                  class="card-img-top item-img">
-                <h5
-                  class="card-title text-center fw-bold text-body text-capitalize item-text text-truncate d-flex align-items-center">
-                  {{item.name}}
-                </h5>
-                <p class="text-muted card-text mb-0 overflow-hidden text-break  text-center">Tuổi: {{item.age}} - Cân nặng: {{item.weight}}</p>
-                <h6 class="card-text text-center ">Liên hệ</h6>
+            <div class="col-xxl-3 col-xl-3 col-lg-3">
+              <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    Tìm kiếm theo tên
+                  </mat-expansion-panel-header>
+                  <form (ngSubmit)="getPetByName()">
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" placeholder="Tên thú cưng" name="sName" [(ngModel)]="sName" />
+                      <button class="btn btn-outline-primary" type="submit" id="button-addon2" mdbRipple
+                        rippleColor="danger">
+                        Tìm kiếm
+                      </button>
+                    </div>
+                  </form>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    Tìm kiếm theo tuổi
+                  </mat-expansion-panel-header>
+                  <form (ngSubmit)="getPetListByAgeRange()">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Từ" name="sTo" [(ngModel)]="sTo" />
+                    <input type="text" class="form-control" placeholder="Đến" name="sFrom" [(ngModel)]="sFrom" />
+                    <button class="btn btn-outline-primary" type="submit" id="button-addon2" mdbRipple
+                      rippleColor="danger">
+                      Tìm kiếm
+                    </button>
+                  </div>
+                </form>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    Tìm kiếm theo màu
+                  </mat-expansion-panel-header>
+                  <form (ngSubmit)="getPetListByColor()">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Màu thú cưng" name="sColor" [(ngModel)]="sColor" />
+                    <button class="btn btn-outline-primary" type="submit" id="button-addon2" mdbRipple
+                      rippleColor="danger">
+                      Tìm kiếm
+                    </button>
+                  </div>
+                </form>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    Tìm kiếm theo chủng loại
+                  </mat-expansion-panel-header>
+                  <form (ngSubmit)="getPetListByType()">
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Chủng loại" name="sType" [(ngModel)]="sType" />
+                    <button class="btn btn-outline-primary" type="submit" id="button-addon2" mdbRipple
+                      rippleColor="danger">
+                      Tìm kiếm
+                    </button>
+                  </div>
+                </form>
+                </mat-expansion-panel>
+
+              </mat-accordion>
+            </div>
+            <div class="col-xxl-9 col-xl-9 col-lg-9">
+              <div class="row">
+                <!-- items -->
+                <a href="#" *ngFor="let item of values" routerLink="PetDetail" [title]="item.name"
+                  (click)="onItemSelector(item.name)" class="col-xl-3 col-xxl-3 col-lg-4 col-md-4 col-sm-6 col-12 pb-3 ">
+                  <div class="card p-2  text-center">
+                    <img [src]="item.imgURL" [alt]="item.name" class="card-img-top item-img">
+                    <h5
+                      class="card-title text-center fw-bold text-body text-capitalize item-text text-truncate d-flex align-items-center">
+                      {{item.name}}
+                    </h5>
+                    <p class="text-muted card-text mb-0 overflow-hidden text-break  text-center">Tuổi: {{item.age}} -
+                      Cân nặng: {{item.weight}}</p>
+                    <h6 class="card-text text-center ">Liên hệ</h6>
+                  </div>
+                </a>
               </div>
-            </a>
+            </div>
+
 
 
 
