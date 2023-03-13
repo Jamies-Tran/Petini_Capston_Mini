@@ -8,38 +8,48 @@
             <h2>Lịch sử đặt hàng của bạn</h2>
           </div>
           <!-- cart -->
-          <div class="cart-body mt-4">
+          <div class="cart-body mt-4" *ngFor="let item of values">
             <div class="rounded-bottom bg-white px-4 pt-4 pb-2">
               <div class="d-flex flex-row justify-content-between ">
-                <div><button>Xem San Pham</button></div>
+                <div>{{item.createdDate}}</div>
                 <div class="border-start wpx-100 d-flex justify-content-end align-items-center "><span
-                    class="text-upper">DANG GIAO</span></div>
+                    class="text-upper">{{item.status}} </span></div>
               </div>
               <hr class="w-100 my-2">
-              <div class="d-flex align-items-center ">
-                <img src="" alt="" style="width: 80px; height: 80px" class="rounded" />
-                <div class="ms-3">
+              <div class="row align-items-center " *ngFor="let value of item.carts">
+                <div class="col-2">
+                  <img [src]="value.imageUrl" style="width: 80px; height: 80px" class="rounded" />
+
+                </div>
+                <div class="ps-3 col-5">
                   <p class="fw-bold mb-1">
-                    thuc an cho meo
+                    {{value.product}}
 
                   </p>
-                  <p class="text-muted mb-0 text-descrip fs-14">thuc an choo meo</p>
-                  <p class="fs-14">x1</p>
+                  <p class="text-muted mb-0 text-descrip fs-14">{{value.price | currency: 'VND'}}</p>
+                  <p class="fs-14">x{{value.quantity}} </p>
                 </div>
+                <div class="col-5">
+                  <div class="d-flex justify-content-end align-items-center   ">
+                    <h6 class="text-success">{{value.price * value.quantity  | currency: 'VND'}} </h6>
+                  </div>
+                </div>
+<hr>
               </div>
-              <hr>
+
 
             </div>
-            <hr class="m-0 w-100 bg-body">
+            <hr class="m-0 w-100 bg-body" >
             <div class="rounded-top bg-white px-4 pt-4 pb-2">
               <div class="d-flex justify-content-end flex-colunm flex-nowrap">
-                <span>Thanh tien:</span>
-                <span class="text-danger "> </span>
+                <span>Thanh tien: </span>
+                <h5 class="ms-2 text-danger "> {{item.total | currency: 'VND'}}</h5>
               </div>
 
             </div>
+            <hr>
           </div>
-          <hr>
+
           <!-- cart -->
 
         </div>
