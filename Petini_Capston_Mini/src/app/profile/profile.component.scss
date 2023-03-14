@@ -34,3 +34,6 @@ input:-webkit-autofill:active {
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(to right, rgb(238, 42, 123) 0%, rgb(255, 125, 184) 100%);
 }
+.card-img-top{
+  min-height: 150px;
+}

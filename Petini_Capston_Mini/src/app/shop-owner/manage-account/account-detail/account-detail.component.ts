@@ -8,17 +8,22 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AccountDetailComponent {
 
-  id:any
-  username:any
-  email:any
-  status:any
-  avatarUrl:any
-  phone:any
-  dob:any
-  address:any
-
+  id: any;
+  username: any;
+  email!: string;
+  status: any;
+  avatarUrl: any;
+  phone: any;
+  dob: any;
+  address!: string;
   minDate!: Date;
   maxDate!: Date;
+  password: any;
+  confirmPassword: any;
+  hidePassword = true;
+  hideConfirmPass = true;
+  message: any;
+  value: any;
 
   constructor(private http : UserService){
     const currentYear = new Date().getFullYear();
@@ -28,17 +33,40 @@ export class AccountDetailComponent {
     this.maxDate = new Date(currentDate);
   }
   ngOnInit(){
-    this.getProfile()
+
+    try {
+      let name = localStorage.getItem('usernameSelector') as string;
+      this.http.getUserByName(name).subscribe(
+        (data) => {
+          console.log(data);
+          this.value = data;
+          this.username = data['username'];
+          this.email = data['email'];
+          this.phone = data['phone'];
+          this.dob = data['dob'];
+          this.address = data['address'];
+
+        },
+        (error) => {
+          this.message = error;
+
+        }
+      );
+    } catch {}
   }
-  value: any;
-  getProfile(){
-    this.http.getUserInfo().subscribe((data =>{
-      console.log(data)
-      this.username = data["username"]
-      this.email = data["email"]
-      this.phone = data["phone"]
-      this.dob = data["dob"]
-      this.address = data["address"];
-    }))
+
+
+
+  isValid!: boolean;
+
+  convert(event: any): void {
+    console.log(event);
+    var date = new Date(event),
+      mnth = ('0' + (date.getMonth() + 1)).slice(-2),
+      day = ('0' + date.getDate()).slice(-2);
+    this.dob = [date.getFullYear(), mnth, day].join('-');
+    console.log('convert', this.dob);
   }
+
+
 }

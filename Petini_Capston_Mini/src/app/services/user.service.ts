@@ -77,6 +77,21 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
+  public getUserByName(name:string) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json ',
+        'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
+      }),
+    };
+    let username = name;
+    console.log(this.httpOptions.headers);
+    const url = `${this.REST_API_SERVER}/api/user/info?username=${username}`;
+    return this.httpClient
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
   // 3 POST
   // /api/user/login
   public login(username: string, password: string) {

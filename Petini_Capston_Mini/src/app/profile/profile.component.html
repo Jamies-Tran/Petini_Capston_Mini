@@ -2,7 +2,7 @@
   <div class="row w-100">
     <div class="col-xl-3 col-lg-4">
       <div class="card">
-        <img class="card-img-top" [src]="avatarUrl">
+        <img class="card-img-top img-fluid" [src]="avatarUrl">
         <div class="card-body text-center">
           <h5 class=" card-title m-0">{{username}} </h5>
 
@@ -93,11 +93,11 @@
               </div>
 
 
-              <div class="row" *ngIf="isUpdate">
+              <div class="row" *ngIf="!isUpdate">
                 <hr>
-                <h4>Thay đổi mật khẩu</h4>
+                <h4>Xin mật khẩu để thay đổi</h4>
                 <br>
-                <div class="col-12 col-md-6">
+                <div class="col">
                   <div class="login-input">
                     <div class="password">
                       <mat-form-field class="input-password w-100" appearance="outline">
@@ -116,34 +116,14 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-12 col-md-6">
-                  <div class="login-input">
-                    <div class="password">
-                      <mat-form-field class="input-password w-100" appearance="outline">
-                        <mat-label>Nhập lại mật khẩu</mat-label>
-                        <input matInput  name="txtConfirmPassword"  [(ngModel)]="confirmPassword"
-                          [type]="hideConfirmPass ? 'password' : 'text'">
-                        <mat-icon matPrefix><i class="fa-solid fa-key"></i></mat-icon>
-                        <button type="button" class="border-0 bg-body " mat-icon-button matSuffix
-                          (click)="hideConfirmPass = !hideConfirmPass" [attr.aria-label]="'Hide password'"
-                          [attr.aria-pressed]="hideConfirmPass">
-                          <mat-icon matSuffix>{{hideConfirmPass ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        </button>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                </div>
               </div>
-
-
-
 
             </div>
             <hr>
             <div class="username w-100" *ngIf="!isUpdate">
               <div class="text-center p-0 login-button-div w-100">
                 <button class="login-button btn  btn-block w-100 fa-lg  mb-3 fs-5" mat-raised-button
-                  (click)="isUpdate = true" type="button">
+                  (click)="checkPassword()" type="button">
                   <span>
                     <mat-icon>edit</mat-icon> Chỉnh sửa thông tin
                   </span>

@@ -26,7 +26,7 @@ export class ManageAccountComponent implements OnInit {
       this.message = error;
 
     });
-    this.http.getUserListByTypeAndStatus('OWNER').subscribe((data) =>{
+    this.http.getUserListByTypeAndStatus('SHOPOWNER').subscribe((data) =>{
       console.log(data);
       this.valuesOwner = data;
       console.log(this.valuesOwner);

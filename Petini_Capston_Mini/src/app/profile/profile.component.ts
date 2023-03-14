@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
   minDate!: Date;
   maxDate!: Date;
   password: any;
-  confirmPassword: any;
+
 
   constructor(private http: UserService, public dialog: MatDialog) {
     const currentYear = new Date().getFullYear();
@@ -120,14 +120,6 @@ export class ProfileComponent implements OnInit {
       this.email = this.value.quantity;
     } else if (this.phone == '') {
       this.phone = this.value.phone;
-    } else if (
-      this.password != '' &&
-      this.confirmPassword != '' &&
-      this.password != this.confirmPassword
-    ) {
-      this.message = 'Xin kiểm tra lại mật khẩu';
-      this.openDialogMessage();
-      this.isValid = false;
     } else if (this.validMail == false) {
       this.message = 'Email không hợp lệ';
       this.isValid = false;
@@ -136,10 +128,7 @@ export class ProfileComponent implements OnInit {
       this.message = 'Phone không hợp lệ';
       this.isValid = false;
       this.openDialogMessage();
-    } else if (!this.password) {
-      this.password = localStorage.getItem('password') as string;
-      this.isValid = true;
-    } else this.isValid = true;
+    }  else this.isValid = true;
   }
   isValid!: boolean;
 
@@ -150,5 +139,16 @@ export class ProfileComponent implements OnInit {
       day = ('0' + date.getDate()).slice(-2);
     this.dob = [date.getFullYear(), mnth, day].join('-');
     console.log('convert', this.dob);
+  }
+
+  checkPassword(){
+    let password = localStorage.getItem('password') as string;
+    if(this.password == password){
+      this.isUpdate = true;
+    }else {
+      this.isUpdate = false;
+      this.message = "Sai mật khẩu";
+      this.openDialogMessage();
+    }
   }
 }

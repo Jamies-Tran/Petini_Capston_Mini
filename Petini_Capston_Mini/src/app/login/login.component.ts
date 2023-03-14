@@ -98,14 +98,14 @@ export class LoginComponent implements OnInit {
         if (data['role'] === 'CUSTOMER') {
           this.router.navigate(['/'], { relativeTo: this.route });
         } else if (data['role'] === 'SHOPOWNER') {
-          this.router.navigate(['/ShopOwner'], { relativeTo: this.route });
+          this.router.navigate(['/ShopOwner/Account'], { relativeTo: this.route });
         }
       }
       ,error =>{
         // this.Result = "Check your information!!!!"
 
         console.log(error.message);
-        this.message = "The Username or Password is Incorrect";
+        this.message = "Tên đăng nhập hoặc mật khẩu không đúng";
         this.openDialogMessage();
       });
   }
