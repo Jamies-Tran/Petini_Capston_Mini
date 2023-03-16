@@ -70,6 +70,7 @@ export class ServiceDetailComponent implements OnInit {
   value: any;
   messageTimeBox: any;
   isLogin = false;
+  valueService:any[]=[]
 
   ngOnInit(): void {
     this.get3Day();
@@ -84,6 +85,8 @@ export class ServiceDetailComponent implements OnInit {
           this.description = this.value.description;
           this.status = this.value.status;
           this.price = this.value.price;
+
+
           this.imageUrl = this.value.imageUrl;
           let boxTime = this.value.afterCareWorkingSchedules;
           this.messageTimeBox = '';
@@ -131,6 +134,40 @@ export class ServiceDetailComponent implements OnInit {
         }
       );
     } catch (error) {}
+     // Service
+     try {
+      this.httpService.getServiceList().subscribe(
+        async (data) => {
+          this.valueService = [];
+          console.log('data:', data);
+          if (data) {
+            let value = data;
+            console.log('value:', value);
+            for (let i = 0; i <= 4; i++) {
+              if (value[i] != undefined) {
+                var imgUrl = await this.image.getImage(
+                  'services/' + value[i].imageUrl
+                );
+                console.log('imaURL:', imgUrl);
+                let name = value[i].name;
+                let price = value[i].price;
+                this.valueService.push({
+                  name: name,
+                  price: price,
+                  imageUrl: imgUrl,
+                });
+              }
+            }
+            console.log('service:', this.valueService);
+          }
+        },
+        (error) => {
+          console.log('error', error);
+        }
+      );
+    } catch (error) {
+      console.log('error', error);
+    }
     this.selectedDate = this.date[0].value;
   }
   openDialogMessage() {
@@ -200,6 +237,9 @@ export class ServiceDetailComponent implements OnInit {
       this.message = 'Mời bạn đăng nhập ';
       this.openDialogMessage();
     }
+  }
+  public onServiceSelector(name: string) {
+    localStorage.setItem('getServiceName', name);
   }
 }
 

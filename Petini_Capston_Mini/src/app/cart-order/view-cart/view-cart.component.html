@@ -14,7 +14,7 @@
                   <th>Đơn Giá</th>
                   <th>Số Lượng</th>
                   <th>Số Tiền</th>
-                  <th>Thao Tác</th>
+
                 </tr>
               </thead>
               <tbody>
@@ -39,18 +39,13 @@
                   </td>
                   <td>
 
-                    <p class="text-muted mb-0">{{item.price}}</p>
+                    <p class="text-muted mb-0">{{item.price | currency:'VND'}}</p>
                   </td>
                   <td>
                     <span> {{item.quantity}}</span>
                   </td>
-                  <td>{{(item.price * item.quantity)}}</td>
-                  <td>
-                    <button type="button" class="btn btn-link btn-sm btn-rounded">
+                  <td>{{(item.price * item.quantity) | currency:'VND'}}</td>
 
-                    Xóa
-                    </button>
-                  </td>
                 </tr>
 
 

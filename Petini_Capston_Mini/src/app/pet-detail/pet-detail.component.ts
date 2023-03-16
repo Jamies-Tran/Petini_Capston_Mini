@@ -12,7 +12,7 @@ export class PetDetailComponent implements OnInit {
   name!: string;
   values: any;
   imageUrl: any;
-
+  valuePet:any[]=[];
   constructor(private http: PetService, private image: ImageService) {}
   ngOnInit(): void {
     try {
@@ -26,5 +26,43 @@ export class PetDetailComponent implements OnInit {
         });
       });
     } catch (error) {}
+
+     // Pet
+     try {
+      this.http.getPetListByStatus('NOT_ADOPTED').subscribe(
+        async (data) => {
+          this.valuePet = [];
+          console.log('data:', data);
+          if (data) {
+            let value = data;
+            console.log('value:', value);
+            for (let i = 0; i <= 4; i++) {
+              if (value[i] != undefined) {
+                var imgUrl = await this.image.getImage(
+                  'pets/' + value[i].imageUrl
+                );
+                console.log('imaURL:', imgUrl);
+                let name = value[i].name;
+                let price = value[i].price;
+                this.valuePet.push({
+                  name: name,
+                  price: price,
+                  imageUrl: imgUrl,
+                });
+              }
+            }
+            console.log('pet:', this.valuePet);
+          }
+        },
+        (error) => {
+          console.log('error', error);
+        }
+      );
+    } catch (error) {
+      console.log('error', error);
+    }
+  }
+  public onPetSelector(name: string) {
+    localStorage.setItem('getPetName', name);
   }
 }

@@ -71,58 +71,17 @@
         </div>
         <div class="content-items container">
           <div class="row">
-            <!-- items -->
-            <a href="#" title="Thuốc nhỏ gáy FRONTLINE trị ve rận trên mèo"
-              class="col-lg-3 col-md-4 col-sm-6 col-12 pb-3 ">
-              <div class="card p-2 ">
-                <img src="/assets/images/pet-1.jpg" alt="Thuốc nhỏ gáy FRONTLINE trị ve rận trên mèo"
-                  class="card-img-top item-img">
-                <h5
-                  class="card-title text-center fw-bold text-body text-capitalize item-text text-truncate d-flex align-items-center">
-                  Mèo Anh Lông Ngắn
-                </h5>
-                <h6 class="card-text text-center ">Liên hệ</h6>
-              </div>
-            </a>
-            <!-- items -->
-            <a href="#" title="Thuốc nhỏ gáy FRONTLINE trị ve rận trên mèo"
-              class="col-lg-3 col-md-4 col-sm-6 col-12 pb-3 ">
-              <div class="card p-2 ">
-                <img src="/assets/images/pet-2.jpg" alt="Thuốc nhỏ gáy FRONTLINE trị ve rận trên mèo"
-                  class="card-img-top item-img">
-                <h5
-                  class="card-title text-center fw-bold text-body text-capitalize item-text text-truncate d-flex align-items-center">
-                  chó poodle nâu
-                </h5>
-                <h6 class="card-text text-center ">Liên hệ</h6>
-              </div>
-            </a>
-            <!-- items -->
-            <a href="#" title="Thuốc nhỏ gáy FRONTLINE trị ve rận trên mèo"
-              class="col-lg-3 col-md-4 col-sm-6 col-12 pb-3 ">
-              <div class="card p-2 ">
-                <img src="/assets/images/pet-3.jpg" alt="Thuốc nhỏ gáy FRONTLINE trị ve rận trên mèo"
-                  class="card-img-top item-img">
-                <h5
-                  class="card-title text-center fw-bold text-body text-capitalize item-text text-truncate d-flex align-items-center">
-                  chó alaska
-                </h5>
-                <h6 class="card-text text-center ">Liên hệ</h6>
-              </div>
-            </a>
-            <!-- items -->
-            <a href="#" title="Thuốc nhỏ gáy FRONTLINE trị ve rận trên mèo"
-              class="col-lg-3 col-md-4 col-sm-6 col-12 pb-3 ">
-              <div class="card p-2 ">
-                <img src="/assets/images/pet-4.jpg" alt="Thuốc nhỏ gáy FRONTLINE trị ve rận trên mèo"
-                  class="card-img-top item-img">
-                <h5
-                  class="card-title text-center fw-bold text-body text-capitalize item-text text-truncate d-flex align-items-center">
-                  Mèo ba tư lông ngắn
-                </h5>
-                <h6 class="card-text text-center ">Liên hệ</h6>
-              </div>
-            </a>
+         <!-- items -->
+         <a *ngFor="let item of valuePet" routerLink="/Pet/PetDetail" [title]="item.name" (click)="onPetSelector(item.name)"
+         class="col-lg-3 col-md-4 col-sm-6 col-12 pb-3 ">
+         <div class="card p-2 ">
+           <img [src]="item.imageUrl"
+             class="card-img-top item-img">
+           <h5 class="card-title text-center fw-bold text-body text-capitalize item-text "> {{item.name}}
+           </h5>
+           <h6 class="card-text text-center ">Liên hệ </h6>
+         </div>
+       </a>
 
 
           </div>

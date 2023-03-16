@@ -18,14 +18,14 @@
                   <th class="w-2">ID</th>
                   <th>Tên</th>
                   <th class="">Sản phẩm</th>
-                  <th class="w-1">Tổng tiền</th>
-                  <th class="w-1">Trạng thái</th>
-                  <th class="w-1">Xác nhận</th>
+                  <th class="">Tổng tiền</th>
+                  <th class="">Trạng thái</th>
+                  <th class="">Xác nhận</th>
                 </tr>
               </thead>
               <tbody>
                 <tr matRipple *ngFor="let post of valuesAll ;
-                let i = index"   >
+                let i = index">
                   <td>
                     {{post.id}}
                   </td>
@@ -40,9 +40,12 @@
                     </div>
                   </td>
                   <td>
-                    <div class="ms-3" *ngFor="let item of post.carts">
-                      <p class="fw-bold mb-1"> {{item.product}}</p>
-                      <p class="text-muted mb-0 overflow-hidden text-break"> x {{item.quantity}}</p>
+                    <div class="d-flex align-items-center" *ngFor="let item of post.carts">
+                      <img [src]="item.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                      <div class="ms-3">
+                        <p class="fw-bold mb-1"> {{item.product}}</p>
+                        <p class="text-muted mb-0 overflow-hidden text-break"> x {{item.quantity}}</p>
+                      </div>
                     </div>
                   </td>
                   <td>
@@ -50,12 +53,15 @@
                   </td>
                   <td> <span class="badge rounded-pill d-inline"
                       [class]="post.status != 'PENDING' ? 'badge-success' : 'badge-warning' ">
-                      {{post.status == 'PENDING' ? 'Chờ duyệt' : post.status == "ACCEPT" ? 'Chấp nhận' : 'Từ chối' }}</span></td>
+                      {{post.status == 'PENDING' ? 'Chờ duyệt' : post.status == "ACCEPT" ? 'Chấp nhận' : 'Từ chối'
+                      }}</span></td>
 
 
                   <td class="text-center">
-                    <button *ngIf="post.status != 'ACCEPT'" mat-icon-button color="primary" (click)="accept(post.id)"> <mat-icon>done_outline</mat-icon></button>
-                    <button mat-icon-button color="accent" (click)="reject(post.id)"> <mat-icon>close</mat-icon></button>
+                    <button *ngIf="post.status != 'ACCEPT'" mat-icon-button color="primary" (click)="accept(post.id)">
+                      <mat-icon>done_outline</mat-icon></button>
+                    <button mat-icon-button color="accent" (click)="reject(post.id)">
+                      <mat-icon>close</mat-icon></button>
 
                   </td>
                 </tr>
@@ -111,14 +117,14 @@
                   <th class="w-2">ID</th>
                   <th>Tên</th>
                   <th class="">Sản phẩm</th>
-                  <th class="w-1">Tổng tiền</th>
-                  <th class="w-1">Trạng thái</th>
-                  <th class="w-1">Xác nhận</th>
+                  <th class="">Tổng tiền</th>
+                  <th class="">Trạng thái</th>
+                  <th class="">Xác nhận</th>
                 </tr>
               </thead>
               <tbody>
                 <tr matRipple *ngFor="let post of valuesPending;
-                let i = index"   >
+                let i = index">
                   <td>
                     {{post.id}}
                   </td>
@@ -133,9 +139,12 @@
                     </div>
                   </td>
                   <td>
-                    <div class="ms-3" *ngFor="let item of post.carts">
-                      <p class="fw-bold mb-1"> {{item.product}}</p>
-                      <p class="text-muted mb-0 overflow-hidden text-break"> x {{item.quantity}}</p>
+                    <div class="d-flex align-items-center" *ngFor="let item of post.carts">
+                      <img [src]="item.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                      <div class="ms-3">
+                        <p class="fw-bold mb-1"> {{item.product}}</p>
+                        <p class="text-muted mb-0 overflow-hidden text-break"> x {{item.quantity}}</p>
+                      </div>
                     </div>
                   </td>
                   <td>
@@ -201,14 +210,14 @@
                   <th class="w-2">ID</th>
                   <th>Tên</th>
                   <th class="">Sản phẩm</th>
-                  <th class="w-1">Tổng tiền</th>
-                  <th class="w-1">Trạng thái</th>
-                  <th class="w-1">Xác nhận</th>
+                  <th class="">Tổng tiền</th>
+                  <th class="">Trạng thái</th>
+                  <th class="">Xác nhận</th>
                 </tr>
               </thead>
               <tbody>
                 <tr matRipple *ngFor="let post of valuesFinished ;
-                let i = index"   >
+                let i = index">
                   <td>
                     {{post.id}}
                   </td>
@@ -223,9 +232,12 @@
                     </div>
                   </td>
                   <td>
-                    <div class="ms-3" *ngFor="let item of post.carts">
-                      <p class="fw-bold mb-1"> {{item.product}}</p>
-                      <p class="text-muted mb-0 overflow-hidden text-break"> x {{item.quantity}}</p>
+                    <div class="d-flex align-items-center" *ngFor="let item of post.carts">
+                      <img [src]="item.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                      <div class="ms-3">
+                        <p class="fw-bold mb-1"> {{item.product}}</p>
+                        <p class="text-muted mb-0 overflow-hidden text-break"> x {{item.quantity}}</p>
+                      </div>
                     </div>
                   </td>
                   <td>
@@ -291,14 +303,14 @@
                   <th class="w-2">ID</th>
                   <th>Tên</th>
                   <th class="">Sản phẩm</th>
-                  <th class="w-1">Tổng tiền</th>
-                  <th class="w-1">Trạng thái</th>
-                  <th class="w-1">Xác nhận</th>
+                  <th class="">Tổng tiền</th>
+                  <th class="">Trạng thái</th>
+                  <th class="">Xác nhận</th>
                 </tr>
               </thead>
               <tbody>
                 <tr matRipple *ngFor="let post of valuesCancel;
-                let i = index"   >
+                let i = index">
                   <td>
                     {{post.id}}
                   </td>
@@ -313,10 +325,14 @@
                     </div>
                   </td>
                   <td>
-                    <div class="ms-3" *ngFor="let item of post.carts">
-                      <p class="fw-bold mb-1"> {{item.product}}</p>
-                      <p class="text-muted mb-0 overflow-hidden text-break"> x {{item.quantity}}</p>
+                    <div class="d-flex align-items-center" *ngFor="let item of post.carts">
+                      <img [src]="item.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+                      <div class="ms-3">
+                        <p class="fw-bold mb-1"> {{item.product}}</p>
+                        <p class="text-muted mb-0 overflow-hidden text-break"> x {{item.quantity}}</p>
+                      </div>
                     </div>
+
                   </td>
                   <td>
                     {{post.total}}

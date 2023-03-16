@@ -14,7 +14,7 @@ import { CartService } from '../services/cart.service';
 })
 export class ItemsComponent implements OnInit {
   isLogin = false;
-
+  valueProduct:any[]=[];
   ngOnInit(): void {
     try {
       const name = localStorage.getItem('getItemsName') as string;
@@ -43,6 +43,40 @@ export class ItemsComponent implements OnInit {
         }
       );
     } catch (error) {}
+     // Product
+     try {
+      this.httpProduct.getProductList().subscribe(
+        async (data) => {
+          this.valueProduct = [];
+          console.log('data:', data);
+          if (data) {
+            let value = data;
+            console.log('value:', value);
+            for (let i = 0; i <= 4; i++) {
+              if (value[i] != undefined ) {
+                var imgUrl = await this.image.getImage(
+                  'items/' + value[i].imageUrl
+                );
+                console.log('imaURL:', imgUrl);
+                let name = value[i].name;
+                let price = value[i].price;
+                this.valueProduct.push({
+                  name: name,
+                  price: price,
+                  imageUrl: imgUrl,
+                });
+              }
+            }
+            console.log('product:', this.valueProduct);
+          }
+        },
+        (error) => {
+          console.log('error', error);
+        }
+      );
+    } catch (error) {
+      console.log('error', error);
+    }
   }
   constructor(
     private image: ImageService,
@@ -99,5 +133,8 @@ export class ItemsComponent implements OnInit {
         dialogRef.close();
       }, timeout);
     });
+  }
+  public onItemSelector(name: string) {
+    localStorage.setItem('getItemsName', name);
   }
 }

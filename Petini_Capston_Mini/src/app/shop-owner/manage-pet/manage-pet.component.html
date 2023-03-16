@@ -18,10 +18,10 @@
                 <tr class="fw-5">
                   <th class="w-2">ID</th>
                   <th>Tên</th>
-                  <th class="w-1">Giống</th>
-                  <th class="w-1">Tuổi</th>
-                  <th class="w-1">Cân nặng</th>
-                  <th class="w-1">Màu sắc</th>
+                  <th class="w-">Giống</th>
+                  <th class="w-">Tuổi</th>
+                  <th class="w-">Cân nặng</th>
+                  <th class="w-">Màu sắc</th>
                 </tr>
               </thead>
               <tbody>
@@ -33,7 +33,7 @@
                   <td>
 
                     <div class="d-flex align-items-center">
-                      <!-- <img [src]="post.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" /> -->
+                      <img [src]="post.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
                       <div class="ms-3">
                         <p class="fw-bold mb-1"> {{post.name}}</p>
                       </div>
@@ -50,7 +50,7 @@
                     <!-- <span class="badge rounded-pill d-inline"
                       [class]="post.status != 'PENDING' ? 'badge-success' : 'badge-warning' ">{{post.status
                       == 'PENDING' ? 'Chờ duyệt' : 'Chấp nhận' }}</span> -->
-                      {{post.petType}}
+                      {{post.weight}}
                     </td>
                   <td>
                     {{post.color}}
@@ -115,40 +115,42 @@
                 <tr class="fw-5">
                   <th class="w-2">ID</th>
                   <th>Tên</th>
-                  <th class="w-1">Giống</th>
-                  <th class="w-1">Tuổi</th>
-                  <th class="w-1">Giới tính</th>
-                  <th class="w-1">Màu sắc</th>
+                  <th class="w-">Giống</th>
+                  <th class="w-">Tuổi</th>
+                  <th class="w-">Giới tính</th>
+                  <th class="w-">Màu sắc</th>
                 </tr>
               </thead>
               <tbody>
-                <tr matRipple *ngFor="let post of valuesADOPTED;
-                let i = index" [style.cursor]="'pointer'" routerLink="BookDetail" (click)="onItemSelector(post.id)">
+                <tr matRipple *ngFor="let post of valuesADOPTED ;
+                let i = index" [style.cursor]="'pointer'" routerLink="BookDetail" (click)="onItemSelector(post.name)">
                   <td>
                     {{post.id}}
                   </td>
                   <td>
 
                     <div class="d-flex align-items-center">
-                      <!-- <img [src]="post.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" /> -->
+                      <img [src]="post.imageUrl" alt="" style="width: 45px; height: 45px" class="rounded-circle" />
                       <div class="ms-3">
-                        <p class="fw-bold mb-1"> {{post.createdBy}}</p>
-                        <!-- <p class="text-muted mb-0 overflow-hidden text-break"> {{post.description}}</p> -->
+                        <p class="fw-bold mb-1"> {{post.name}}</p>
                       </div>
                     </div>
                   </td>
                   <td>
-                    {{post.bookingAfterCare[0].petiniAfterCare.name}}
+                    {{post.petType}}
                   </td>
                   <td>
-                    {{post.bookingSchedules[0].timeLabel}}
+                    {{post.age}}
                   </td>
 
-                  <td> <span class="badge rounded-pill d-inline"
-                      [class]="post.status != 'PENDING' ? 'badge-success' : 'badge-warning' ">{{post.status
-                      == 'PENDING' ? 'Chờ duyệt' : 'Chấp nhận' }}</span></td>
                   <td>
-                    {{post.bookingAfterCare[0].petiniAfterCare.price}}
+                    <!-- <span class="badge rounded-pill d-inline"
+                      [class]="post.status != 'PENDING' ? 'badge-success' : 'badge-warning' ">{{post.status
+                      == 'PENDING' ? 'Chờ duyệt' : 'Chấp nhận' }}</span> -->
+                      {{post.weight}}
+                    </td>
+                  <td>
+                    {{post.color}}
                   </td>
 
                 </tr>

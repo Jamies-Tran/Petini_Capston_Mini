@@ -28,6 +28,12 @@ export class ManagePetComponent implements OnInit {
       console.log(data);
       this.datas = data;
       this.valuesADOPTED = this.datas;
+      for(let i =0; i<this.valuesADOPTED.length ; i++){
+        var imgUrl = await this.image.getImage('pets/' + this.valuesADOPTED[i].imageUrl);
+        console.log(this.valuesADOPTED[i].imageUrl);
+        this.valuesADOPTED[i].imageUrl = imgUrl;
+      }
+      // console.log(this.valuesADOPTED);
     });
 
     // NOT ADOPTED
@@ -37,6 +43,13 @@ export class ManagePetComponent implements OnInit {
       console.log(data);
       this.datas = data;
       this.valuesNOT_ADOPTED = this.datas;
+
+      for(let i =0; i<this.valuesNOT_ADOPTED.length ; i++){
+        var imgUrl = await this.image.getImage('pets/' + this.valuesNOT_ADOPTED[i].imageUrl);
+        console.log(this.valuesNOT_ADOPTED[i].imageUrl);
+        this.valuesNOT_ADOPTED[i].imageUrl = imgUrl;
+      }
+      // console.log(this.valuesNOT_ADOPTED);
     });
   }
 

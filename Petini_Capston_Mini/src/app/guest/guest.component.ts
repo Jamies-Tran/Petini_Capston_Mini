@@ -9,7 +9,9 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class GuestComponent implements OnInit{
   onActivate(event:any) {
-    window.scrollTo(0,0);
+    document.documentElement.style.scrollBehavior = 'auto';
+    setTimeout(() => window.scrollTo(0, 0), 0);
+    setTimeout(() => document.documentElement.style.scrollBehavior = 'smooth', 0);
  }
 
 

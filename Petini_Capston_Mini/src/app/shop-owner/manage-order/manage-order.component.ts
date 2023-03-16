@@ -28,6 +28,7 @@ export class ManageOrderComponent implements OnInit {
     // All
     this.http.getAllOrders().subscribe(async (data) => {
       let datas = data;
+      console.log(data);
       let carts: any[] = [];
       let productName = '';
       let productQuantity = '';
@@ -40,8 +41,15 @@ export class ManageOrderComponent implements OnInit {
           for (let cartProduct of cart.cartProduct) {
             let product = cartProduct.product;
             productName = product.name;
+            var imgUrl = await this.image.getImage(
+              'items/' + product.imageUrl
+            );
             productQuantity = cartProduct.quantity;
-            carts.push({ product: productName, quantity: productQuantity });
+            carts.push({
+              product: productName,
+              quantity: productQuantity,
+              imageUrl: imgUrl,
+            });
           }
           totalPrice = cart.totalPrice;
           createdBy = data.createdBy;
@@ -60,7 +68,7 @@ export class ManageOrderComponent implements OnInit {
 
     // Pending
     this.http.getOrderByStatusPENGDING().subscribe(
-      (data) => {
+      async (data) => {
         console.log('pending', data);
         let datas = data;
         let carts: any[] = [];
@@ -77,7 +85,14 @@ export class ManageOrderComponent implements OnInit {
               let product = cartProduct.product;
               productName = product.name;
               productQuantity = cartProduct.quantity;
-              carts.push({ product: productName, quantity: productQuantity });
+              var imgUrl = await this.image.getImage(
+                'items/' + product.imageUrl
+              );
+              carts.push({
+                product: productName,
+                quantity: productQuantity,
+                imageUrl: imgUrl,
+              });
             }
             totalPrice = cart.totalPrice;
             createdBy = data.createdBy;
@@ -100,7 +115,7 @@ export class ManageOrderComponent implements OnInit {
 
     // Accept
     this.http.getOrderByStatusACCEPT().subscribe(
-      (data) => {
+      async (data) => {
         console.log('accept', data);
         let datas = data;
         let carts: any[] = [];
@@ -116,7 +131,14 @@ export class ManageOrderComponent implements OnInit {
               let product = cartProduct.product;
               productName = product.name;
               productQuantity = cartProduct.quantity;
-              carts.push({ product: productName, quantity: productQuantity });
+              var imgUrl = await this.image.getImage(
+                'items/' + product.imageUrl
+              );
+              carts.push({
+                product: productName,
+                quantity: productQuantity,
+                imageUrl: imgUrl,
+              });
             }
             totalPrice = cart.totalPrice;
             createdBy = data.createdBy;
@@ -139,7 +161,7 @@ export class ManageOrderComponent implements OnInit {
 
     // Reject
     this.http.getOrderByStatusREJECT().subscribe(
-      (data) => {
+      async (data) => {
         console.log('reject', data);
         let datas = data;
         let carts: any[] = [];
@@ -155,7 +177,14 @@ export class ManageOrderComponent implements OnInit {
               let product = cartProduct.product;
               productName = product.name;
               productQuantity = cartProduct.quantity;
-              carts.push({ product: productName, quantity: productQuantity });
+              var imgUrl = await this.image.getImage(
+                'items/' + product.imageUrl
+              );
+              carts.push({
+                product: productName,
+                quantity: productQuantity,
+                imageUrl: imgUrl,
+              });
             }
             totalPrice = cart.totalPrice;
             createdBy = data.createdBy;

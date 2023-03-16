@@ -61,17 +61,17 @@
         </div>
         <div class="content-items container">
           <div class="row">
-            <!-- items -->
-            <a routerLink="/Shop/Items" title="Thuốc nhỏ gáy FRONTLINE trị ve rận trên mèo"
-              class="col-lg-3 col-md-4 col-sm-6 col-12 pb-3 ">
-              <div class="card p-2 ">
-                <img src="/assets/images/thuoc.jpg" alt="Thuốc nhỏ gáy FRONTLINE trị ve rận trên mèo"
-                  class="card-img-top">
-                <h5 class="card-title text-center fw-bold text-body">Thuốc nhỏ gáy FRONTLINE trị ve rận trên mèo
-                </h5>
-                <h6 class="card-text text-center ">120.000</h6>
-              </div>
-            </a>
+           <!-- items -->
+          <a *ngFor="let item of valueProduct" routerLink="/Shop/Items" [title]="item.name" (click)="onItemSelector(item.name)"
+          class="col-lg-3 col-md-4 col-sm-6 col-12 pb-3 ">
+          <div class="card p-2 ">
+            <img [src]="item.imageUrl"
+              class="card-img-top item-img">
+            <h5 class="card-title text-center fw-bold text-body text-capitalize item-text "> {{item.name}}
+            </h5>
+            <h6 class="card-text text-center ">{{item.price | currency: 'VND'}} </h6>
+          </div>
+        </a>
           </div>
         </div>
       </div>

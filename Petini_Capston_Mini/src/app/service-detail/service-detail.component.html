@@ -3,7 +3,7 @@
     <div class="content row justify-content-between mb-4">
       <div class="col-md-7">
         <div class=" justify-content-center d-flex pt-4">
-          <img src="/assets/images/pet-1.jpg" class="  rounded img-fluid ">
+          <img [src]="imageUrl" class="  rounded img-fluid ">
 
         </div>
       </div>
@@ -106,45 +106,18 @@
         </div>
         <div class="content-items container">
           <div class="row">
-            <!-- items -->
-            <a href="#" title="Tắm rửa thú cưng" class="col-lg-3 col-md-4 col-sm-6 col-12 pb-3 ">
-              <div class="card p-2 ">
-                <img src="/assets/images/service-1.jpg" alt="Tắm rửa thú cưng" class="card-img-top item-img">
-                <h6
-                  class="card-text text-center fw-bold text-body text-capitalize item-text text-truncate d-flex align-items-center">
-                  Tắm rửa thú cưng</h6>
+           <!-- items -->
+          <a *ngFor="let item of valueService" routerLink="/Service/ServiceDetail" [title]="item.name" (click)="onServiceSelector(item.name)"
+          class="col-lg-3 col-md-4 col-sm-6 col-12 pb-3 ">
+          <div class="card p-2 ">
+            <img [src]="item.imageUrl"
+              class="card-img-top item-img">
+            <h5 class="card-title text-center fw-bold text-body text-capitalize item-text "> {{item.name}}
+            </h5>
+            <h6 class="card-text text-center ">{{item.price | currency: 'VND'}} </h6>
+          </div>
+        </a>
 
-              </div>
-            </a>
-            <!-- items -->
-            <a href="#" title="Tắm rửa thú cưng" class="col-lg-3 col-md-4 col-sm-6 col-12 pb-3 ">
-              <div class="card p-2 ">
-                <img src="/assets/images/service-4.jpeg" alt="Tắm rửa thú cưng" class="card-img-top item-img">
-                <h6
-                  class="card-text text-center fw-bold text-body text-capitalize item-text text-truncate d-flex align-items-center">
-                  Cắt tỉa lông thú cưng</h6>
-
-              </div>
-            </a>
-            <!-- items -->
-            <a href="#" title="Tắm rửa thú cưng" class="col-lg-3 col-md-4 col-sm-6 col-12 pb-3 ">
-              <div class="card p-2 ">
-                <img src="/assets/images/service-3.jpg" alt="Tắm rửa thú cưng" class="card-img-top item-img">
-                <h6
-                  class="card-text text-center fw-bold text-body text-capitalize item-text text-truncate d-flex align-items-center">
-                  Vệ sinh tai thú cưng</h6>
-
-              </div>
-            </a>
-            <!-- items -->
-            <a href="#" title="Tắm rửa thú cưng" class="col-lg-3 col-md-4 col-sm-6 col-12 pb-3 ">
-              <div class="card p-2 ">
-                <img src="/assets/images/service-2.png" alt="Tắm rửa thú cưng" class="card-img-top item-img">
-                <h6
-                  class="card-text text-center fw-bold text-body text-capitalize item-text text-truncate d-flex align-items-center">
-                  Cắt móng, răng thú cưng </h6>
-              </div>
-            </a>
           </div>
         </div>
       </div>
