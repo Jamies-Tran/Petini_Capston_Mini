@@ -36,6 +36,8 @@ import { ManageBookingComponent } from './manage-booking/manage-booking.componen
 import { BookingDetailComponent } from './manage-booking/booking-detail/booking-detail.component';
 import { OrderDetailComponent } from './manage-order/order-detail/order-detail.component';
 import { AddPetComponent } from './manage-pet/add-pet/add-pet.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 
 
@@ -56,7 +58,8 @@ import { AddPetComponent } from './manage-pet/add-pet/add-pet.component';
     ManageBookingComponent,
     BookingDetailComponent,
     OrderDetailComponent,
-    AddPetComponent
+    AddPetComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,
@@ -86,7 +89,8 @@ import { AddPetComponent } from './manage-pet/add-pet/add-pet.component';
     MatDatepickerModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
   ]
 })
 export class ShopOwnerModule { }

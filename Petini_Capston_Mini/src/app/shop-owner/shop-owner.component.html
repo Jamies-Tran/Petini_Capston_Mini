@@ -26,6 +26,14 @@
                   <!-- items -->
                   <!--  -->
                   <mat-list-item class="sidenav-nav-link w-100 p-0" [style.text-align]="!isExpanded ? 'center' : 'unset'"
+                    routerLink="Dashboard" routerLinkActive="active">
+                    <mat-icon class="sidenav-link-icon text-dark" matListItemIcon [style.margin]="!isExpanded ? '0!important' : ''" [style.width]="!isExpanded ? '100%' : ''">groups</mat-icon>
+                    <span class="sidenav-link-text w-100" *ngIf="isExpanded" matListItemTitle>Bảng thông tin</span>
+                  </mat-list-item>
+                  <!-- items -->
+                  <!-- items -->
+                  <!--  -->
+                  <mat-list-item class="sidenav-nav-link w-100 p-0" [style.text-align]="!isExpanded ? 'center' : 'unset'"
                     routerLink="Account" routerLinkActive="active">
                     <mat-icon class="sidenav-link-icon text-dark" matListItemIcon [style.margin]="!isExpanded ? '0!important' : ''" [style.width]="!isExpanded ? '100%' : ''">groups</mat-icon>
                     <span class="sidenav-link-text w-100" *ngIf="isExpanded" matListItemTitle>Quản lý tài khoản</span>

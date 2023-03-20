@@ -63,6 +63,7 @@ import {MatTreeModule} from '@angular/material/tree';
 import { MatMenuModule } from '@angular/material/menu';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 // Component
 import { AppComponent } from './app.component';
@@ -238,7 +239,8 @@ export const MY_DATE_FORMATS = {
     PortalModule,
     ScrollingModule,
     NgxDropzoneModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxEchartsModule.forRoot({ echarts: () => import('echarts') }),
   ],
   providers: [
 

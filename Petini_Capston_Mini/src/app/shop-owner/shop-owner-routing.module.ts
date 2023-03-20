@@ -18,6 +18,7 @@ import { OrderDetailComponent } from './manage-order/order-detail/order-detail.c
 import { PetComponent } from '../pet/pet.component';
 import { AddPetComponent } from './manage-pet/add-pet/add-pet.component';
 import { ManagePetComponent } from './manage-pet/manage-pet.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -101,6 +102,10 @@ const routes: Routes = [
           path: "AddPet" , component: AddPetComponent
         }]
       },
+      {
+        path:'Dashboard',
+        component:DashboardComponent
+      }
     ],
   },
 ];

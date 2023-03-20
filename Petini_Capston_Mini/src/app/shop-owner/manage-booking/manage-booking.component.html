@@ -44,14 +44,15 @@
                     {{post.bookingAfterCare[0].petiniAfterCare.name}}
                   </td>
                   <td>
-                    {{post.bookingSchedules[0].timeLabel}}
+
+                    <p class="m-0" *ngFor="let item of post.bookingSchedules"> {{item.timeLabel}} </p>
                   </td>
 
                   <td> <span class="badge rounded-pill d-inline"
                       [class]="post.status != 'PENDING' ? 'badge-success' : 'badge-warning' ">{{post.status
                       == 'PENDING' ? 'Chờ duyệt' : 'Chấp nhận' }}</span></td>
                   <td>
-                    {{post.bookingAfterCare[0].petiniAfterCare.price}}
+                    {{post.bookingAfterCare[0].petiniAfterCare.price | currency:'VND'}}
                   </td>
                   <!-- <td class="text-center">
                     <button mat-icon-button color="accent"> <mat-icon>edit</mat-icon></button>

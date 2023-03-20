@@ -1,0 +1,103 @@
+<div class="container">
+  <div class="col">
+    <div class="row row-header">
+      <!--  x4 -->
+      <!-- 1 -->
+      <div class="header col-xl-3 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-sm-5 text-center">
+                <i class="fa-solid fa-coins"></i>
+              </div>
+              <div class="col-sm-7">
+                <div class="numbers">
+                  <p>Số lượng khách hàng </p>
+                  100000
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer bot-red">
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="header col-xl-3 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-sm-5 text-center">
+                <i class="fa-solid fa-coins"></i>
+              </div>
+              <div class="col-sm-7">
+                <div class="numbers">
+                  <p>Đơn hàng thành công</p>
+                  200000
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer bot-blue">
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="header col-xl-3 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-sm-5 text-center">
+                <i class="fa-solid fa-coins"></i>
+              </div>
+              <div class="col-sm-7">
+                <div class="numbers">
+                  <p>Đặt lịch thành công</p>
+                  300000
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer bot-yellogreen">
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="header col-xl-3 col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="row align-items-center">
+              <div class="col-sm-5 text-center">
+                <i class="fa-solid fa-coins"></i>
+              </div>
+              <div class="col-sm-7">
+                <div class="numbers">
+                  <p>Thú cưng đã nhận nuôi</p>
+                  4000000
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer bot-organe">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid chart">
+
+      <!-- Doanh thu Profit-->
+      <div class="row profit w-100 m-0">
+        <div class="col p-0">
+          <div class="card bg-default">
+            <div class="card-chart">
+              <div echarts [options]="profits" theme="macarons" class="demo-chart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
