@@ -17,4 +17,6 @@ public class CartResponseDto {
     private Long totalPrice;
 
     private List<CartProductResponseDto> cartProduct;
+
+    private String status;
 }

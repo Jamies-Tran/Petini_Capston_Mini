@@ -14,4 +14,7 @@ public interface BookingRepo extends JpaRepository<Booking, Long> {
 
     @Query(value = "select b from Booking b where b.status = :status")
     List<Booking> getAllBookingByStatus(@Param("status") String status);
+
+    @Query(value = "select count(b) from Booking b where b.status = 'FINISHED'")
+    Long getNumberOfSuccessBooking();
 }

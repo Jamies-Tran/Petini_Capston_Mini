@@ -14,4 +14,7 @@ public interface OrderRepo extends JpaRepository<Order, Long> {
 
     @Query(value = "select o from Order o where o.status = :status")
     List<Order> findOrdersByStatus(@Param("status") String status);
+
+    @Query(value = "select count(o) from Order o where o.status = 'ACCEPT'")
+    Long getNumberOfSuccessOrder();
 }

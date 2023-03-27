@@ -1,13 +1,9 @@
 package com.capstone.mini.petini.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,17 +14,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class Customer {
+public class Dashboard extends BaseModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private @Setter Long id;
-
-    @OneToMany(mappedBy = "customer")
-    private @Setter List<Booking> bookings;
-
-    @OneToOne
-    private @Setter Cart cart;
-
-    @OneToOne(mappedBy = "customerProperty")
-    private @Setter PetiniUser user;
+    private Long id;
+    private @Setter Long customers = 0L;
+    private @Setter Long successOrders = 0L;
+    private @Setter Long successBookings = 0L;
+    private @Setter Long successAdoptedPet = 0L;
 }

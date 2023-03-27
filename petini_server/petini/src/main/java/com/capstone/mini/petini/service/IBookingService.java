@@ -12,6 +12,8 @@ public interface IBookingService {
 
     Booking getBookingDetail(Long id);
 
+    Booking changeBookingStatus(String status, Long id);
+
     List<Booking> getCustomerBookingList();
 
     List<Booking> getAllBooking();

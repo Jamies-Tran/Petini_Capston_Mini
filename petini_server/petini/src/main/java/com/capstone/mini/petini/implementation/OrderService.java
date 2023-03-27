@@ -11,7 +11,9 @@ import com.capstone.mini.petini.handlers.exceptions.NotFoundException;
 import com.capstone.mini.petini.model.Cart;
 import com.capstone.mini.petini.model.Order;
 import com.capstone.mini.petini.model.PetiniUser;
+import com.capstone.mini.petini.model.status.CartStatus;
 import com.capstone.mini.petini.model.status.OrderStatus;
+import com.capstone.mini.petini.repositories.CartRepo;
 import com.capstone.mini.petini.repositories.OrderRepo;
 import com.capstone.mini.petini.service.IOrderService;
 import com.capstone.mini.petini.service.IUserService;
@@ -28,18 +30,22 @@ public class OrderService implements IOrderService {
     @Autowired
     private DateFormatUtil dateFormatUtil;
 
+    @Autowired
+    private CartRepo cartRepo;
+
     @Override
+    @Transactional
     public Order createOrder() {
         PetiniUser user = userService.getAuthenticatedUser();
-        Cart userCart = user.getCustomerProperty().getCart();
-        if (userCart.getCartProduct().isEmpty()) {
-            throw new InvalidException("Add to cart first");
-        }
+        Cart userCart = cartRepo.findUserSavedCart(user.getUsername())
+                .orElseThrow(() -> new InvalidException("Add to cart first"));
+
         Order order = new Order();
         order.setCreatedBy(user.getUsername());
         order.setCreatedDate(dateFormatUtil.formatDateTimeNowToString());
         order.setCart(userCart);
         order.setStatus(OrderStatus.PENDING.name());
+        userCart.setStatus(CartStatus.SUBMITED.name());
         Order savedOrder = orderRepo.save(order);
         return savedOrder;
     }

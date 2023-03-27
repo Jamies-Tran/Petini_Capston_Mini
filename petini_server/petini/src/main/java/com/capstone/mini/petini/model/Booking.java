@@ -38,7 +38,7 @@ public class Booking extends BaseModel {
     private @Setter List<AfterCareWorkingSchedule> bookingSchedules;
 
     @Column
-    private String status = BookingStatus.PENDING.name();
+    private @Setter String status = BookingStatus.PROCESSING.name();
 
     @Column
     private @Setter Long totalPrice;

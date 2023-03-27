@@ -10,8 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capstone.mini.petini.dto.request.BookingAfterCareRequestDto;
@@ -84,5 +86,14 @@ public class BookingController {
                 .map(b -> modelMapper.map(b, BookingResponseDto.class)).collect(Collectors.toList());
 
         return new ResponseEntity<List<BookingResponseDto>>(responseBookingList, HttpStatus.OK);
+    }
+
+    @PutMapping("/update-status")
+    @PreAuthorize("hasRole('ROLE_SHOPOWNER')")
+    public ResponseEntity<?> updateBookingStatus(@RequestParam String status, @RequestParam Long id) {
+        Booking booking = bookingService.changeBookingStatus(status, id);
+        BookingResponseDto responseBooking = modelMapper.map(booking, BookingResponseDto.class);
+
+        return new ResponseEntity<BookingResponseDto>(responseBooking, HttpStatus.OK);
     }
 }

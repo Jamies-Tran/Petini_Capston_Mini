@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.capstone.mini.petini.handlers.exceptions.AccountNotFoundException;
 import com.capstone.mini.petini.handlers.exceptions.InvalidUsernameOrPasswordException;
-import com.capstone.mini.petini.model.Cart;
 import com.capstone.mini.petini.model.Customer;
 import com.capstone.mini.petini.model.PetiniRole;
 import com.capstone.mini.petini.model.PetiniUser;
@@ -49,14 +48,12 @@ public class UserService implements IUserService {
     @Override
     public PetiniUser registerCustomerAccount(PetiniUser user) {
         Customer customer = new Customer();
-        Cart cart = new Cart();
 
         PetiniRole role = roleService.findRoleByName("CUSTOMER");
-        cart.setCustomer(customer);
-        customer.setCart(cart);
+
         customer.setUser(user);
         user.setCustomerProperty(customer);
-        user.getCustomerProperty().setCart(cart);
+
         role.setUsers(List.of(user));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(role);

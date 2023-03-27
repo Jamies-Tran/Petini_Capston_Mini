@@ -33,6 +33,9 @@ public class Cart extends BaseModel {
     @OneToMany(mappedBy = "cart")
     private @Setter List<CartProduct> cartProduct;
 
+    @Column
+    private @Setter String status;
+
     @OneToOne
     private @Setter Order order;
 

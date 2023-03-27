@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.capstone.mini.petini.dto.request.BookingAfterCareRequestDto;
 import com.capstone.mini.petini.handlers.exceptions.NotFoundException;
@@ -14,6 +15,7 @@ import com.capstone.mini.petini.model.Booking;
 import com.capstone.mini.petini.model.BookingAfterCare;
 import com.capstone.mini.petini.model.PetiniAfterCare;
 import com.capstone.mini.petini.model.PetiniUser;
+import com.capstone.mini.petini.model.status.BookingStatus;
 import com.capstone.mini.petini.model.status.WorkingHourStatus;
 import com.capstone.mini.petini.repositories.AfterCareWorkingScheduleRepo;
 // import com.capstone.mini.petini.repositories.BookingAfterCareRepo;
@@ -120,6 +122,37 @@ public class BookingService implements IBookingService {
     public List<Booking> getAllBookingByStatus(String status) {
         List<Booking> bookings = bookingRepo.getAllBookingByStatus(status);
         return bookings;
+    }
+
+    @Override
+    @Transactional
+    public Booking changeBookingStatus(String status, Long id) {
+        Booking booking = this.getBookingDetail(id);
+        List<BookingAfterCare> bookingAfterCareList = booking.getBookingAfterCare();
+        for (BookingAfterCare b : bookingAfterCareList) {
+            for (AfterCareWorkingSchedule a : b.getBooking().getBookingSchedules()) {
+                a.setStatus(WorkingHourStatus.FREE.name());
+            }
+
+        }
+        PetiniUser user = userService.getAuthenticatedUser();
+        String bookingStatus = "";
+        switch (status.toUpperCase()) {
+            case "FINISHED":
+                bookingStatus = BookingStatus.FINISHED.name();
+                break;
+            case "PROCESSING":
+                bookingStatus = BookingStatus.PROCESSING.name();
+                break;
+            default:
+                bookingStatus = BookingStatus.PROCESSING.name();
+                break;
+        }
+        booking.setStatus(bookingStatus);
+        booking.setUpdatedBy(user.getUsername());
+        booking.setUpdatedDate(dateFormatUtil.formatDateTimeNowToString());
+
+        return booking;
     }
 
 }
