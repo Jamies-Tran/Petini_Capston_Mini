@@ -40,9 +40,7 @@ public class OrderService implements IOrderService {
         PetiniUser user = userService.getAuthenticatedUser();
         Cart userCart = cartRepo.findUserSavedCart(user.getUsername())
                 .orElseThrow(() -> new InvalidException("Add to cart first"));
-        for (CartProduct c : userCart.getCartProduct()) {
-            c.getProduct().setQuantity(c.getProduct().getQuantity() - c.getQuantity());
-        }
+
         Order order = new Order();
         order.setCreatedBy(user.getUsername());
         order.setCreatedDate(dateFormatUtil.formatDateTimeNowToString());
@@ -86,7 +84,9 @@ public class OrderService implements IOrderService {
     public Order acceptOrder(Long id) {
         PetiniUser user = userService.getAuthenticatedUser();
         Order order = orderRepo.findById(id).orElseThrow(() -> new NotFoundException("Can't find order"));
-
+        for (CartProduct c : order.getCart().getCartProduct()) {
+            c.getProduct().setQuantity(c.getProduct().getQuantity() - c.getQuantity());
+        }
         order.setStatus(OrderStatus.ACCEPT.name());
         order.setUpdatedBy(user.getUsername());
         order.setUpdatedDate(dateFormatUtil.formatDateTimeNowToString());
