@@ -141,7 +141,9 @@ export class ServiceDetailComponent implements OnInit {
           localStorage.setItem('getServiceName', this.name);
           this.message = 'Thành công';
           this.openDialogSuccess();
-          location.reload();
+          setTimeout(function(){
+            window.location.reload();
+         }, 3000);
         },
         (error) => {
           this.message = error.message;

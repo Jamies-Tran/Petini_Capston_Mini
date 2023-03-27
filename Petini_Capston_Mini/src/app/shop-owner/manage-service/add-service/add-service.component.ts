@@ -241,7 +241,7 @@ for(this.file of this.files){
         this.imageUrl=''
         setTimeout(function(){
           window.location.reload();
-       }, 2000);
+       }, 3000);
       }, (error) => {
         this.message = error;
         this.openDialogMessage();

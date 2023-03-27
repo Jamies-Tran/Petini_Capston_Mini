@@ -21,6 +21,7 @@ import { ManagePetComponent } from './manage-pet/manage-pet.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
+
   {
     path: '',
     component: ShopOwnerComponent,

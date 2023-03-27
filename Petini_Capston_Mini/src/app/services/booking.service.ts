@@ -127,6 +127,23 @@ export class BookingService {
       .post<any>(url,value,this.httpOptions)
       .pipe(catchError(this.handleError));
   }
+
+  // 5 GET
+  // /api/booking/list-status
+  public   activate(name:string){
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json ',
+        'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
+      }),
+    };
+    console.log(this.httpOptions.headers);
+    const url = `${this.REST_API_SERVER}/api/booking/list-status?status=${name}`;
+    return this.httpClient
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
 }
 export class afterCareRequestDtos{
   serviceName!:string ;

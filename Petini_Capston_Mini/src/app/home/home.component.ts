@@ -31,12 +31,13 @@ export class HomeComponent implements OnInit {
           if (data) {
             let value = data;
             console.log('value:', value);
-            for (let i = 0; i <= 4; i++) {
-              if (value[i] != undefined) {
+            for (let i = 0; i <= 3; i++) {
+              if (value[i] != undefined && i<=3) {
+
                 var imgUrl = await this.image.getImage(
                   'items/' + value[i].imageUrl
                 );
-                console.log('imaURL:', imgUrl);
+
                 let name = value[i].name;
                 let price = value[i].price;
                 this.valueProduct.push({
@@ -46,7 +47,7 @@ export class HomeComponent implements OnInit {
                 });
               }
             }
-            console.log('product:', this.valueProduct);
+
           }
         },
         (error) => {
@@ -66,8 +67,8 @@ export class HomeComponent implements OnInit {
           if (data) {
             let value = data;
             console.log('value:', value);
-            for (let i = 0; i <= 4; i++) {
-              if (value[i] != undefined) {
+            for (let i = 0; i <= 3; i++) {
+              if (value[i] != undefined && i<=3) {
                 var imgUrl = await this.image.getImage(
                   'services/' + value[i].imageUrl
                 );
@@ -101,8 +102,8 @@ export class HomeComponent implements OnInit {
           if (data) {
             let value = data;
             console.log('value:', value);
-            for (let i = 0; i <= 4; i++) {
-              if (value[i] != undefined) {
+            for (let i = 0; i <= 3; i++) {
+              if (value[i] != undefined && i<=3) {
                 var imgUrl = await this.image.getImage(
                   'pets/' + value[i].imageUrl
                 );

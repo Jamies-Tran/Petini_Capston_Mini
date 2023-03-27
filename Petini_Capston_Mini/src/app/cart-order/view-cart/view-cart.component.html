@@ -6,7 +6,8 @@
           <div class="cart-header text-center">
             <h2>Giỏ hàng của bạn</h2>
           </div>
-          <div class="cart-body rounded">
+
+          <div class="cart-body rounded" *ngIf="status == 'SAVED'" >
             <table class="table align-middle mb-0 bg-white">
               <thead class="bg-light">
                 <tr>
@@ -17,34 +18,38 @@
 
                 </tr>
               </thead>
-              <tbody>
+              <tbody >
                 <!-- items -->
-                <tr *ngFor="let item of value">
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <img
-                          [src]="item.imageUrl"
-                          alt=""
-                          style="width: 45px; height: 45px"
-                          class="rounded-circle"
-                          />
-                      <div class="ms-3">
-                        <p class="fw-bold mb-1">
-                          {{item.name}}
 
-                        </p>
-                        <p class="text-muted mb-0 text-descrip">{{item.description}}</p>
+                <tr *ngFor="let item of value" >
+
+                    <td >
+                      <div class="d-flex align-items-center">
+                        <img
+                            [src]="item.imageUrl"
+                            alt=""
+                            style="width: 45px; height: 45px"
+                            class="rounded-circle"
+                            />
+                        <div class="ms-3">
+                          <p class="fw-bold mb-1">
+                            {{item.name}}
+
+                          </p>
+                          <p class="text-muted mb-0 text-descrip">{{item.description}}</p>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
+                    </td>
+                    <td>
 
-                    <p class="text-muted mb-0">{{item.price | currency:'VND'}}</p>
-                  </td>
-                  <td>
-                    <span> {{item.quantity}}</span>
-                  </td>
-                  <td>{{(item.price * item.quantity) | currency:'VND'}}</td>
+                      <p class="text-muted mb-0">{{item.price | currency:'VND'}}</p>
+                    </td>
+                    <td>
+                      <span> {{item.quantity}}</span>
+                    </td>
+                    <td>{{(item.price * item.quantity) | currency:'VND'}}</td>
+
+
 
                 </tr>
 
@@ -60,9 +65,9 @@
         <div class="card rounded">
           <div class="card-body">
             <div class="d-flex flex-row justify-content-end">
-              <div class="d-flex flex-row flex-nowarp px-4 align-items-end ">
+              <div class="d-flex flex-row flex-nowarp px-4 align-items-end "*ngIf="status == 'SAVED'">
                 <span> Tổng thanh toán:</span>
-                <div class="Total-price ps-1 text-danger fs-5">
+                <div class="Total-price ps-1 text-danger fs-5" *ngIf="status == 'SAVED'">
                   {{totalPrice | currency:'VND'}} </div>
               </div>
               <div>

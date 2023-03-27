@@ -16,32 +16,41 @@ export class ViewCartComponent implements OnInit {
   value: data[] = [];
   totalPrice=0;
   cart: any;
+  status:any;
 
   ngOnInit(): void {
     this.httpCart.getCustomerShoppingCart().subscribe(
       async (data) => {
-        const cartProduct = data['cartProduct'];
-        let imgUrl = '';
-        for (let i of cartProduct) {
-          await this.image
-            .getImage('items/' + i.product.imageUrl)
-            .then((url) => {
-              imgUrl = url;
-            })
-            .catch((error) => {});
+        if(data){
+          console.log(data);
+          const cartProduct = data['cartProduct'];
+          let imgUrl = '';
+          this.status = data.status as string;
+          console.log(this.status);
 
-          this.value.push({
-            name: i.product.name,
-            description: i.product.description,
-            price: i.product.price,
-            quantity: i.quantity,
-            imageUrl: imgUrl,
-          });
+          for (let i of cartProduct) {
+            await this.image
+              .getImage('items/' + i.product.imageUrl)
+              .then((url) => {
+                imgUrl = url;
+              })
+              .catch((error) => {});
 
+            this.value.push({
+              name: i.product.name,
+              description: i.product.description,
+              price: i.product.price,
+              quantity: i.quantity,
+              imageUrl: imgUrl,
+
+            });
+
+          }
+          for(let item of this.value){
+            this.totalPrice = this.totalPrice + (item.price * item.quantity);
+          }
         }
-        for(let item of this.value){
-          this.totalPrice = this.totalPrice + (item.price * item.quantity);
-        }
+
 
         console.log(this.totalPrice);
         console.log(this.value);
@@ -99,4 +108,5 @@ export interface data {
   imageUrl: string;
   quantity: number;
   price: number;
+
 }

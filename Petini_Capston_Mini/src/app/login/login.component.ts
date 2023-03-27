@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       if (localStorage.getItem('roles') === 'CUSTOMER') {
         this.router.navigate(['/'], { relativeTo: this.route });
       } else if (localStorage.getItem('roles') === 'SHOPOWNER') {
-        this.router.navigate(['/ShopOwner'], { relativeTo: this.route });
+        this.router.navigate(['/ShopOwner/Dashboard'], { relativeTo: this.route });
       }
     } else {
       this.isLogin = false;

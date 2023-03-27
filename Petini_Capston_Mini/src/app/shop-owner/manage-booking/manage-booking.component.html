@@ -21,7 +21,7 @@
                   <th class="w-">ngày và giờ đặt</th>
                   <th class="w-">Trạng thái</th>
                   <th class="w-">Tổng tiền</th>
-                  <!-- <th class="w-">Xem và Sửa</th> -->
+                  <!-- <th class="w-">Hoàn Thành</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -54,22 +54,25 @@
                   <td>
                     {{post.bookingAfterCare[0].petiniAfterCare.price | currency:'VND'}}
                   </td>
-                  <!-- <td class="text-center">
-                    <button mat-icon-button color="accent"> <mat-icon>edit</mat-icon></button>
-                  </td> -->
+                  <td class="text-center">
+                    <button mat-icon-button color="accent" (click)="onItemSelector2( post.username);"
+                    (click)="accept()"> <i class="fa-solid fa-check"></i></button>
+                  </td>
                 </tr>
                 <tr *ngIf="valuesAll.length < 1">
                   <td></td>
                   <td></td>
                   <td></td>
+                  <td></td>
                   <!-- <td></td> -->
                   <td></td>
-                  <td></td>
+                  <!-- <td></td> -->
                   <td></td>
                 </tr>
                 <tr *ngIf="valuesAll.length < 2">
                   <td></td>
                   <td></td>
+                  <!-- <td></td> -->
                   <td></td>
                   <!-- <td></td> -->
                   <td></td>
@@ -78,8 +81,8 @@
                 </tr>
                 <tr *ngIf="valuesAll.length < 3">
                   <td></td>
-                  <td></td>
                   <!-- <td></td> -->
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
@@ -96,9 +99,9 @@
                 </tr>
                 <tr *ngIf="valuesAll.length < 5">
                   <td></td>
+                  <td></td>
+                  <td></td>
                   <!-- <td></td> -->
-                  <td></td>
-                  <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
@@ -120,7 +123,7 @@
                   <th class="">ngày và giờ đặt</th>
                   <th class="">Trạng thái</th>
                   <th class="">Tổng tiền</th>
-                  <!-- <th class="">Xem và Sửa</th> -->
+                  <!-- <th class="">Hoàn Thành</th> -->
                 </tr>
               </thead>
               <tbody>
@@ -168,10 +171,10 @@
                 </tr>
                 <tr *ngIf="valuesPending.length < 2">
                   <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                   <!-- <td></td> -->
-                  <td></td>
-                  <td></td>
-                  <td></td>
                   <td></td>
                   <td></td>
                 </tr>
@@ -179,25 +182,25 @@
                   <td></td>
                   <td></td>
                   <td></td>
-                  <!-- <td></td> -->
                   <td></td>
+                  <!-- <td></td> -->
                   <td></td>
                   <td></td>
                 </tr>
                 <tr *ngIf="valuesPending.length < 4">
                   <td></td>
+                  <td></td>
+                  <td></td>
                   <!-- <td></td> -->
-                  <td></td>
-                  <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
                 </tr>
                 <tr *ngIf="valuesPending.length < 5">
+                  <td></td>
+                  <td></td>
+                  <td></td>
                   <!-- <td></td> -->
-                  <td></td>
-                  <td></td>
-                  <td></td>
                   <td></td>
                   <td></td>
                   <td></td>

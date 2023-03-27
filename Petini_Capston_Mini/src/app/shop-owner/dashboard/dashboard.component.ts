@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as echarts from 'echarts';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,12 +9,21 @@ import * as echarts from 'echarts';
 })
 export class DashboardComponent implements OnInit{
   profits!: echarts.EChartsOption ;
-
-  constructor(){}
+  value:any;
+  constructor(private http: ProductService){}
   ngOnInit(): void {
+try {
+  this.http.dashboard().subscribe((data) =>{
+    this.value = data;
+    console.log(data);
+  })
+} catch (error) {
+
+}
+
     this.profits = {
       title: {
-        text: 'Tổng doanh thu: 1000000',
+        text: 'Tổng doanh thu: 400.000',
       },
       tooltip: {
         trigger: 'axis',
@@ -87,7 +97,7 @@ export class DashboardComponent implements OnInit{
           },
 
           // data :this.values
-          data: [120, 1320, 101, 134, 90, 2300, 210, 120, 1302, 101, 1034, 90, 2030],
+          data: [0, 0, 400000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         },
       ],
     };

@@ -113,4 +113,21 @@ export class ProductService {
       .put<any>(url, value, this.httpOptions)
       .pipe(catchError(this.handleError));
   }
+
+   // 3 GET
+  // /api/product/list              getListItems
+  public dashboard() {
+    // headers
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('userToken'),
+      }),
+    };
+    // get API
+    const url = `${this.REST_API_SERVER}/api/dashboard`;
+    return this.httpClient
+      .get<any>(url, this.httpOptions)
+      .pipe(catchError(this.handleError));
+  }
 }

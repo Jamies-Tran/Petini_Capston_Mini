@@ -98,6 +98,10 @@ export class ManageBookingComponent implements OnInit {
   public onItemSelector(id: number) {
     localStorage.setItem('getBookingId', id + '');
   }
+  name='';
+  public onItemSelector2(name:string) {
+    this.name = name;
+  }
 
   openDialogMessage() {
     this.dialog.open(MessageComponent, {
@@ -108,5 +112,27 @@ export class ManageBookingComponent implements OnInit {
     this.dialog.open(SuccessComponent, {
       data: this.message,
     });
+  }
+
+  public accept() {
+    console.log('Accept');
+    this.http.activate(this.name).subscribe(
+      (data) => {
+        if (data != null) {
+          localStorage.setItem('isAccept' , 'true');
+          location.reload();
+        }
+        console.log(data);
+      },
+      (error) => {
+        if (error['status'] == 500) {
+          this.message = 'please check your information again!';
+          this.openDialogMessage();
+        } else {
+          this.message = error;
+          this.openDialogMessage();
+        }
+      }
+    );
   }
 }
