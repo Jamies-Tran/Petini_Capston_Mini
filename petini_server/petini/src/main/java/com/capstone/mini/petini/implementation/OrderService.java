@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.capstone.mini.petini.handlers.exceptions.InvalidException;
 import com.capstone.mini.petini.handlers.exceptions.NotFoundException;
 import com.capstone.mini.petini.model.Cart;
+import com.capstone.mini.petini.model.CartProduct;
 import com.capstone.mini.petini.model.Order;
 import com.capstone.mini.petini.model.PetiniUser;
 import com.capstone.mini.petini.model.status.CartStatus;
@@ -83,6 +84,9 @@ public class OrderService implements IOrderService {
     public Order acceptOrder(Long id) {
         PetiniUser user = userService.getAuthenticatedUser();
         Order order = orderRepo.findById(id).orElseThrow(() -> new NotFoundException("Can't find order"));
+        for (CartProduct c : order.getCart().getCartProduct()) {
+            c.getProduct().setQuantity(c.getProduct().getQuantity() - c.getQuantity());
+        }
         order.setStatus(OrderStatus.ACCEPT.name());
         order.setUpdatedBy(user.getUsername());
         order.setUpdatedDate(dateFormatUtil.formatDateTimeNowToString());
