@@ -17,7 +17,7 @@ public interface PetRepo extends JpaRepository<Pet, Long> {
     @Query(value = "select p from Pet p where p.petType = :type")
     List<Pet> findPetListByType(@Param("type") String type);
 
-    @Query(value = "select p from Pet p where p.age between :ageTo and :ageFrom")
+    @Query(value = "select p from Pet p where p.age between :ageFrom and :ageTo")
     List<Pet> findPetListByAgeRange(@Param("ageFrom") int ageFrom, @Param("ageTo") int ageTo);
 
     @Query(value = "select p from Pet p where p.color = :color")
